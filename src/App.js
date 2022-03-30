@@ -1,8 +1,9 @@
+import Form from './pages/Form';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      
+      <Form />
     </div>
   );
 }
