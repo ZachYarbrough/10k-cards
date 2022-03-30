@@ -1,15 +1,15 @@
 import Form from './pages/Form';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const theme = createTheme({
-  
-})
+import Buy from './pages/Buy';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Form />
-    </ThemeProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Form />}/>
+        <Route path='/buy' element={<Buy />}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
