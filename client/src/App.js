@@ -1,10 +1,15 @@
 import Form from './pages/Form';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  
+})
 
 const App = () => {
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
       <Form />
-    </div>
+    </ThemeProvider>
   );
 }
 
