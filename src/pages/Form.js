@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import { Link } from 'react-router-dom'
 
 const Form = () => {
     let fieldAmount = 4;
@@ -63,8 +64,8 @@ const Form = () => {
                         <Grid key={i} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
                             {inputField === i ?
                                 <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', color: 'black' }}>
-                                    <TextField sx={{ my: 1 }} onChange={handleChange}   size="small" value={formState[`textFieldTitle${i}`] || ''} name={`textFieldTitle${i}`} label="Title" placeholder='Enter Title' />
-                                    <TextField sx={{ mb: 1 }} onChange={handleChange}   size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
+                                    <TextField sx={{ my: 1 }} onChange={handleChange} size="small" value={formState[`textFieldTitle${i}`] || ''} name={`textFieldTitle${i}`} label="Title" placeholder='Enter Title' />
+                                    <TextField sx={{ mb: 1 }} onChange={handleChange} size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
                                 </Box>
                                 :
                                 <Button className={`${i}`} onClick={(event) => handleInputField(event, i)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
@@ -79,7 +80,9 @@ const Form = () => {
                 <Button variant='contained' type='submit' color='error' sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
             <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh' }}>Want to buy more slots? Buy one of our premium options instead.</Typography>
-            <Button variant='contained' type='submit' color='error' sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5 }}>Buy Now</Button>
+            <Link to='/buy' style={{ textDecoration: "none" }}>
+                <Button variant='contained' type='submit' color='error' sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5 }}>Buy Now</Button>
+            </Link>
         </Fragment>
     );
 }
