@@ -1,8 +1,7 @@
-import Navbar from '../components/Navbar';
 
 const News = () => {
     return (
-        <Navbar />
+        <div>News Page</div>
     )
 }
 

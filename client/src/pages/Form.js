@@ -8,8 +8,7 @@ import Grid from '@mui/material/Grid';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import { Link } from 'react-router-dom'
 
-const Form = () => {
-    let fieldAmount = 4;
+const Form = ({slotsPurchased}) => {
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
     const [currentColor, setCurrentColor] = useState('primary');
@@ -61,7 +60,7 @@ const Form = () => {
                     }
                 </Box>
                 <Grid container sx={{ width: '100%' }}>
-                    {[...Array(fieldAmount)].map((e, i) => (
+                    {[...Array(slotsPurchased)].map((e, i) => (
                         <Grid key={i} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
                             {inputField === i ?
                                 <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', color: 'black' }}>
