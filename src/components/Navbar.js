@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,12 +18,15 @@ import Logo from '../assets/images/10K_Cards.jpeg';
 const pages = ['Products', 'Partnership', 'News', 'Edit my 10KCard'];
 const settings = ['Profile', 'Logout'];
 
-const Navbar = () => {
+const Navbar = ({ cart }) => {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [anchorElCart, setAnchorElCart] = useState(null);
-    const [cart, setCart] = useState(['Your cart is Empty'])
+
+    const handleOpenCartMenu = (event) => {
+        setAnchorElCart(event.currentTarget);
+    }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -31,9 +34,6 @@ const Navbar = () => {
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
-    const handleOpenCartMenu = (event) => {
-        setAnchorElCart(event.currentTarget);
-    }
 
     const handleCloseNavMenu = (btnText) => {
         setAnchorElNav(null);
@@ -206,13 +206,20 @@ const Navbar = () => {
                             open={anchorElCart}
                             onClose={handleCloseCartMenu}
                         >
-                            {cart.map((cartItems) => (
-                                <MenuItem key={cartItems} disabled color='grey.900'>
-                                    <Typography textAlign="center">{cartItems}</Typography>
-                                </MenuItem>
+                            {cart.map((cartItem) => (
+                                <Box sx={{ mx: 1 }} key={cartItem.name}>
+                                    {cartItem.name === 'Your Cart is Empty' ?
+                                        <Typography textAlign="center" color='grey.500'>{cartItem.name}</Typography>
+                                        :
+                                        cartItem.amount > 1 ?
+                                            <Typography textAlign="center">{cartItem.name} {cartItem.amount}</Typography>
+                                            :
+                                            <Typography textAlign="center">{cartItem.name}</Typography>
+                                    }
+                                </Box>
                             ))}
-                            <MenuItem sx={{ borderTop: 1, borderColor: 'grey.500', mx: 1 }} onClick={() => navigate('/cart')}>
-                                <Typography textAlign="center" color='grey.900'>View Cart</Typography>
+                            <MenuItem sx={{ borderTop: 1, borderColor: 'grey.500', mx: 1, mt: 1 }} onClick={() => navigate('/cart')}>
+                                <Typography textAlign="center" color='grey.900' mx='auto'>Checkout</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>

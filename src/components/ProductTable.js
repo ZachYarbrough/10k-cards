@@ -9,7 +9,20 @@ import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/Check';
 import { Fragment } from 'react';
 
-const ProductTable = () => {
+const ProductTable = ({ cart, setCart }) => {
+
+    const handleCart = (item) => {
+        let cartItemAmount = cart.filter(cartItem => cartItem.name === item);
+        let cartItems = cart.filter(cartItem => cartItem.name !== item);
+
+        if(cart[0].name === 'Your Cart is Empty') {
+            setCart([{ name: item, amount: 1 }])
+        } else if(cartItemAmount.length >= 1) {
+            setCart([...cartItems, { name: item, amount: cartItemAmount[0].amount + 1 }])
+        } else if (cartItemAmount.length === 0) {
+            setCart([...cart, { name: item, amount: 1 }])
+        }
+    }
 
     return (
         <Fragment>
@@ -109,7 +122,7 @@ const ProductTable = () => {
                         subheader="$100 USD"
                     />
                     <CardContent>
-                        <Button variant='contained' color='secondary' >Buy Now</Button>
+                        <Button variant='contained' color='secondary' onClick={() => handleCart('Standard Package')}>Buy Now</Button>
                     </CardContent>
                 </Card>
                 <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, mx: { xs: '10%' } }}>
@@ -118,7 +131,7 @@ const ProductTable = () => {
                         subheader="$300 USD"
                     />
                     <CardContent>
-                        <Button variant='contained' color='secondary' >Buy Now</Button>
+                        <Button variant='contained' color='secondary' onClick={() => handleCart('Gold Package')}>Buy Now</Button>
                     </CardContent>
                 </Card>
                 <Card sx={{ flexGrow: 1, width: { md: 120 }, ml: { md: 1 }, my: 1, mr: { md: '10%' }, mx: { xs: '10%' } }}>
@@ -127,7 +140,7 @@ const ProductTable = () => {
                         subheader="$500 USD"
                     />
                     <CardContent>
-                        <Button variant='contained' color='secondary' >Buy Now</Button>
+                        <Button variant='contained' color='secondary' onClick={() => handleCart('Premium Package')}>Buy Now</Button>
                     </CardContent>
                 </Card>
             </Box>
