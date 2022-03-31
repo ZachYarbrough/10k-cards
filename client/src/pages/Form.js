@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom'
 const Form = () => {
     let fieldAmount = 4;
     const [inputField, setInputField] = useState('');
-    const [formState, setFormState] = useState({})
+    const [formState, setFormState] = useState({});
+    const [currentColor, setCurrentColor] = useState('primary');
 
     const handleInputField = (event, i) => {
         if (event.currentTarget.classList.contains(`${i}`) || i === 'name') {
@@ -37,8 +38,8 @@ const Form = () => {
     return (
         <Fragment>
             <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
-                <Box sx={{ bgcolor: "error.main", width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Avatar sx={{ border: 5, borderColor: "error.light", width: '15vh', height: '15vh', mb: 1 }} />
+                <Box sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Avatar sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }} />
                     {inputField === "name" ?
                         <Box>
                             <TextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`firstName`] || ''} name={`firstName`} label="First Name" placeholder='Enter First Name' />
@@ -77,11 +78,11 @@ const Form = () => {
                         </Grid>
                     ))}
                 </Grid>
-                <Button variant='contained' type='submit' color='error' sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
+                <Button variant='contained' type='submit' color={currentColor} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
-            <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh' }}>Want to buy more slots? Buy one of our premium options instead.</Typography>
-            <Link to='/buy' style={{ textDecoration: "none" }}>
-                <Button variant='contained' type='submit' color='error' sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5 }}>Buy Now</Button>
+            <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want to buy more slots? Purchase one of our premium options instead.</Typography>
+            <Link to='/' style={{ textDecoration: "none" }}>
+                <Button variant='contained' type='submit' color={currentColor} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
             </Link>
         </Fragment>
     );
