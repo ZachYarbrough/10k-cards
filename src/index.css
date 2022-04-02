@@ -2,9 +2,10 @@ html {
   scroll-behavior: smooth;
 }
 
-*{
+* {
   -ms-overflow-style: none;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -16,6 +17,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.bg {
+  background-color: #303337;
+  color: white;
 }
 
 code {

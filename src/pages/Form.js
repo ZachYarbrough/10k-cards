@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -18,6 +18,10 @@ const Form = ({slotsPurchased}) => {
             setInputField(i)
         }
     }
+
+    useEffect(() => {
+        document.body.classList.remove('bg');
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.currentTarget;
