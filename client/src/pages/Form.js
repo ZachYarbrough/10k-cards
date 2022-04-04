@@ -17,6 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Link } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
 
 const WhiteTextField = styled(TextField)({
     '& label': {
@@ -27,7 +28,7 @@ const WhiteTextField = styled(TextField)({
     },
     '& input': {
         color: 'white'
-      },
+    },
     '& .MuiInput-underline:after': {
         borderBottomColor: 'white',
         color: 'white'
@@ -75,10 +76,7 @@ const Form = ({ slotsPurchased }) => {
     const handleSelect = (event, i) => {
         const { value } = event.target;
 
-        setFormState({
-            ...formState,
-            [`icon${i}`]: value
-        })
+
     }
 
     const handleSubmit = (event) => {
@@ -87,11 +85,37 @@ const Form = ({ slotsPurchased }) => {
         console.log(formState);
     }
 
+    const handleProfilePicture = (event) => {
+        console.log(event.target.files);
+        const selectedFile = event.target.files[0];
+        const reader = new FileReader();
+
+        const imgtag = document.getElementById("profile-pic").firstChild;
+        imgtag.title = selectedFile.name;
+        console.log(imgtag);
+
+        reader.onload = function (event) {
+            imgtag.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+        setFormState({
+            ...formState,
+            [`profileImage`]: selectedFile
+        })
+    }
+
     return (
         <Fragment>
             <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
                 <Box sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Avatar sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }} />
+                    <input type="file" accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="icon-button-file" />
+                    <label htmlFor="icon-button-file">
+                        <IconButton component="span" disableRipple>
+                            <Avatar src={require('../assets/images/profile_image.jpeg')} id="profile-pic" sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }}>
+                            </Avatar>
+                        </IconButton>
+                    </label>
                     {inputField === "name" ?
                         <Box sx={{ mx: 1, display: 'flex' }}>
                             <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`firstName`] || ''} name={`firstName`} label="First Name" placeholder='Enter First Name' />
@@ -116,7 +140,7 @@ const Form = ({ slotsPurchased }) => {
                     {[...Array(slotsPurchased)].map((e, i) => (
                         <Grid key={i} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
                             {inputField === i ?
-                                <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '100%', color: 'black' }}>
+                                <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '105%', color: 'black' }}>
                                     <FormControl sx={{ minWidth: 200 }}>
                                         <InputLabel id={`icon-label${i}`}>Icon</InputLabel>
                                         <Select
