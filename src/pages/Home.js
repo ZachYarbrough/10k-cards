@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ProductTable from '../components/ProductTable';
+import Button from '@mui/material/Button';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import ExampleProduct from '../assets/images/10K_Example.jpeg';

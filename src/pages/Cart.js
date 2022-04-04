@@ -47,6 +47,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
             setSum(sum - tempPrice);
         } else if (operand === '-' && cartItemAmount[0].amount <= 1 && cartItems.length === 0) {
             setCart([{ name: 'Your Cart is Empty', amount: 1, price: '', description: '' }]);;
+            setSum(0);
         }
     }
 
@@ -82,7 +83,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                 {cart[0].name !== 'Your Cart is Empty' ?
                     <Box width='80%' sx={{ mb: 1, pb: 1, borderBottom: 1, borderColor: 'grey.500' }}>
                         <Typography variant='h1' sx={{ fontSize: '4vh', fontWeight: 500 }}>Your Cart</Typography>
-                        <Box sx={{ display: 'flex', color: 'grey.600', justifyContent: 'space-between' }}>
+                        <Box sx={{ display: 'flex', color: 'grey.600', ml: 1, mr: 2, justifyContent: 'space-between' }}>
                             <Typography>Item</Typography>
                             <Typography>Price</Typography>
                         </Box>
