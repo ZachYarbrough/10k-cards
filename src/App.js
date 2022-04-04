@@ -19,7 +19,7 @@ const theme = createTheme({
 })
 
 const App = () => {
-  const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1 }]);
+  const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
   const [slotsPurchased, setSlotsPurchased] = useState(4);
 
   return (

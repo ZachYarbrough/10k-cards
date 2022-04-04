@@ -1,8 +1,4 @@
-import { Fragment, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
+import { Fragment } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -10,22 +6,10 @@ import ProductTable from '../components/ProductTable';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import ExampleProduct from '../assets/images/10K_Example.jpeg';
+import FeaturedItems from '../components/FeaturedItems';
 
 const Buy = ({ cart, setCart }) => {
     Aos.init({ duration: 1000, once: true });
-
-    const handleCart = (item) => {
-        let cartItemAmount = cart.filter(cartItem => cartItem.name === item);
-        let cartItems = cart.filter(cartItem => cartItem.name !== item);
-
-        if (cart[0].name === 'Your Cart is Empty') {
-            setCart([{ name: item, amount: 1 }])
-        } else if (cartItemAmount.length >= 1) {
-            setCart([...cartItems, { name: item, amount: cartItemAmount[0].amount + 1 }])
-        } else if (cartItemAmount.length === 0) {
-            setCart([...cart, { name: item, amount: 1 }])
-        }
-    }
 
     return (
         <Fragment>
@@ -50,35 +34,7 @@ const Buy = ({ cart, setCart }) => {
                     </Grid>
                 </Grid>
                 <ProductTable cart={cart} setCart={setCart} />
-                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, width: '100%', my: 5, py: 5, bgcolor: 'grey.100' }}>
-                <Card sx={{ flexGrow: 1, width: { md: 120 }, mr: { md: 1 }, my: 1, ml: { md: '10%' }, mx: { xs: '10%' } }}>
-                    <CardHeader
-                        title="Basic Package"
-                        subheader="$100 USD"
-                    />
-                    <CardContent>
-                        <Button variant='contained' color='secondary' onClick={() => handleCart('Standard Package')}>Buy Now</Button>
-                    </CardContent>
-                </Card>
-                <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, mx: { xs: '10%' } }}>
-                    <CardHeader
-                        title="Premium Package"
-                        subheader="$300 USD"
-                    />
-                    <CardContent>
-                        <Button variant='contained' color='secondary' onClick={() => handleCart('Gold Package')}>Buy Now</Button>
-                    </CardContent>
-                </Card>
-                <Card sx={{ flexGrow: 1, width: { md: 120 }, ml: { md: 1 }, my: 1, mr: { md: '10%' }, mx: { xs: '10%' } }}>
-                    <CardHeader
-                        title="Gold Package"
-                        subheader="$500 USD"
-                    />
-                    <CardContent>
-                        <Button variant='contained' color='secondary' onClick={() => handleCart('Premium Package')}>Buy Now</Button>
-                    </CardContent>
-                </Card>
-            </Box>
+                <FeaturedItems cart={cart} setCart={setCart} />
             </Box>
             <Box bgcolor='grey.200'>
             </Box>
