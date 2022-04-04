@@ -5,10 +5,50 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-import { Link } from 'react-router-dom'
 
-const Form = ({slotsPurchased}) => {
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { Link } from 'react-router-dom'
+import { styled } from '@mui/material/styles';
+
+const WhiteTextField = styled(TextField)({
+    '& label': {
+        color: 'white'
+    },
+    '& label.Mui-focused': {
+        color: 'white'
+    },
+    '& input': {
+        color: 'white'
+      },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: 'white',
+        color: 'white'
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'white',
+            color: 'white'
+        },
+        '&:hover fieldset': {
+            borderColor: 'white',
+            color: 'white'
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'white',
+            color: 'white'
+        },
+    }
+});
+
+const Form = ({ slotsPurchased }) => {
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
     const [currentColor, setCurrentColor] = useState('primary');
@@ -32,6 +72,15 @@ const Form = ({slotsPurchased}) => {
         })
     }
 
+    const handleSelect = (event, i) => {
+        const { value } = event.target;
+
+        setFormState({
+            ...formState,
+            [`icon${i}`]: value
+        })
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         setInputField('');
@@ -44,18 +93,18 @@ const Form = ({slotsPurchased}) => {
                 <Box sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Avatar sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }} />
                     {inputField === "name" ?
-                        <Box>
-                            <TextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`firstName`] || ''} name={`firstName`} label="First Name" placeholder='Enter First Name' />
-                            <TextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`lastName`] || ''} name={`lastName`} label="Last Name" placeholder='Enter Last Name' />
+                        <Box sx={{ mx: 1, display: 'flex' }}>
+                            <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`firstName`] || ''} name={`firstName`} label="First Name" placeholder='Enter First Name' />
+                            <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`lastName`] || ''} name={`lastName`} label="Last Name" placeholder='Enter Last Name' />
                         </Box>
                         :
-                        <Button onClick={(event) => handleInputField(event, 'name')} className='name'>
+                        <Button disableRipple onClick={(event) => handleInputField(event, 'name')} className='name'>
                             <Typography variant='h1' sx={{ fontWeight: 'bold', fontSize: '4vh', color: 'white' }}>{formState['firstName'] || 'Enter Name'} {formState['lastName'] || ''}</Typography>
                         </Button>
                     }
                     {inputField === "title" ?
                         <Box>
-                            <TextField sx={{ my: 1 }} size='small' onChange={handleChange} value={formState[`title`] || ''} name={`title`} label="Title" placeholder='Enter Title' />
+                            <WhiteTextField sx={{ my: 1 }} size='small' onChange={handleChange} value={formState[`title`] || ''} name={`title`} label="Title" placeholder='Enter Title' />
                         </Box>
                         :
                         <Button onClick={(event) => handleInputField(event, 'title')} className='title'>
@@ -67,13 +116,42 @@ const Form = ({slotsPurchased}) => {
                     {[...Array(slotsPurchased)].map((e, i) => (
                         <Grid key={i} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
                             {inputField === i ?
-                                <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', color: 'black' }}>
+                                <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '100%', color: 'black' }}>
+                                    <FormControl sx={{ minWidth: 200 }}>
+                                        <InputLabel id={`icon-label${i}`}>Icon</InputLabel>
+                                        <Select
+                                            labelId={`icon-label${i}`}
+                                            id={`icon${i}`}
+                                            value={formState[`icon${i}`] || ''}
+                                            label="icon"
+                                            autowidth
+                                            size="small"
+                                            onChange={event => handleSelect(event, i)}
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            <MenuItem value={"LinkedIn"}>LinkedIn</MenuItem>
+                                            <MenuItem value={"Instagram"}>Instagram</MenuItem>
+                                            <MenuItem value={"Facebook"}>Facebook</MenuItem>
+                                        </Select>
+                                    </FormControl>
                                     <TextField sx={{ my: 1 }} onChange={handleChange} size="small" value={formState[`textFieldTitle${i}`] || ''} name={`textFieldTitle${i}`} label="Title" placeholder='Enter Title' />
                                     <TextField sx={{ mb: 1 }} onChange={handleChange} size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
                                 </Box>
                                 :
-                                <Button className={`${i}`} onClick={(event) => handleInputField(event, i)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
-                                    <InsertEmoticonIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                <Button disableRipple className={`${i}`} onClick={(event) => handleInputField(event, i)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                                    {formState[`icon${i}`] === "LinkedIn" ?
+                                        <LinkedInIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                        :
+                                        formState[`icon${i}`] === "Instagram" ?
+                                            <InstagramIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                            :
+                                            formState[`icon${i}`] === "Facebook" ?
+                                                <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                                :
+                                                <AddCircleIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                    }
                                     <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2 }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
                                     <Typography variant='h4' sx={{ fontSize: '1.5vh' }}>{formState[`textFieldLink${i}`] || 'Enter Card Link'}</Typography>
                                 </Button>
