@@ -216,7 +216,10 @@ const Navbar = ({ cart }) => {
                                     }
                                 </Box>
                             ))}
-                            <MenuItem sx={{ borderTop: 1, borderColor: 'grey.500', mx: 1, mt: 1 }} onClick={() => navigate('/cart')}>
+                            <MenuItem sx={{ borderTop: 1, borderColor: 'grey.500', mx: 1, mt: 1 }} onClick={() => {
+                                navigate('/cart');
+                                handleCloseCartMenu();
+                            }}>
                                 <Typography textAlign="center" color='grey.900' mx='auto'>Checkout</Typography>
                             </MenuItem>
                         </Menu>

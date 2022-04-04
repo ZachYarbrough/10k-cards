@@ -1,6 +1,5 @@
 import Form from './pages/Form';
 import Partnership from './pages/Partnership';
-import News from './pages/News';
 import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -21,6 +20,7 @@ const theme = createTheme({
 const App = () => {
   const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
   const [slotsPurchased, setSlotsPurchased] = useState(4);
+  const [sum, setSum] = useState(0);
 
   return (
     <ThemeProvider theme={theme}>
@@ -30,7 +30,7 @@ const App = () => {
           <Route path='/' element={
             <Fragment>
               <Navbar cart={cart} />
-              <Home cart={cart} setCart={setCart} />
+              <Home cart={cart} setCart={setCart} sum={sum} setSum={setSum} />
             </Fragment>
           } />
           <Route path='/archive' element={
@@ -45,16 +45,10 @@ const App = () => {
               <Partnership />
             </Fragment>
           } />
-          <Route path='/news' element={
-            <Fragment>
-              <Navbar cart={cart} />
-              <News />
-            </Fragment>
-          } />
           <Route path='/cart' element={
             <Fragment>
               <Navbar cart={cart} />
-              <Cart cart={cart} setCart={setCart} setSlotsPurchased={setSlotsPurchased} />
+              <Cart cart={cart} setCart={setCart} sum={sum} setSum={setSum} setSlotsPurchased={setSlotsPurchased} />
             </Fragment>
           } />
         </Routes>
