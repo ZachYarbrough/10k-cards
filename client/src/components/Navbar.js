@@ -50,6 +50,7 @@ const Navbar = ({ cart }) => {
     }
 
     const handleNavMenu = (btnText) => {
+        window.scrollTo(0, 0);
         switch (btnText) {
             case 'Products':
                 navigate('/');
@@ -145,7 +146,7 @@ const Navbar = ({ cart }) => {
                         ))}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0, color: 'grey.900', ml: { xs: 0, sm: 5, md: 10 } }}>
+                    <Box sx={{ flexGrow: 0, ml: { xs: 0, sm: 5, md: 10 }, color: 'grey.900' }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -154,7 +155,7 @@ const Navbar = ({ cart }) => {
                             onClick={handleOpenUserMenu}
                             color="inherit"
                         >
-                            <PersonIcon transform='scale(1.2)' />
+                            <PersonIcon color='grey.900' transform='scale(1.2)' />
                         </IconButton>
                         <IconButton
                             size="large"
@@ -164,7 +165,7 @@ const Navbar = ({ cart }) => {
                             onClick={handleOpenCartMenu}
                             color="inherit"
                         >
-                            <ShoppingCartIcon transfomr='scale(1.2)' />
+                            <ShoppingCartIcon color='grey.900' transfomr='scale(1.2)' />
                         </IconButton>
                         <Menu
                             sx={{ mt: '45px' }}

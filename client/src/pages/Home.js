@@ -3,13 +3,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ProductTable from '../components/ProductTable';
-import Button from '@mui/material/Button';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import ExampleProduct from '../assets/images/10K_Example.jpeg';
 import FeaturedItems from '../components/FeaturedItems';
 
-const Buy = ({ cart, setCart, sum, setSum }) => {
+const Home = ({ cart, setCart, sum, setSum }) => {
     Aos.init({ duration: 1000, once: true });
 
     return (
@@ -37,10 +36,8 @@ const Buy = ({ cart, setCart, sum, setSum }) => {
                 <ProductTable cart={cart} setCart={setCart} />
                 <FeaturedItems cart={cart} setCart={setCart} sum={sum} setSum={setSum} />
             </Box>
-            <Box bgcolor='grey.200'>
-            </Box>
         </Fragment>
     );
 }
 
-export default Buy;
+export default Home;

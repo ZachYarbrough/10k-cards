@@ -18,17 +18,17 @@ const ProductTable = ({ cart, setCart }) => {
                     </Grid>
                     <Grid item xs={3} sx={{ display: 'flex' }}>
                         <Box sx={{ height: '100%', width: '100%', bgcolor: 'grey.100', textAlign: 'center' }}>
-                            <Typography sx={{ pr: 1, my: 1 }} >Basic</Typography>
+                            <Typography sx={{ px: 1, my: 1 }} >Basic</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={3} sx={{ display: 'flex' }}>
                         <Box sx={{ height: '100%', width: '100%', textAlign: 'center' }}>
-                            <Typography sx={{ pr: 1, my: 1 }} >Premium</Typography>
+                            <Typography sx={{ px: 1, my: 1 }} >Premium</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={3} sx={{ display: 'flex' }}>
                         <Box sx={{ height: '100%', width: '100%', bgcolor: 'grey.100', textAlign: 'center' }}>
-                            <Typography sx={{ pr: 1, my: 1 }} >Gold</Typography>
+                            <Typography sx={{ px: 1, my: 1 }} >Gold</Typography>
                         </Box>
                     </Grid>
                 </Grid>
