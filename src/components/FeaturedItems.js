@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
-const FeaturedItems = ({ cart, setCart }) => {
+const FeaturedItems = ({ cart, setCart, sum, setSum }) => {
     const pathArray = window.location.pathname.split('/');
     const navigate = useNavigate();
 
@@ -15,16 +15,18 @@ const FeaturedItems = ({ cart, setCart }) => {
 
         let cartItemIndex;
         if(cartItemAmount.length >= 1) cartItemIndex = cart.findIndex(cartItem => cartItem.name === _item);
-
         let tempCart = cart;
 
         if (cart[0].name === 'Your Cart is Empty') {
-            setCart([{ name: _item, description: _description, price: _price, amount: 1 }])
+            setCart([{ name: _item, description: _description, price: _price, amount: 1 }]);
+            setSum(sum + _price);
         } else if (cartItemAmount.length >= 1) {
             tempCart[cartItemIndex] = { name: _item, description: _description, price: tempCart[cartItemIndex].price + _price, amount: cartItemAmount[0].amount + 1 };
             setCart([...tempCart]);
+            setSum(sum + _price);
         } else if (cartItemAmount.length === 0) {
-            setCart([...cart, { name: _item, description: _description, price: _price, amount: 1 }])
+            setCart([...cart, { name: _item, description: _description, price: _price, amount: 1 }]);
+            setSum(sum + _price);
         }
         if(pathArray[pathArray.length - 1] !== 'cart') {
             navigate('/cart');
