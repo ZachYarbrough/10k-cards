@@ -60,10 +60,6 @@ const Form = ({ slotsPurchased }) => {
         }
     }
 
-    useEffect(() => {
-        document.body.classList.remove('bg');
-    }, []);
-
     const handleChange = (event) => {
         const { name, value } = event.currentTarget;
 
@@ -76,7 +72,10 @@ const Form = ({ slotsPurchased }) => {
     const handleSelect = (event, i) => {
         const { value } = event.target;
 
-
+        setFormState({
+            ...formState,
+            [`icon${i}`]: value
+        })
     }
 
     const handleSubmit = (event) => {
@@ -141,7 +140,7 @@ const Form = ({ slotsPurchased }) => {
                         <Grid key={i} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
                             {inputField === i ?
                                 <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '105%', color: 'black' }}>
-                                    <FormControl sx={{ minWidth: 200 }}>
+                                    <FormControl sx={{ minWidth: {md: 195, xs: 155 } }}>
                                         <InputLabel id={`icon-label${i}`}>Icon</InputLabel>
                                         <Select
                                             labelId={`icon-label${i}`}
@@ -164,7 +163,7 @@ const Form = ({ slotsPurchased }) => {
                                     <TextField sx={{ mb: 1 }} onChange={handleChange} size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
                                 </Box>
                                 :
-                                <Button disableRipple className={`${i}`} onClick={(event) => handleInputField(event, i)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                                <Button disableRipple className={`${i}`} onClick={(event) => handleInputField(event, i)} sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
                                     {formState[`icon${i}`] === "LinkedIn" ?
                                         <LinkedInIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
                                         :
@@ -174,10 +173,14 @@ const Form = ({ slotsPurchased }) => {
                                             formState[`icon${i}`] === "Facebook" ?
                                                 <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
                                                 :
-                                                <AddCircleIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                                <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
                                     }
-                                    <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2 }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
-                                    <Typography variant='h4' sx={{ fontSize: '1.5vh' }}>{formState[`textFieldLink${i}`] || 'Enter Card Link'}</Typography>
+                                    <div style={{overflow: "hidden", textOverflow: "ellipsis", width: '11rem'}}> 
+                                    <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
+                                    </div>
+                                    <div style={{overflow: "hidden", textOverflow: "ellipsis", width: '11rem'}}> 
+                                    <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word' }}>{formState[`textFieldLink${i}`] || 'Enter Card Link'}</Typography>
+                                    </div>
                                 </Button>
                             }
                         </Grid>
