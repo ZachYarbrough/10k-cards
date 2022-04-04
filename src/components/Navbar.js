@@ -15,7 +15,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import Logo from '../assets/images/10K_Cards.jpeg';
 
-const pages = ['Products', 'Partnership', 'News', 'Edit my 10KCard'];
+const pages = ['Products', '10K Zipcodes', 'Edit my 10KCard'];
 const settings = ['Profile', 'Logout'];
 
 const Navbar = ({ cart }) => {
@@ -55,13 +55,9 @@ const Navbar = ({ cart }) => {
                 navigate('/');
                 handleCloseUserMenu();
                 break;
-            case 'Partnership':
-                navigate('/partnership');
+            case '10K Zipcodes':
+                navigate('/10k-zipcode');
                 handleCloseUserMenu();
-                break;
-            case 'News':
-                navigate('/news');
-                handleCloseNavMenu();
                 break;
             case 'Edit my 10KCard':
                 navigate('/edit');
