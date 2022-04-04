@@ -9,21 +9,6 @@ import FeaturedItems from '../components/FeaturedItems';
 const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
     const navigate = useNavigate();
     const [numberInput, setNumberInput] = useState('');
-    const [formState, setFormState] = useState('');
-
-    const handleChange = (event) => {
-        event.preventDefault();
-
-        setFormState(event.currentTarget.value);
-        console.log(formState);
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        setFormState(event.currentTarget.value);
-        setNumberInput('');
-    }
 
     const handleCartAmount = (operand, item, _description, _price) => {
         let cartItemAmount = cart.filter(cartItem => cartItem.name === item);
