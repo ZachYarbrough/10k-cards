@@ -1,76 +1,43 @@
-import Box from "@mui/material/Box";
-import Video from '../assets/videos/10K-video.mp4';
+import { Fragment, useState } from 'react';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import ProductTable from '../components/ProductTable';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import ExampleProduct from '../assets/images/10K_Example.jpeg';
 
-import Logo from '../assets/images/10K_Logo.jpeg';
-import BasicCard from '../assets/images/Basic_Card.jpeg';
-import SilverCard from '../assets/images/Silver_Card.jpeg';
-import GoldCard from '../assets/images/Gold_Card.jpeg';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-
-const Home = () => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        document.body.classList.add('bg');
-    }, []);
+const Buy = ({ cart, setCart }) => {
+    Aos.init({ duration: 1000, once: true });
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <Box
-                component="img"
-                sx={{
-                    width: '75%',
-                    mt: 5
-                }}
-                alt="10K Cards Logo"
-                src={Logo}
-            />
-            <Typography sx={{ fontSize: { xs: '3vh', md: '5vh' }, fontWeight: 600, mt: 1, textAlign: 'center' }}>Digital Business <span style={{ color: '#01ffd3' }}>Cards</span> for the <span style={{ color: '#01ffd3' }}>Savvy</span> Professional</Typography>
-            <Box sx={{ mb: 5, mt: 3, width: '80%', display: 'flex', justifyContent: 'center' }}>
-                <video width="800" height="300" autoPlay loop>
-                    <source src={Video} type="video/mp4" />
-                </video>
+        <Fragment>
+            <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', width: '100%' }}>
+                <Typography variant="h1" sx={{ fontSize: { xs: '4vh', md: '5vh' }, fontWeight: 400, mt: 6 }}>The Modern Day Business Card</Typography>
+                <Typography variant="h2" sx={{ fontSize: '2vh', fontWeight: '400', mt: 2, mb: 5 }}>The Easiest way to Spread your Name Across the World</Typography>
+                <Grid container sx={{ ml: { xs: 0, md: 5 }, mb: 5, width: '70%' }}>
+                    <Grid data-aos='fade-right' item xs={12} md={6} sx={{mb: {xs: 5, md: 0}}}>
+                        <Box
+                            component="img"
+                            sx={{
+                                maxHeight: 400,
+                                maxWidth: 300,
+                            }}
+                            alt="10K Cards Logo"
+                            src={ExampleProduct}
+                        />
+                    </Grid>
+                    <Grid data-aos='fade-left' item sm={12} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Typography variant='h3' sx={{ fontSize: { xs: '2.5vh', md: '3vh' }, fontWeight: 500, mb: 1 }}>The Central Point of Your Networking</Typography>
+                        <Typography sx={{ fontSize: { xs: '1.8vh', md: '2vh' }, mb: {  xs: 2, md: 10 } }}>From WhatsApp to Instagram to LinkedIn, provide people with the ability to connect with you like never before from one central hub.</Typography>
+                    </Grid>
+                </Grid>
+                <ProductTable cart={cart} setCart={setCart} />
             </Box>
-            <Box
-                component="img"
-                sx={{
-                    width: 400,
-                    mb: 1
-                }}
-                alt="10K Cards Logo"
-                src={BasicCard}
-            />
-            <Typography sx={{ fontSize: '2vh', fontWeight: 600, mb: 3 }}>Includes Card + 10K Links</Typography>
-            <Box
-                component="img"
-                sx={{
-                    width: 400,
-                    mb: 1
-                }}
-                alt="10K Cards Logo"
-                src={SilverCard}
-            />
-            <Typography sx={{ fontSize: '2vh', fontWeight: 600, mb: 3 }}>Basic + 1 Digital Card + Custom Domain</Typography>
-            <Box
-                component="img"
-                sx={{
-                    width: 400,
-                    mb: 1
-                }}
-                alt="10K Cards Logo"
-                src={GoldCard}
-            />
-            <Typography sx={{ fontSize: '2vh', fontWeight: 600, mb: 1 }}>Silver + 2 Blue Diamond Lead Captures</Typography>
-            <Button variant='contained' color="primary" sx={{ mt: 2, mb: 1 }} onClick={() => navigate('/cart')}>Buy Now</Button>
-            <Box sx={{ display: 'flex', my: 1, textAlign: 'center', alignItems: 'center' }}>
-                <Typography>Would you like to try a sample card?</Typography>
-                <a style={{color: '#01ffd3', marginLeft: '1vh' }} href='http://localhost:3000/edit'>Get a Free Card</a>
+            <Box bgcolor='grey.200'>
             </Box>
-        </Box>
-    )
+        </Fragment>
+    );
 }
 
-export default Home;
+export default Buy;

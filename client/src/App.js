@@ -1,10 +1,10 @@
 import Form from './pages/Form';
-import Buy from './pages/Buy';
 import Partnership from './pages/Partnership';
 import News from './pages/News';
 import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import Archive from './pages/Archive';
 
 import { useState, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -27,18 +27,19 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/edit' element={<Form slotsPurchased={slotsPurchased} />} />
-          <Route path='/archive' element={
-            <Fragment>
-              <Navbar cart={cart} />
-              <Buy cart={cart} setCart={setCart} />
-            </Fragment>
-          } />
           <Route path='/' element={
             <Fragment>
+              <Navbar cart={cart} />
               <Home cart={cart} setCart={setCart} />
             </Fragment>
           } />
-          <Route path='/partnership' element={
+          <Route path='/archive' element={
+            <Fragment>
+              <Navbar cart={cart} />
+              <Archive cart={cart} setCart={setCart} />
+            </Fragment>
+          } />
+          <Route path='/10k-zipcode' element={
             <Fragment>
               <Navbar cart={cart} />
               <Partnership />
