@@ -1,28 +1,11 @@
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/Check';
 import { Fragment } from 'react';
 
 const ProductTable = ({ cart, setCart }) => {
-
-    const handleCart = (item) => {
-        let cartItemAmount = cart.filter(cartItem => cartItem.name === item);
-        let cartItems = cart.filter(cartItem => cartItem.name !== item);
-
-        if (cart[0].name === 'Your Cart is Empty') {
-            setCart([{ name: item, amount: 1 }])
-        } else if (cartItemAmount.length >= 1) {
-            setCart([...cartItems, { name: item, amount: cartItemAmount[0].amount + 1 }])
-        } else if (cartItemAmount.length === 0) {
-            setCart([...cart, { name: item, amount: 1 }])
-        }
-    }
 
     return (
         <Fragment>
@@ -40,7 +23,7 @@ const ProductTable = ({ cart, setCart }) => {
                     </Grid>
                     <Grid item xs={3} sx={{ display: 'flex' }}>
                         <Box sx={{ height: '100%', width: '100%', textAlign: 'center' }}>
-                            <Typography sx={{ pr: 1, my: 1 }} >Silver</Typography>
+                            <Typography sx={{ pr: 1, my: 1 }} >Premium</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={3} sx={{ display: 'flex' }}>
@@ -179,35 +162,6 @@ const ProductTable = ({ cart, setCart }) => {
                     </Grid>
                 </Grid>
             </Paper>
-            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, width: '100%', my: 5, py: 5, bgcolor: 'grey.100' }}>
-                <Card sx={{ flexGrow: 1, width: { md: 120 }, mr: { md: 1 }, my: 1, ml: { md: '10%' }, mx: { xs: '10%' } }}>
-                    <CardHeader
-                        title="Standard Package"
-                        subheader="$100 USD"
-                    />
-                    <CardContent>
-                        <Button variant='contained' color='secondary' onClick={() => handleCart('Standard Package')}>Buy Now</Button>
-                    </CardContent>
-                </Card>
-                <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, mx: { xs: '10%' } }}>
-                    <CardHeader
-                        title="Gold Package"
-                        subheader="$300 USD"
-                    />
-                    <CardContent>
-                        <Button variant='contained' color='secondary' onClick={() => handleCart('Gold Package')}>Buy Now</Button>
-                    </CardContent>
-                </Card>
-                <Card sx={{ flexGrow: 1, width: { md: 120 }, ml: { md: 1 }, my: 1, mr: { md: '10%' }, mx: { xs: '10%' } }}>
-                    <CardHeader
-                        title="Premium Package"
-                        subheader="$500 USD"
-                    />
-                    <CardContent>
-                        <Button variant='contained' color='secondary' onClick={() => handleCart('Premium Package')}>Buy Now</Button>
-                    </CardContent>
-                </Card>
-            </Box>
         </Fragment>
     );
 }
