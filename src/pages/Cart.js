@@ -9,31 +9,38 @@ import FeaturedItems from '../components/FeaturedItems';
 const Cart = ({ cart, setCart, setSlotsPurchased }) => {
     const navigate = useNavigate();
 
-    const handleCartAmount = (operand, item, _description) => {
+    const handleCartAmount = (operand, item, _description, _price) => {
         let cartItemAmount = cart.filter(cartItem => cartItem.name === item);
         let cartItems = cart.filter(cartItem => cartItem.name !== item);
         let cartItemIndex = cart.findIndex(cartItem => cartItem.name === item);
         let tempCart = cart;
 
+        let tempPrice = _price / tempCart[cartItemIndex].amount;
+        tempPrice = _price / tempCart[cartItemIndex].amount;
+
         if (operand === '+') {
-            tempCart[cartItemIndex] = { name: item, description: _description, amount: cartItemAmount[0].amount + 1 };
+            tempCart[cartItemIndex] = { name: item, description: _description, price: _price + tempPrice, amount: cartItemAmount[0].amount + 1 };
             setCart([...tempCart]);
-            console.log(cart);
         } else if (operand === '-' && cartItemAmount[0].amount >= 2) {
-            tempCart[cartItemIndex] = { name: item, description: _description, amount: cartItemAmount[0].amount - 1 };
+            tempCart[cartItemIndex] = { name: item, description: _description, price: _price - tempPrice, amount: cartItemAmount[0].amount - 1 };
             setCart([...tempCart]);
-            console.log(cart);
         } else if (operand === '-' && cartItemAmount[0].amount <= 1 && cartItems.length >= 1) {
             tempCart.splice(cartItemIndex, 1);
             setCart([...tempCart]);
-            console.log(cart);
         } else if (operand === '-' && cartItemAmount[0].amount <= 1 && cartItems.length === 0) {
-            setCart([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);;
+            setCart([{ name: 'Your Cart is Empty', amount: 1, price: '', description: '' }]);;
         }
     }
 
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0
+
+      });
+
     const handleCheckout = () => {
-        if(cart.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
+        if (cart.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
             setSlotsPurchased(10);
             navigate('/edit');
         } else if (cart.filter(cartItem => cartItem.name === 'Premium Package').length >= 1) {
@@ -62,26 +69,36 @@ const Cart = ({ cart, setCart, setSlotsPurchased }) => {
                             :
                             (index % 2) !== 0 && cartItem.name !== 'Your Cart is Empty' ?
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', bgcolor: 'grey.200' }}>
-                                    <Box sx={{ mx: 1 }}>
+                                    <Box sx={{ mx: 1, flex: 6 }}>
                                         <Typography>{cartItem.name}</Typography>
                                         <Typography sx={{ color: 'grey.600', fontSize: 14 }}>{cartItem.description}</Typography>
                                     </Box>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', mx: 1 }}>
-                                        <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('-', cartItem.name, cartItem.description)}>-</Button>
-                                        <Typography sx={{ mx: 1 }}>{cartItem.amount}</Typography>
-                                        <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('+', cartItem.name, cartItem.description)}>+</Button>
+                                    <Box sx={{ display: 'flex', flex: 1 }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', mx: 1 }}>
+                                            <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('-', cartItem.name, cartItem.description, cartItem.price)}>-</Button>
+                                            <Typography sx={{ mx: 1, textAlign: 'center',  maxWidth: '30px', minWidth: '30px' }}>{cartItem.amount}</Typography>
+                                            <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('+', cartItem.name, cartItem.description, cartItem.price)}>+</Button>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', mx: 1 }}>
+                                            <Typography sx={{ mx: 1, textAlign: 'center', maxWidth: '50px', minWidth: '50px' }}>{formatter.format(cartItem.price)}</Typography>
+                                        </Box>
                                     </Box>
                                 </Box>
                                 :
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <Box sx={{ mx: 1 }}>
+                                    <Box sx={{ mx: 1, flex: 6 }}>
                                         <Typography>{cartItem.name}</Typography>
                                         <Typography sx={{ color: 'grey.600', fontSize: 14 }}>{cartItem.description}</Typography>
                                     </Box>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', mx: 1 }}>
-                                        <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('-', cartItem.name, cartItem.description)}>-</Button>
-                                        <Typography sx={{ mx: 1 }}>{cartItem.amount}</Typography>
-                                        <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('+', cartItem.name, cartItem.description)}>+</Button>
+                                    <Box sx={{ display: 'flex', flex: 1 }}>
+                                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mx: 1 }}>
+                                            <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('-', cartItem.name, cartItem.description, cartItem.price)}>-</Button>
+                                            <Typography sx={{ mx: 1, textAlign: 'center', maxWidth: '30px', minWidth: '30px' }}>{cartItem.amount}</Typography>
+                                            <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('+', cartItem.name, cartItem.description, cartItem.price)}>+</Button>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', mx: 1 }}>
+                                            <Typography sx={{ mx: 1, textAlign: 'center', maxWidth: '50px', minWidth: '50px' }}>{formatter.format(cartItem.price)}</Typography>
+                                        </Box>
                                     </Box>
                                 </Box>
                         }

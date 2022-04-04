@@ -10,21 +10,27 @@ const FeaturedItems = ({ cart, setCart }) => {
     const pathArray = window.location.pathname.split('/');
     const navigate = useNavigate();
 
-    const handleCart = (_item, _description) => {
+    const handleCart = (_item, _description, _price) => {
         let cartItemAmount = cart.filter(cartItem => cartItem.name === _item);
-        let cartItems = cart.filter(cartItem => cartItem.name !== _item);
+
+        let cartItemIndex;
+        if(cartItemAmount.length >= 1) cartItemIndex = cart.findIndex(cartItem => cartItem.name === _item);
+
+        let tempCart = cart;
 
         if (cart[0].name === 'Your Cart is Empty') {
-            setCart([{ name: _item, description: _description, amount: 1 }])
+            setCart([{ name: _item, description: _description, price: _price, amount: 1 }])
         } else if (cartItemAmount.length >= 1) {
-            setCart([...cartItems, { name: _item, description: _description, amount: cartItemAmount[0].amount + 1 }])
+            tempCart[cartItemIndex] = { name: _item, description: _description, price: tempCart[cartItemIndex].price + _price, amount: cartItemAmount[0].amount + 1 };
+            setCart([...tempCart]);
         } else if (cartItemAmount.length === 0) {
-            setCart([...cart, { name: _item, description: _description, amount: 1 }])
+            setCart([...cart, { name: _item, description: _description, price: _price, amount: 1 }])
         }
         if(pathArray[pathArray.length - 1] !== 'cart') {
             navigate('/cart');
         }
     }
+
 
     return(
         <Box sx={{ display: 'flex', textAlign: 'center', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' }, width: '100%', my: 5, py: 5, bgcolor: 'grey.100' }}>
@@ -35,7 +41,7 @@ const FeaturedItems = ({ cart, setCart }) => {
                 subheader="$100 USD"
             />
             <CardContent>
-                <Button variant='contained' color='secondary' onClick={() => handleCart('Basic Package', 'Includes 10 Links')}>Buy Now</Button>
+                <Button variant='contained' color='secondary' onClick={() => handleCart('Basic Package', 'Includes 10 Links', 100)}>Buy Now</Button>
             </CardContent>
         </Card>
         <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, mx: { xs: '10%' } }}>
@@ -44,7 +50,7 @@ const FeaturedItems = ({ cart, setCart }) => {
                 subheader="$300 USD"
             />
             <CardContent>
-                <Button variant='contained' color='secondary' onClick={() => handleCart('Premium Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals')}>Buy Now</Button>
+                <Button variant='contained' color='secondary' onClick={() => handleCart('Premium Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals', 300)}>Buy Now</Button>
             </CardContent>
         </Card>
         <Card sx={{ flexGrow: 1, width: { md: 120 }, ml: { md: 1 }, my: 1, mr: { md: '10%' }, mx: { xs: '10%' } }}>
@@ -53,7 +59,7 @@ const FeaturedItems = ({ cart, setCart }) => {
                 subheader="$500 USD"
             />
             <CardContent>
-                <Button variant='contained' color='secondary' onClick={() => handleCart('Gold Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds')}>Buy Now</Button>
+                <Button variant='contained' color='secondary' onClick={() => handleCart('Gold Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds', 500)}>Buy Now</Button>
             </CardContent>
         </Card>
     </Box>
