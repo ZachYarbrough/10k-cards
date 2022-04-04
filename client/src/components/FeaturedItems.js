@@ -28,6 +28,7 @@ const FeaturedItems = ({ cart, setCart, sum, setSum }) => {
             setCart([...cart, { name: _item, description: _description, price: _price, amount: 1 }]);
             setSum(sum + _price);
         }
+        
         if(pathArray[pathArray.length - 1] !== 'cart') {
             navigate('/cart');
         }
