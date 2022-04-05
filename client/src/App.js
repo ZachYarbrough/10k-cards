@@ -3,7 +3,6 @@ import Partnership from './pages/Partnership';
 import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Archive from './pages/Archive';
 import Billing from './pages/Billing';
 
 import { useState, Fragment } from 'react';
@@ -19,7 +18,7 @@ const theme = createTheme({
 })
 
 const App = () => {
-      const [billingFormState, setBillingFormState] = useState({});
+  const [billingFormState, setBillingFormState] = useState({});
   const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
   const [slotsPurchased, setSlotsPurchased] = useState(4);
   const [sum, setSum] = useState(0);
@@ -33,12 +32,6 @@ const App = () => {
             <Fragment>
               <Navbar cart={cart} />
               <Home cart={cart} setCart={setCart} sum={sum} setSum={setSum} />
-            </Fragment>
-          } />
-          <Route path='/archive' element={
-            <Fragment>
-              <Navbar cart={cart} />
-              <Archive cart={cart} setCart={setCart} />
             </Fragment>
           } />
           <Route path='/10k-zipcode' element={

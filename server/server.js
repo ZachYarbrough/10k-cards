@@ -74,6 +74,7 @@ app.post('/upload-mail', upload, (req, res) => {
             First Name: ${card.firstName} 
             Last Name: ${card.lastName}
             Title: ${card.title}
+            theme: ${card.theme}
 
             --- Link Slots ---
 
