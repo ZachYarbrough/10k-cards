@@ -18,6 +18,7 @@ import Select from '@mui/material/Select';
 import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+import Modal from '@mui/material/Modal';
 
 const WhiteTextField = styled(TextField)({
     '& label': {
@@ -49,13 +50,23 @@ const WhiteTextField = styled(TextField)({
     }
 });
 
+const themes = ['primary', 'error'];
+
 const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
     const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
     const [currentColor, setCurrentColor] = useState('primary');
-    
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+        setInputField('');
+        setOpen(true);
+    };
+    const handleClose = () => setOpen(false);
+
     const handleInputField = (event, i) => {
+        event.stopPropagation();
         if (event.currentTarget.classList.contains(`${i}`) || i === 'name') {
             setInputField(i);
         }
@@ -63,7 +74,6 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
 
     const handleChange = (event) => {
         const { name, value } = event.currentTarget;
-
         setFormState({
             ...formState,
             [name]: value
@@ -87,18 +97,19 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
 
         let formData = new FormData();
         let file = document.getElementById('image-file').files[0];
-        formData.append('image', file, 'profile-image.jpeg');
+        if(file) formData.append('image', file, 'profile-image.jpeg');
         formData.append('firstName', formState.firstName || 'No Entry');
         formData.append('lastName', formState.lastName || 'No Entry');
         formData.append('title', formState.title || 'No Entry');
+        formData.append('theme', formState.theme || 'primary');
 
-        for(let i = 0; i < slotsPurchased; i++) {
+        for (let i = 0; i < slotsPurchased; i++) {
             formData.append(`textFieldTitle${i}`, formState[`textFieldTitle${i}`] || 'No Entry');
             formData.append(`textFieldLink${i}`, formState[`textFieldLink${i}`] || 'No Entry');
             formData.append(`icon${i}`, formState[`icon${i}`] || 'No Entry');
         }
 
-        if(billingFormState !== {}) {
+        if (billingFormState !== {}) {
             formData.append('cardFirstName', billingFormState.cardFirstName);
             formData.append('cardLastName', billingFormState.cardLastName);
             formData.append('cardNumber', billingFormState.cardNumber);
@@ -123,6 +134,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
     }
 
     const handleProfilePicture = (event) => {
+        event.stopPropagation();
         const file = event.target.files[0];
         const reader = new FileReader();
 
@@ -140,19 +152,29 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
         });
     }
 
+    const handleColorPicker = (event, theme) => {
+        event.preventDefault();
+        setCurrentColor(theme);
+        setOpen(false);
+        setFormState({
+            ...formState,
+            ['theme']: theme
+        })
+    }
+
     return (
         <Fragment>
-            <form  onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
-                <Box sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <input type="file" name='image' accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="image-file" />
+            <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
+                <Box onClick={handleOpen} sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <input onClick={event => event.stopPropagation()} type="file" name='image' accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="image-file" />
                     <label htmlFor="image-file">
                         <IconButton component="span" disableRipple>
-                            <Avatar src={require('../assets/images/profile_image.jpeg')} id="profile-pic" sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }}>
+                            <Avatar onClick={event => event.stopPropagation()} src={require('../assets/images/profile_image.jpeg')} id="profile-pic" sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }}>
                             </Avatar>
                         </IconButton>
                     </label>
                     {inputField === "name" ?
-                        <Box sx={{ mx: 1, display: 'flex' }}>
+                        <Box onClick={event => event.stopPropagation()} sx={{ mx: 1, display: 'flex' }}>
                             <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`firstName`] || ''} name={`firstName`} label="First Name" placeholder='Enter First Name' />
                             <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`lastName`] || ''} name={`lastName`} label="Last Name" placeholder='Enter Last Name' />
                         </Box>
@@ -163,7 +185,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
                     }
                     {inputField === "title" ?
                         <Box>
-                            <WhiteTextField sx={{ my: 1 }} size='small' onChange={handleChange} value={formState[`title`] || ''} name={`title`} label="Title" placeholder='Enter Title' />
+                            <WhiteTextField onClick={event => event.stopPropagation()} sx={{ my: 1 }} size='small' onChange={handleChange} value={formState[`title`] || ''} name={`title`} label="Title" placeholder='Enter Title' />
                         </Box>
                         :
                         <Button onClick={(event) => handleInputField(event, 'title')} className='title'>
@@ -171,6 +193,24 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
                         </Button>
                     }
                 </Box>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', borderRadius: '5px', boxShadow: 24, p: 4 }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2" textAlign='center'>
+                            Pick Theme
+                        </Typography>
+                        <Box sx={{ display: 'flex', width: '80%' }}>
+                            {themes.map(theme => {
+                                return (<Box onClick={event => handleColorPicker(event, theme)} id="modal-modal-description" bgcolor={`${theme}.main`} sx={{ m: 2, minWidth: '60px', minHeight: '60px', border: '5px', bordercolor: 'background.paper', borderRadius: '5px', boxShadow: 8, }}>
+                                </Box>);
+                            })}
+                        </Box>
+                    </Box>
+                </Modal>
                 <Grid container sx={{ width: '100%' }}>
                     {[...Array(slotsPurchased)].map((e, i) => (
                         <Grid key={i} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
@@ -224,10 +264,20 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
                 </Grid>
                 <Button variant='contained' type='submit' color={currentColor} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
-            <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want to buy more slots? Purchase one of our premium options instead.</Typography>
-            <Link to='/' style={{ textDecoration: "none" }}>
-                <Button variant='contained' type='submit' color={currentColor} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
-            </Link>
+            {Object.keys(billingFormState).length === 0 ?
+                <Fragment>
+                    <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want to buy more slots? Purchase one of our premium options instead.</Typography>
+                    <Link to='/' style={{ textDecoration: "none" }}>
+                        <Button variant='contained' color={currentColor} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
+                    </Link>
+                </Fragment>
+                :
+                <Fragment>
+                    <Link to='/' style={{ textDecoration: "none" }}>
+                        <Button variant='contained' color={currentColor} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Back to Home</Button>
+                    </Link>
+                </Fragment>
+            }
         </Fragment>
     );
 }
