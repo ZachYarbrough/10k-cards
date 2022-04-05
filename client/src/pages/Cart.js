@@ -43,19 +43,6 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
 
     });
 
-    const handleCheckout = () => {
-        if (cart.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
-            setSlotsPurchased(10);
-            navigate('/edit');
-        } else if (cart.filter(cartItem => cartItem.name === 'Premium Package').length >= 1) {
-            setSlotsPurchased(10);
-            navigate('/edit');
-        } else if (cart.filter(cartItem => cartItem.name === 'Gold Package').length >= 1) {
-            setSlotsPurchased(10);
-            navigate('/edit');
-        }
-    }
-
     const handleNumberInput = (event, index) => {
         event.preventDefault();
 
@@ -151,7 +138,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                     null
                 }
                 <Box sx={{ display: 'flex' }}>
-                    <Button variant="contained" color='secondary' sx={{ mr: 1 }} onClick={() => handleCheckout()}>Checkout</Button>
+                    <Button variant="contained" color='secondary' sx={{ mr: 1 }} onClick={() => navigate('/checkout')}>Checkout</Button>
                     <Button variant="contained" color='secondary' onClick={() => navigate('/')}>Continue Shopping</Button>
                 </Box>
             </Box>

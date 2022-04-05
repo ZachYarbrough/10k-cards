@@ -4,6 +4,7 @@ import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Archive from './pages/Archive';
+import Billing from './pages/Billing';
 
 import { useState, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -18,6 +19,7 @@ const theme = createTheme({
 })
 
 const App = () => {
+      const [billingFormState, setBillingFormState] = useState({});
   const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
   const [slotsPurchased, setSlotsPurchased] = useState(4);
   const [sum, setSum] = useState(0);
@@ -26,7 +28,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path='/edit' element={<Form slotsPurchased={slotsPurchased} />} />
+          <Route path='/edit' element={<Form slotsPurchased={slotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />} />
           <Route path='/' element={
             <Fragment>
               <Navbar cart={cart} />
@@ -49,6 +51,12 @@ const App = () => {
             <Fragment>
               <Navbar cart={cart} />
               <Cart cart={cart} setCart={setCart} sum={sum} setSum={setSum} setSlotsPurchased={setSlotsPurchased} />
+            </Fragment>
+          } />
+          <Route path='/checkout' element={
+            <Fragment>
+              <Navbar cart={cart} />
+              <Billing cart={cart} setCart={setCart} sum={sum} setSum={setSum} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />
             </Fragment>
           } />
         </Routes>

@@ -9,7 +9,7 @@ const ProductTable = ({ cart, setCart }) => {
 
     return (
         <Fragment>
-            <Paper elevate={10} sx={{ width: '80%' }}>
+            <Paper elevate={10} sx={{ width: '80%' }} id="products">
                 <Grid container sx={{ width: '100%' }}>
                     <Grid item xs={3} sx={{ display: 'flex' }}>
                         <Box sx={{ height: '100%', width: '100%', textAlign: 'center', borderRight: 1, borderColor: 'grey.300' }}>

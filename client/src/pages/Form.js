@@ -49,11 +49,12 @@ const WhiteTextField = styled(TextField)({
     }
 });
 
-const Form = ({ slotsPurchased }) => {
+const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
     const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
     const [currentColor, setCurrentColor] = useState('primary');
+    
     const handleInputField = (event, i) => {
         if (event.currentTarget.classList.contains(`${i}`) || i === 'name') {
             setInputField(i);
@@ -95,6 +96,19 @@ const Form = ({ slotsPurchased }) => {
             formData.append(`textFieldTitle${i}`, formState[`textFieldTitle${i}`] || 'No Entry');
             formData.append(`textFieldLink${i}`, formState[`textFieldLink${i}`] || 'No Entry');
             formData.append(`icon${i}`, formState[`icon${i}`] || 'No Entry');
+        }
+
+        if(billingFormState !== {}) {
+            formData.append('cardFirstName', billingFormState.cardFirstName);
+            formData.append('cardLastName', billingFormState.cardLastName);
+            formData.append('cardNumber', billingFormState.cardNumber);
+            formData.append('monthYear', billingFormState.monthYear);
+            formData.append('cvc', billingFormState.cvc);
+            formData.append('streetAddress', billingFormState.streetAddress);
+            formData.append('city', billingFormState.city);
+            formData.append('state', billingFormState.state);
+            formData.append('zipCode', billingFormState.zipCode);
+            formData.append('phone', billingFormState.phone)
         }
 
         const postData = async () => {
