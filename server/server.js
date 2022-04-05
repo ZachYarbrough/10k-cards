@@ -1,10 +1,26 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+var cors = require('cors')
 const nodemailer = require('nodemailer');
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, '../client/src/assets/images/profileImage'));
+    },
+    filename: (req, file, cb) => {
+        cb(null, 'profile-image.jpeg');
+    }
+});
+
+const upload = multer({ storage }).single('image');
+
 const PORT = process.env.PORT || 3001;
 
 // express middleware, used to be bodyparser
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -30,57 +46,76 @@ transporter.verify((err, success) => {
     console.log('Server is ready to send emails!')
 })
 
-app.post('/api/mail-data', (req, res) => {
-    const card = req.body;
-    const fs = require('fs').promises;
-    const path = require('path');
 
-    fs.writeFile(path.join(__dirname, `../client/src/assets/images/profileImage/${card.profileImage.name}`), card.profileImage)
-        .then(res => {
-            const options = {
-                from: 'rhc.nodem@outlook.com',
-                to: 'zachyarbro@gmail.com',
-                subject: `Sample 10K Card Information - ${card.firstName} ${card.lastName}`,
-                text: `
+app.post('/upload-mail', upload, (req, res) => {
+    const card = req.body;
+
+    const options = {
+        from: 'rhc.nodem@outlook.com',
+        to: 'zachyarbro@gmail.com',
+        subject: `Sample 10K Card Information - ${card.firstName} ${card.lastName}`,
+        text: `
             First Name: ${card.firstName} 
             Last Name: ${card.lastName}
             Title: ${card.title}
 
-            profile Image: ${card.profileImage}
-
             --- Link Slots ---
-            Slot Title 1: ${card.textFieldTitle1 || 'No Entry'}
-            Slot Link 1: ${card.textFieldLink1 || 'No Entry'}
-            Slot Icon 1: ${card.icon1 || 'No Entry'} 
 
-            Slot Title 2: ${card.textFieldTitle2 || 'No Entry'}
-            Slot Link 2: ${card.textFieldLink2 || 'No Entry'}
-            Slot Icon 2: ${card.icon2 || 'No Entry'} 
+            Slot Title 1: ${card.textFieldTitle0}
+            Slot Link 1: ${card.textFieldLink0}
+            Slot Icon 1: ${card.icon0} 
 
-            Slot Title 3: ${card.textFieldTitle3 || 'No Entry'}
-            Slot Link 3: ${card.textFieldLink3 || 'No Entry'}
-            Slot Icon 3: ${card.icon3 || 'No Entry'} 
+            Slot Title 2: ${card.textFieldTitle1}
+            Slot Link 2: ${card.textFieldLink1}
+            Slot Icon 2: ${card.icon1} 
 
-            Slot Title 4: ${card.textFieldTitle4 || 'No Entry'}
-            Slot Link 4: ${card.textFieldLink4 || 'No Entry'}
-            Slot Icon 4: ${card.icon4 || 'No Entry'} 
+            Slot Title 3: ${card.textFieldTitle2}
+            Slot Link 3: ${card.textFieldLink2}
+            Slot Icon 3: ${card.icon2} 
+
+            Slot Title 4: ${card.textFieldTitle3}
+            Slot Link 4: ${card.textFieldLink3}
+            Slot Icon 4: ${card.icon3}
+
+            Slot Title 5: ${card.textFieldTitle4}
+            Slot Link 5: ${card.textFieldLink4}
+            Slot Icon 5: ${card.icon4} 
+
+            Slot Title 6: ${card.textFieldTitle5}
+            Slot Link 6: ${card.textFieldLink5}
+            Slot Icon 6: ${card.icon5} 
+
+            Slot Title 7: ${card.textFieldTitle6}
+            Slot Link 7: ${card.textFieldLink6}
+            Slot Icon 7: ${card.icon6} 
+
+            Slot Title 8: ${card.textFieldTitle7}
+            Slot Link 8: ${card.textFieldLink7}
+            Slot Icon 8: ${card.icon7} 
+
+            Slot Title 9: ${card.textFieldTitle8}
+            Slot Link 9: ${card.textFieldLink8}
+            Slot Icon 9: ${card.icon8} 
+
+            Slot Title 10: ${card.textFieldTitle9}
+            Slot Link 10: ${card.textFieldLink9}
+            Slot Icon 10: ${card.icon9} 
         `,
-                attachments: [{
-                    content: `../client/src/assets/images/profileImage/${card.profileImage.name}`
-                }]
-            }
+        attachments: [{
+                filename: 'profile-image.jpeg',
+                path: path.join(__dirname, '../client/src/assets/images/profileImage/profile-image.jpeg')
+            }]
+    }
 
-            transporter.sendMail(options, (err, data) => {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                console.log(data.response);
-            });
-
-        }).then(_ => fs.unlink(path.join(__dirname, `../client/src/assets/images/profileImage/${card.profileImage.name}`)))
+    transporter.sendMail(options, (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log(data.response);
+    });
     res.json(card)
-})
+});
 
 // Start the API server
 app.listen(PORT, () =>

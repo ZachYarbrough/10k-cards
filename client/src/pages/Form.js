@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 
@@ -50,13 +50,13 @@ const WhiteTextField = styled(TextField)({
 });
 
 const Form = ({ slotsPurchased }) => {
+    const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
     const [currentColor, setCurrentColor] = useState('primary');
-
     const handleInputField = (event, i) => {
         if (event.currentTarget.classList.contains(`${i}`) || i === 'name') {
-            setInputField(i)
+            setInputField(i);
         }
     }
 
@@ -81,15 +81,27 @@ const Form = ({ slotsPurchased }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         setInputField('');
-        console.log(formState.profileImage);
+        let header = new Headers();
+        header.append('Accept', 'application/json');
+
+        let formData = new FormData();
+        let file = document.getElementById('image-file').files[0];
+        formData.append('image', file, 'profile-image.jpeg');
+        formData.append('firstName', formState.firstName || 'No Entry');
+        formData.append('lastName', formState.lastName || 'No Entry');
+        formData.append('title', formState.title || 'No Entry');
+
+        for(let i = 0; i < slotsPurchased; i++) {
+            formData.append(`textFieldTitle${i}`, formState[`textFieldTitle${i}`] || 'No Entry');
+            formData.append(`textFieldLink${i}`, formState[`textFieldLink${i}`] || 'No Entry');
+            formData.append(`icon${i}`, formState[`icon${i}`] || 'No Entry');
+        }
+
         const postData = async () => {
-            const res = await fetch('http://localhost:3001/api/mail-data', {
-                mode: 'no-cors',
+            const res = await fetch('http://localhost:3001/upload-mail', {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: new URLSearchParams(formState)
+                headers: header,
+                body: formData
             });
             if (!res.ok) throw new Error(res.statusText);
         }
@@ -97,29 +109,29 @@ const Form = ({ slotsPurchased }) => {
     }
 
     const handleProfilePicture = (event) => {
-        const selectedFile = event.target.files[0];
+        const file = event.target.files[0];
         const reader = new FileReader();
 
         const imgtag = document.getElementById("profile-pic").firstChild;
-        imgtag.title = selectedFile.name;
-        
+        imgtag.title = file.name;
+
         reader.onload = function (event) {
             imgtag.src = event.target.result;
         };
 
-        reader.readAsDataURL(selectedFile);
+        reader.readAsDataURL(file);
         setFormState({
             ...formState,
-            [`profileImage`]: selectedFile
-        })
+            ['profileImage']: file
+        });
     }
 
     return (
         <Fragment>
-            <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
+            <form  onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
                 <Box sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <input type="file" accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="icon-button-file" />
-                    <label htmlFor="icon-button-file">
+                    <input type="file" name='image' accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="image-file" />
+                    <label htmlFor="image-file">
                         <IconButton component="span" disableRipple>
                             <Avatar src={require('../assets/images/profile_image.jpeg')} id="profile-pic" sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }}>
                             </Avatar>
