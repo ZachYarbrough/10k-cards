@@ -114,6 +114,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                                         <Box sx={{ display: 'flex', alignItems: 'center', mx: 1 }}>
                                             <Button variant='contained' color='secondary' sx={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }} onClick={() => handleCartAmount('-', cartItem.name, cartItem.description, cartItem.price)}>-</Button>
                                             {numberInput === index ?
+                                                // Form to make number between +/- an input
                                                 // <form type='submit' onSubmit={handleSubmit}>
                                                 //     <input value={`${cartItem.amount}`} onChange={handleChange} style={{ textAlign: 'center', margin: '0 7px', maxWidth: '25px', minWidth: '25px', maxHeight: '25px', minHeight: '25px' }} />
                                                 // </form>

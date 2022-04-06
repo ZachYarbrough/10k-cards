@@ -14,7 +14,7 @@ const FeaturedItems = ({ cart, setCart, sum, setSum }) => {
         let cartItemAmount = cart.filter(cartItem => cartItem.name === _item);
 
         let cartItemIndex;
-        if(cartItemAmount.length >= 1) cartItemIndex = cart.findIndex(cartItem => cartItem.name === _item);
+        if (cartItemAmount.length >= 1) cartItemIndex = cart.findIndex(cartItem => cartItem.name === _item);
         let tempCart = cart;
 
         if (cart[0].name === 'Your Cart is Empty') {
@@ -29,44 +29,41 @@ const FeaturedItems = ({ cart, setCart, sum, setSum }) => {
             setSum(sum + _price);
         }
 
-        if(pathArray[pathArray.length - 1] !== 'cart') {
+        if (pathArray[pathArray.length - 1] !== 'cart') {
             window.scrollTo(0, 0);
             navigate('/cart');
         }
     }
 
 
-    return(
+    return (
         <Box sx={{ display: 'flex', textAlign: 'center', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' }, width: '100%', my: 5, py: 5, bgcolor: 'grey.100' }}>
-        {pathArray[pathArray.length - 1] === 'cart' ? <Typography sx={{ flex: '100%', fontSize: '4vh', fontWeight: 500, mb: 2 }}>Featured Items</Typography> : null }
-        <Card sx={{ flexGrow: 1, width: { md: 120 }, mr: { md: 1 }, my: 1, ml: { md: '10%' }, mx: { xs: '10%' } }}>
-            <CardHeader
-                title="Basic Package"
-                subheader="$100 USD"
-            />
-            <CardContent>
-                <Button variant='contained' color='secondary' onClick={() => handleCart('Basic Package', 'Includes 10 Links', 100)}>Buy Now</Button>
-            </CardContent>
-        </Card>
-        <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, mx: { xs: '10%' } }}>
-            <CardHeader
-                title="Premium Package"
-                subheader="$300 USD"
-            />
-            <CardContent>
-                <Button variant='contained' color='secondary' onClick={() => handleCart('Premium Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals', 300)}>Buy Now</Button>
-            </CardContent>
-        </Card>
-        <Card sx={{ flexGrow: 1, width: { md: 120 }, ml: { md: 1 }, my: 1, mr: { md: '10%' }, mx: { xs: '10%' } }}>
-            <CardHeader
-                title="Gold Package"
-                subheader="$500 USD"
-            />
-            <CardContent>
-                <Button variant='contained' color='secondary' onClick={() => handleCart('Gold Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds', 500)}>Buy Now</Button>
-            </CardContent>
-        </Card>
-    </Box>
+            {pathArray[pathArray.length - 1] === 'cart' ? <Typography sx={{ flex: '100%', fontSize: '4vh', fontWeight: 500, mb: 2 }}>Featured Items</Typography> : null}
+            <Card sx={{ flexGrow: 1, width: { md: 120 }, mr: { md: 1 }, my: 1, ml: { md: '10%' }, mx: { xs: '10%' } }}>
+                <CardContent>
+                    <Typography sx={{ fontSize: 24, mb: 0 }}>Basic Package</Typography>
+                    <Typography sx={{ color: 'grey.600', mb: 1 }}>$100 USD</Typography>
+                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2 }}>Includes 10 Links</Typography>
+                    <Button variant='contained' color='secondary' onClick={() => handleCart('Basic Package', 'Includes 10 Links', 100)}>Buy Now</Button>
+                </CardContent>
+            </Card>
+            <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, mx: { xs: '10%' } }}>
+                <CardContent>
+                    <Typography sx={{ fontSize: 24, mb: 0 }}>Premium Package</Typography>
+                    <Typography sx={{ color: 'grey.600', mb: 1 }}>$300 USD</Typography>
+                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2 }}>Includes Unlimited Links | Custom Domain Name | 20% from Referrals</Typography>
+                    <Button variant='contained' color='secondary' onClick={() => handleCart('Premium Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals', 300)}>Buy Now</Button>
+                </CardContent>
+            </Card>
+            <Card sx={{ flexGrow: 1, width: { md: 120 }, ml: { md: 1 }, my: 1, mr: { md: '10%' }, mx: { xs: '10%' } }}>
+                <CardContent>
+                    <Typography sx={{ fontSize: 24, mb: 0 }}>Gold Package</Typography>
+                    <Typography sx={{ color: 'grey.600', mb: 1 }}>$500 USD</Typography>
+                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2 }}>Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds</Typography>
+                    <Button variant='contained' color='secondary' onClick={() => handleCart('Gold Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds', 500)}>Buy Now</Button>
+                </CardContent>
+            </Card>
+        </Box>
     );
 }
 
