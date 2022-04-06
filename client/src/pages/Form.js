@@ -11,6 +11,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
 
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
@@ -180,6 +181,9 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         <Fragment>
             <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
                 <Box onClick={handleOpen} sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box sx={{position: 'absolute', width: '98%', textAlign: 'left', height: '33%'}}>
+                        <AppRegistrationOutlinedIcon sx={{ width: '5vh', height: '5vh', pb: 1, opacity: '.3'  }} />
+                    </Box>
                     <input onClick={event => event.stopPropagation()} type="file" name='image' accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="image-file" />
                     <label htmlFor="image-file">
                         <IconButton component="span" disableRipple onClick={event => event.stopPropagation()}>
@@ -213,7 +217,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: { md: 400, xs: 20 }, bgcolor: 'background.paper', borderRadius: '5px', boxShadow: 24, p: 4 }}>
+                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: { md: 400, xs: 300 }, bgcolor: 'background.paper', borderRadius: '5px', boxShadow: 24, p: 4 }}>
                         <Typography id="modal-modal-title" variant="h6" component="h2" textAlign='center'>
                             Pick Theme
                         </Typography>
