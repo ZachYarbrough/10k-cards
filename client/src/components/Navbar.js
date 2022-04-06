@@ -202,7 +202,7 @@ const Navbar = ({ cart }) => {
                                 vertical: 'top',
                                 horizontal: 'right',
                             }}
-                            open={anchorElCart}
+                            open={Boolean(anchorElCart)}
                             onClose={handleCloseCartMenu}
                         >
                             {cart.map((cartItem) => (

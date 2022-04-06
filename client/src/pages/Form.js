@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -52,7 +53,7 @@ const WhiteTextField = styled(TextField)({
 
 const themes = ['primary', 'error'];
 
-const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
+const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsPurchased, cardType }) => {
     const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
@@ -97,7 +98,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
 
         let formData = new FormData();
         let file = document.getElementById('image-file').files[0];
-        if(file) formData.append('image', file, 'profile-image.jpeg');
+        if (file) formData.append('image', file, 'profile-image.jpeg');
         formData.append('firstName', formState.firstName || 'No Entry');
         formData.append('lastName', formState.lastName || 'No Entry');
         formData.append('title', formState.title || 'No Entry');
@@ -109,6 +110,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
             formData.append(`icon${i}`, formState[`icon${i}`] || 'No Entry');
         }
 
+        // Remove this once paypal is integrated
         if (billingFormState !== {}) {
             formData.append('cardFirstName', billingFormState.cardFirstName);
             formData.append('cardLastName', billingFormState.cardLastName);
@@ -168,8 +170,8 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
                 <Box onClick={handleOpen} sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <input onClick={event => event.stopPropagation()} type="file" name='image' accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="image-file" />
                     <label htmlFor="image-file">
-                        <IconButton component="span" disableRipple>
-                            <Avatar onClick={event => event.stopPropagation()} src={require('../assets/images/profile_image.jpeg')} id="profile-pic" sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }}>
+                        <IconButton component="span" disableRipple onClick={event => event.stopPropagation()}>
+                            <Avatar src={require('../assets/images/profile_image.jpeg')} id="profile-pic" sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }}>
                             </Avatar>
                         </IconButton>
                     </label>
@@ -199,13 +201,13 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', borderRadius: '5px', boxShadow: 24, p: 4 }}>
+                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: { md: 400, xs: 20}, bgcolor: 'background.paper', borderRadius: '5px', boxShadow: 24, p: 4 }}>
                         <Typography id="modal-modal-title" variant="h6" component="h2" textAlign='center'>
                             Pick Theme
                         </Typography>
                         <Box sx={{ display: 'flex', width: '80%' }}>
                             {themes.map(theme => {
-                                return (<Box onClick={event => handleColorPicker(event, theme)} id="modal-modal-description" bgcolor={`${theme}.main`} sx={{ m: 2, minWidth: '60px', minHeight: '60px', border: '5px', bordercolor: 'background.paper', borderRadius: '5px', boxShadow: 8, }}>
+                                return (<Box key={theme} onClick={event => handleColorPicker(event, theme)} id="modal-modal-description" bgcolor={`${theme}.main`} sx={{ m: 2, minWidth: '60px', minHeight: '60px', border: '5px', bordercolor: 'background.paper', borderRadius: '5px', boxShadow: 8, }}>
                                 </Box>);
                             })}
                         </Box>
@@ -249,7 +251,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
                                             formState[`icon${i}`] === "Facebook" ?
                                                 <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
                                                 :
-                                                <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                                                <BuildCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
                                     }
                                     <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
                                         <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
@@ -261,23 +263,26 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState }) => {
                             }
                         </Grid>
                     ))}
+                    <Grid item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                        <Button disableRipple sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                            <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                            <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>Create New Link Slot</Typography>
+                            </div>
+                            <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word' }}>Diversify Your Portfolio</Typography>
+                            </div>
+                        </Button>
+                    </Grid>
                 </Grid>
                 <Button variant='contained' type='submit' color={currentColor} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
-            {Object.keys(billingFormState).length === 0 ?
-                <Fragment>
-                    <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want to buy more slots? Purchase one of our premium options instead.</Typography>
-                    <Link to='/' style={{ textDecoration: "none" }}>
-                        <Button variant='contained' color={currentColor} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
-                    </Link>
-                </Fragment>
-                :
-                <Fragment>
-                    <Link to='/' style={{ textDecoration: "none" }}>
-                        <Button variant='contained' color={currentColor} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Back to Home</Button>
-                    </Link>
-                </Fragment>
-            }
+            <Fragment>
+                <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want to buy more slots? Purchase one of our premium options instead.</Typography>
+                <Link to='/' style={{ textDecoration: "none" }}>
+                    <Button variant='contained' color={currentColor} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
+                </Link>
+            </Fragment>
         </Fragment>
     );
 }

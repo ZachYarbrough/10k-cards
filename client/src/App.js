@@ -21,13 +21,14 @@ const App = () => {
   const [billingFormState, setBillingFormState] = useState({});
   const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
   const [slotsPurchased, setSlotsPurchased] = useState(4);
+  const [cardType, setCardType] = useState('');
   const [sum, setSum] = useState(0);
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path='/edit' element={<Form slotsPurchased={slotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />} />
+          <Route path='/edit' element={<Form slotsPurchased={slotsPurchased} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />} />
           <Route path='/' element={
             <Fragment>
               <Navbar cart={cart} />

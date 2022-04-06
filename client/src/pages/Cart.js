@@ -62,7 +62,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                     </Box>
                     : null}
                 {cart.map((cartItem, index) => {
-                    return (<Box sx={{ width: '80%', mb: 1 }}>
+                    return (<Box sx={{ width: '80%', mb: 1 }} key={index}>
                         {cartItem.name === 'Your Cart is Empty' ?
                             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                 <Typography sx={{ mb: 1, color: 'grey.600' }}>Your Cart is Empty</Typography>
