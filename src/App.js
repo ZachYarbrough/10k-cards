@@ -28,7 +28,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path='/edit' element={<Form slotsPurchased={slotsPurchased} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />} />
+          <Route path='/edit' element={<Form cardType={cardType} slotsPurchased={slotsPurchased} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />} />
           <Route path='/' element={
             <Fragment>
               <Navbar cart={cart} />
@@ -50,7 +50,7 @@ const App = () => {
           <Route path='/checkout' element={
             <Fragment>
               <Navbar cart={cart} />
-              <Billing cart={cart} setCart={setCart} sum={sum} setSum={setSum} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />
+              <Billing cart={cart} setCart={setCart} sum={sum} setSum={setSum} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} setCardType={setCardType} cardType={cardType} />
             </Fragment>
           } />
         </Routes>
