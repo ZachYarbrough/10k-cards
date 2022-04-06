@@ -15,21 +15,6 @@ const Billing = ({ cart, setCart, sum, setSum, setSlotsPurchased, billingFormSta
 
     });
 
-    const handleCheckout = () => {
-        if (cart.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
-            setCardType('Basic');
-            navigate('/edit');
-        } else if (cart.filter(cartItem => cartItem.name === 'Premium Package').length >= 1) {
-            setCardType('Premium');
-            navigate('/edit');
-        } else if (cart.filter(cartItem => cartItem.name === 'Gold Package').length >= 1) {
-            setCardType('Gold');
-            navigate('/edit');
-        }
-        setCart([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
-        setSum(0);
-    }
-
     const handleChange = (event) => {
         const { name, value } = event.currentTarget;
 
@@ -45,7 +30,7 @@ const Billing = ({ cart, setCart, sum, setSum, setSlotsPurchased, billingFormSta
                 <Typography sx={{ fontSize: '2vh', color: 'grey.600' }}>Total Amount</Typography>
                 <Typography sx={{ fontSize: '4vh', fontWeight: 500 }}>{formatter.format(sum)}</Typography>
             </Box>
-            <form onSubmit={handleCheckout}>
+            <form onSubmit={() => navigate('/receipt')}>
                 <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={{ fontSize: '2vh', color: 'grey.600', flex: '100%' }}>Card Information</Typography>
                     <TextField onChange={handleChange} value={billingFormState[`cardNumber`] || ''} name={`cardNumber`} label="Card Number" size="small" placeholder="1234 1234 1234 1234" fullWidth sx={{ my: 1 }}></TextField>
