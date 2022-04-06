@@ -43,7 +43,7 @@ const FeaturedItems = ({ cart, setCart, sum, setSum }) => {
                 <CardContent>
                     <Typography sx={{ fontSize: 24, mb: 0 }}>Basic Package</Typography>
                     <Typography sx={{ color: 'grey.600', mb: 1 }}>$100 USD</Typography>
-                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2 }}>Includes 10 Links</Typography>
+                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 4.5 }}>Includes 10 Links</Typography>
                     <Button variant='contained' color='secondary' onClick={() => handleCart('Basic Package', 'Includes 10 Links', 100)}>Buy Now</Button>
                 </CardContent>
             </Card>

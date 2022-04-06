@@ -55,9 +55,12 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                 {cart[0].name !== 'Your Cart is Empty' ?
                     <Box width='80%' sx={{ mb: 1, pb: 1, borderBottom: 1, borderColor: 'grey.500' }}>
                         <Typography variant='h1' sx={{ fontSize: '4vh', fontWeight: 500 }}>Your Cart</Typography>
-                        <Box sx={{ display: 'flex', color: 'grey.600', ml: 1, mr: 2, justifyContent: 'space-between' }}>
+                        <Box sx={{ display: 'flex', color: 'grey.600', ml: 1, mr: 2, justifyContent: 'space-between', }}>
                             <Typography>Item</Typography>
-                            <Typography>Price</Typography>
+                            <Box sx={{ display: 'flex' }}>
+                                <Typography sx={{ mr: 7.5, display: { xs: 'none', md: 'block'} }}>Quantity</Typography>
+                                <Typography>Price</Typography>
+                            </Box>
                         </Box>
                     </Box>
                     : null}
@@ -71,7 +74,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                             (index % 2) !== 0 && cartItem.name !== 'Your Cart is Empty' ?
                                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: "row" }, justifyContent: 'space-between', bgcolor: 'grey.200' }}>
                                     <Box sx={{ px: 1, flex: 6 }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', my: { xs: 1 } }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', mt: { xs: 1 } }}>
                                             <Box sx={{ display: 'flex', alignItems: 'end' }}>
                                                 <Typography>{cartItem.name}</Typography>
                                                 <Typography sx={{ ml: 1, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>
@@ -101,7 +104,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                                 :
                                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: "row" }, justifyContent: 'space-between' }}>
                                     <Box sx={{ px: 1, flex: 6 }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', my: { xs: 1 } }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', mt: { xs: 1 } }}>
                                             <Box sx={{ display: 'flex', alignItems: 'end' }}>
                                                 <Typography>{cartItem.name}</Typography>
                                                 <Typography sx={{ ml: 1, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>

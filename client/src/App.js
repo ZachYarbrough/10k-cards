@@ -4,6 +4,7 @@ import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Billing from './pages/Billing';
+import Receipt from './pages/Receipt';
 
 import { useState, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -51,6 +52,12 @@ const App = () => {
             <Fragment>
               <Navbar cart={cart} />
               <Billing cart={cart} setCart={setCart} sum={sum} setSum={setSum} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} setCardType={setCardType} cardType={cardType} />
+            </Fragment>
+          } />
+          <Route path='/receipt' element={
+            <Fragment>
+              <Navbar cart={cart} />
+              <Receipt cart={cart} setCart={setCart} sum={sum} setSum={setSum} setCardType={setCardType} />
             </Fragment>
           } />
         </Routes>
