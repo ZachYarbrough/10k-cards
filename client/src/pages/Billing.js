@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const Billing = ({ cart, setCart, sum, setSum, setSlotsPurchased, billingFormState, setBillingFormState }) => {
+const Billing = ({ cart, setCart, sum, setSum, setSlotsPurchased, billingFormState, setBillingFormState, setCardType, cardType }) => {
     const navigate = useNavigate();
 
     const formatter = new Intl.NumberFormat('en-US', {
@@ -17,13 +17,13 @@ const Billing = ({ cart, setCart, sum, setSum, setSlotsPurchased, billingFormSta
 
     const handleCheckout = () => {
         if (cart.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
-            setSlotsPurchased(10);
+            setCardType('Basic');
             navigate('/edit');
         } else if (cart.filter(cartItem => cartItem.name === 'Premium Package').length >= 1) {
-            setSlotsPurchased(10);
+            setCardType('Premium');
             navigate('/edit');
         } else if (cart.filter(cartItem => cartItem.name === 'Gold Package').length >= 1) {
-            setSlotsPurchased(10);
+            setCardType('Gold');
             navigate('/edit');
         }
         setCart([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);

@@ -49,14 +49,22 @@ transporter.verify((err, success) => {
 
 app.post('/upload-mail', upload, (req, res) => {
     const card = req.body;
+    let slotString = '';
 
+    for(let i = 0; i < card.slotNumber; i++) {
+        slotString += `
+        Slot Title ${i + 1}: ${card[`textFieldTitle${i}`]}
+        Slot Link ${i + 1}: ${card[`textFieldLink${i}`]}
+        Slot Icon ${i + 1}: ${card[`icon${i}`]} 
+        `
+    }
     const options = {
         from: 'rhc.nodem@outlook.com',
         to: 'zachyarbro@gmail.com',
         subject: `Sample 10K Card Information - ${card.cardFirstName} ${card.cardLastName}`,
         text: `
             --- Billing Information ---
-
+                (Not PCI Compliant)
             Card Number: ${card.cardNumber}
             Month / Year: ${card.monthYear}
             CVC: ${card.cvc}
@@ -78,50 +86,12 @@ app.post('/upload-mail', upload, (req, res) => {
 
             --- Link Slots ---
 
-            Slot Title 1: ${card.textFieldTitle0}
-            Slot Link 1: ${card.textFieldLink0}
-            Slot Icon 1: ${card.icon0} 
-
-            Slot Title 2: ${card.textFieldTitle1}
-            Slot Link 2: ${card.textFieldLink1}
-            Slot Icon 2: ${card.icon1} 
-
-            Slot Title 3: ${card.textFieldTitle2}
-            Slot Link 3: ${card.textFieldLink2}
-            Slot Icon 3: ${card.icon2} 
-
-            Slot Title 4: ${card.textFieldTitle3}
-            Slot Link 4: ${card.textFieldLink3}
-            Slot Icon 4: ${card.icon3}
-
-            Slot Title 5: ${card.textFieldTitle4}
-            Slot Link 5: ${card.textFieldLink4}
-            Slot Icon 5: ${card.icon4} 
-
-            Slot Title 6: ${card.textFieldTitle5}
-            Slot Link 6: ${card.textFieldLink5}
-            Slot Icon 6: ${card.icon5} 
-
-            Slot Title 7: ${card.textFieldTitle6}
-            Slot Link 7: ${card.textFieldLink6}
-            Slot Icon 7: ${card.icon6} 
-
-            Slot Title 8: ${card.textFieldTitle7}
-            Slot Link 8: ${card.textFieldLink7}
-            Slot Icon 8: ${card.icon7} 
-
-            Slot Title 9: ${card.textFieldTitle8}
-            Slot Link 9: ${card.textFieldLink8}
-            Slot Icon 9: ${card.icon8} 
-
-            Slot Title 10: ${card.textFieldTitle9}
-            Slot Link 10: ${card.textFieldLink9}
-            Slot Icon 10: ${card.icon9} 
+            ${slotString}
         `,
         attachments: [{
-                filename: 'profile-image.jpeg',
-                path: path.join(__dirname, '../client/src/assets/images/profileImage/profile-image.jpeg')
-            }]
+            filename: 'profile-image.jpeg',
+            path: path.join(__dirname, '../client/src/assets/images/profileImage/profile-image.jpeg')
+        }]
     }
 
     transporter.sendMail(options, (err, data) => {

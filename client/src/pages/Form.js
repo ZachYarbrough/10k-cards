@@ -124,6 +124,8 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
             formData.append('phone', billingFormState.phone)
         }
 
+        formData.append('slotNumber', slotsPurchased);
+
         const postData = async () => {
             const res = await fetch('http://localhost:3001/upload-mail', {
                 method: 'POST',
@@ -164,6 +166,16 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         })
     }
 
+    const handleCreatSlot = event => {
+        event.preventDefault();
+        setInputField('');
+        if (cardType === 'Basic' && slotsPurchased < 10) {
+            setSlotsPurchased(slotsPurchased = slotsPurchased + 1);
+        } else if (cardType === 'Premium' || cardType === 'Gold') {
+            setSlotsPurchased(slotsPurchased = slotsPurchased + 1);
+        }
+    }
+
     return (
         <Fragment>
             <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
@@ -201,7 +213,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: { md: 400, xs: 20}, bgcolor: 'background.paper', borderRadius: '5px', boxShadow: 24, p: 4 }}>
+                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: { md: 400, xs: 20 }, bgcolor: 'background.paper', borderRadius: '5px', boxShadow: 24, p: 4 }}>
                         <Typography id="modal-modal-title" variant="h6" component="h2" textAlign='center'>
                             Pick Theme
                         </Typography>
@@ -225,8 +237,8 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                                             id={`icon${i}`}
                                             value={formState[`icon${i}`] || ''}
                                             label="icon"
-                                            autowidth
                                             size="small"
+                                            autoWidth
                                             onChange={event => handleSelect(event, i)}
                                         >
                                             <MenuItem value="">
@@ -263,17 +275,21 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                             }
                         </Grid>
                     ))}
-                    <Grid item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
-                        <Button disableRipple sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
-                            <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
-                            <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
-                                <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>Create New Link Slot</Typography>
-                            </div>
-                            <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
-                                <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word' }}>Diversify Your Portfolio</Typography>
-                            </div>
-                        </Button>
-                    </Grid>
+                    {cardType === 'Basic' && slotsPurchased >= 10 || cardType === '' ?
+                        null
+                        :
+                        <Grid item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                            <Button onClick={event => handleCreatSlot(event)} disableRipple sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                                <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                                <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                    <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>Create New Link Slot</Typography>
+                                </div>
+                                <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                    <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word', mb: '1.5vh' }}></Typography>
+                                </div>
+                            </Button>
+                        </Grid>
+                    }
                 </Grid>
                 <Button variant='contained' type='submit' color={currentColor} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
