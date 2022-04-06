@@ -11,7 +11,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
+import BrushIcon from '@mui/icons-material/Brush';
 
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
@@ -21,6 +21,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
+import Brush from '@mui/icons-material/Brush';
 
 const WhiteTextField = styled(TextField)({
     '& label': {
@@ -59,6 +60,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
     const [currentColor, setCurrentColor] = useState('primary');
+    const [removeSlotState, setRemoveSlotState] = useState(false);
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -167,7 +169,22 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         })
     }
 
-    const handleCreatSlot = event => {
+    const handleRemoveSlotToggle = event => {
+        event.preventDefault();
+        setInputField('');
+        setRemoveSlotState(!removeSlotState);
+    }
+
+    const handleRemoveSlot = (event, i) => {
+        event.preventDefault();
+        setInputField('');
+        let newFormState = formState.filter(data => data[i])
+        setFormState({
+            ...newFormState
+        })
+    }
+
+    const handleCreateSlot = event => {
         event.preventDefault();
         setInputField('');
         if (cardType === 'Basic' && slotsPurchased < 10) {
@@ -181,8 +198,8 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         <Fragment>
             <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
                 <Box onClick={handleOpen} sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Box sx={{position: 'absolute', width: '98%', textAlign: 'left', height: '33%'}}>
-                        <AppRegistrationOutlinedIcon sx={{ width: '5vh', height: '5vh', pb: 1, opacity: '.3'  }} />
+                    <Box sx={{ position: 'absolute', width: '98%', textAlign: 'left', height: '33%' }}>
+                        <BrushIcon sx={{ width: '5vh', height: '5vh', pb: 1, opacity: '.3' }} />
                     </Box>
                     <input onClick={event => event.stopPropagation()} type="file" name='image' accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="image-file" />
                     <label htmlFor="image-file">
@@ -257,25 +274,46 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                                     <TextField sx={{ mb: 1 }} onChange={handleChange} size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
                                 </Box>
                                 :
-                                <Button disableRipple className={`${i}`} onClick={(event) => handleInputField(event, i)} sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
-                                    {formState[`icon${i}`] === "LinkedIn" ?
-                                        <LinkedInIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
-                                        :
-                                        formState[`icon${i}`] === "Instagram" ?
-                                            <InstagramIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                removeSlotState ?
+                                    <Button disableRipple className={`${i}`} onClick={(event) => handleRemoveSlot(event, i)} sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                                        {formState[`icon${i}`] === "LinkedIn" ?
+                                            <LinkedInIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
                                             :
-                                            formState[`icon${i}`] === "Facebook" ?
-                                                <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                            formState[`icon${i}`] === "Instagram" ?
+                                                <InstagramIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
                                                 :
-                                                <BuildCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
-                                    }
-                                    <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
-                                        <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
-                                    </div>
-                                    <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
-                                        <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word' }}>{formState[`textFieldLink${i}`] || 'Enter Card Link'}</Typography>
-                                    </div>
-                                </Button>
+                                                formState[`icon${i}`] === "Facebook" ?
+                                                    <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                                    :
+                                                    <BuildCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                                        }
+                                        <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                            <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
+                                        </div>
+                                        <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                            <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word' }}>{formState[`textFieldLink${i}`] || 'Enter Card Link'}</Typography>
+                                        </div>
+                                    </Button>
+                                    :
+                                    <Button disableRipple className={`${i}`} onClick={(event) => handleInputField(event, i)} sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                                        {formState[`icon${i}`] === "LinkedIn" ?
+                                            <LinkedInIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                            :
+                                            formState[`icon${i}`] === "Instagram" ?
+                                                <InstagramIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                                :
+                                                formState[`icon${i}`] === "Facebook" ?
+                                                    <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                                    :
+                                                    <BuildCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                                        }
+                                        <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                            <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
+                                        </div>
+                                        <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                            <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word' }}>{formState[`textFieldLink${i}`] || 'Enter Card Link'}</Typography>
+                                        </div>
+                                    </Button>
                             }
                         </Grid>
                     ))}
@@ -283,7 +321,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                         null
                         :
                         <Grid item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
-                            <Button onClick={event => handleCreatSlot(event)} disableRipple sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                            <Button onClick={event => handleCreateSlot(event)} disableRipple sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
                                 <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
                                 <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
                                     <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>Create New Link Slot</Typography>
@@ -295,6 +333,15 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                         </Grid>
                     }
                 </Grid>
+                {slotsPurchased >= 5 ?
+                    removeSlotState ?
+                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} color={currentColor} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Edit Slots</Button>
+                        :
+                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} color='error' sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Remove Slots</Button>
+                    :
+                    null
+                }
+
                 <Button variant='contained' type='submit' color={currentColor} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
             <Fragment>

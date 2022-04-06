@@ -40,27 +40,33 @@ const FeaturedItems = ({ cart, setCart, sum, setSum }) => {
         <Box sx={{ display: 'flex', textAlign: 'center', flexWrap: 'wrap', flexDirection: { xs: 'column', md: 'row' }, width: '100%', my: 5, py: 5, bgcolor: 'grey.100' }}>
             {pathArray[pathArray.length - 1] === 'cart' ? <Typography sx={{ flex: '100%', fontSize: '4vh', fontWeight: 500, mb: 2 }}>Featured Items</Typography> : null}
             <Card sx={{ flexGrow: 1, width: { md: 120 }, mr: { md: 1 }, my: 1, ml: { md: '10%' }, mx: { xs: '10%' } }}>
-                <CardContent>
+                <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Box>
                     <Typography sx={{ fontSize: 24, mb: 0 }}>Basic Package</Typography>
                     <Typography sx={{ color: 'grey.600', mb: 1 }}>$100 USD</Typography>
-                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 4.5 }}>Includes 10 Links</Typography>
-                    <Button variant='contained' color='secondary' onClick={() => handleCart('Basic Package', 'Includes 10 Links', 100)}>Buy Now</Button>
+                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2, height: { lg: '6vh', md: '10vh', xs: '5vh' } }}>Includes 10 Links</Typography>
+                    </Box>
+                    <Button variant='contained' color='secondary' sx={{ width: '120px'}} onClick={() => handleCart('Basic Package', 'Includes 10 Links', 100)}>Buy Now</Button>
                 </CardContent>
             </Card>
             <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, mx: { xs: '10%' } }}>
-                <CardContent>
-                    <Typography sx={{ fontSize: 24, mb: 0 }}>Premium Package</Typography>
-                    <Typography sx={{ color: 'grey.600', mb: 1 }}>$300 USD</Typography>
-                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2 }}>Includes Unlimited Links | Custom Domain Name | 20% from Referrals</Typography>
-                    <Button variant='contained' color='secondary' onClick={() => handleCart('Premium Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals', 300)}>Buy Now</Button>
+                <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Box>
+                        <Typography sx={{ fontSize: 24, mb: 0 }}>Premium Package</Typography>
+                        <Typography sx={{ color: 'grey.600', mb: 1 }}>$300 USD</Typography>
+                        <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2, height: { lg: '6vh', md: '10vh', xs: '5vh' } }}>Includes Unlimited Links | Custom Domain Name | 20% from Referrals</Typography>
+                    </Box>
+                    <Button variant='contained' color='secondary' sx={{ width: '120px'}} onClick={() => handleCart('Premium Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals', 300)}>Buy Now</Button>
                 </CardContent>
             </Card>
             <Card sx={{ flexGrow: 1, width: { md: 120 }, ml: { md: 1 }, my: 1, mr: { md: '10%' }, mx: { xs: '10%' } }}>
-                <CardContent>
-                    <Typography sx={{ fontSize: 24, mb: 0 }}>Gold Package</Typography>
-                    <Typography sx={{ color: 'grey.600', mb: 1 }}>$500 USD</Typography>
-                    <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2 }}>Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds</Typography>
-                    <Button variant='contained' color='secondary' onClick={() => handleCart('Gold Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds', 500)}>Buy Now</Button>
+                <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Box>
+                        <Typography sx={{ fontSize: 24, mb: 0 }}>Gold Package</Typography>
+                        <Typography sx={{ color: 'grey.600', mb: 1 }}>$500 USD</Typography>
+                        <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2, height: { lg: '6vh', md: '10vh', xs: '5vh' } }}>Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds</Typography>
+                    </Box>
+                    <Button variant='contained' color='secondary' sx={{ width: '120px'}} onClick={() => handleCart('Gold Package', 'Includes Unlimited Links | Custom Domain Name | 20% from Referrals | 2 Blue Diamonds', 500)}>Buy Now</Button>
                 </CardContent>
             </Card>
         </Box>
