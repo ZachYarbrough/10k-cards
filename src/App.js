@@ -51,7 +51,7 @@ const App = () => {
           <Route path='/checkout' element={
             <Fragment>
               <Navbar cart={cart} />
-              <Billing cart={cart} setCart={setCart} sum={sum} setSum={setSum} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} setCardType={setCardType} cardType={cardType} />
+                <Billing sum={sum} setSum={setSum} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />
             </Fragment>
           } />
           <Route path='/receipt' element={
