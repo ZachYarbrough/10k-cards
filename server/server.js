@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
 const fs = require('fs');
 const path = require('path');
 var cors = require('cors')
 const nodemailer = require('nodemailer');
 const multer = require('multer');
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, '../client/src/assets/images/profileImage'));
@@ -45,7 +47,6 @@ transporter.verify((err, success) => {
     }
     console.log('Server is ready to send emails!')
 })
-
 
 app.post('/upload-mail', upload, (req, res) => {
     const card = req.body;
@@ -103,6 +104,17 @@ app.post('/upload-mail', upload, (req, res) => {
     });
     res.json(card)
 });
+
+app.post('/payment-intent', async (req, res) => {
+    const { amount } = req.body;
+
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount,
+        currency: 'usd'
+    })
+
+    res.status(200).send(paymentIntent.client_secret);
+})
 
 // Start the API server
 app.listen(PORT, () =>
