@@ -12,6 +12,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import PaletteIcon from '@mui/icons-material/Palette';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
@@ -101,15 +102,19 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
     const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
-    const [currentColor, setCurrentColor] = useState({ theme: 'darkBlue', primaryColor: 'linear-gradient(45deg, rgb(2, 27, 121), rgb(5, 117, 230))', buttonColor: 'linear-gradient(-45deg, rgb(2, 27, 121), rgb(5, 117, 230))', secondaryColor: 'rgba(255, 255, 255, 0.23)' });
+    const [currentColor, setCurrentColor] = useState({ name: 'orange', primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))', buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))' });
     const [removeSlotState, setRemoveSlotState] = useState(false);
-
     const [open, setOpen] = useState(false);
+
     const handleOpen = () => {
         setInputField('');
         setOpen(true);
     };
     const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+        if(slotsPurchased <= 4) setRemoveSlotState(false);
+    }, [slotsPurchased]);
 
     const handleInputField = (event, i) => {
         event.stopPropagation();
@@ -193,7 +198,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
 
     const handleColorPicker = (event, themeName) => {
         event.preventDefault();
-        const newTheme = themes.filter(themeEl => themeEl.name === themeName );
+        const newTheme = themes.filter(themeEl => themeEl.name === themeName);
         setCurrentColor({ ...newTheme[0] });
         setOpen(false);
         setFormState({
@@ -219,13 +224,9 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
             delete newFormState[`icon${i}`];
             setSlotsPurchased(slotsPurchased = slotsPurchased - 1);
             gridEl.delete(i);
-            gridEl.parentNode.removeChild(gridEl);
-            console.log(slotsPurchased);
             setFormState({
                 ...newFormState
             })
-        } else {
-            setRemoveSlotState(false);
         }
     }
 
@@ -300,19 +301,9 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                                     <TextField sx={{ mb: 1 }} onChange={handleChange} size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
                                 </Box>
                                 :
-                                removeSlotState ?
+                                removeSlotState && slotsPurchased > 4 ?
                                     <Button disableRipple className={`${i}`} onClick={(event) => handleRemoveSlot(event, i)} sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
-                                        {formState[`icon${i}`] === "LinkedIn" ?
-                                            <LinkedInIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
-                                            :
-                                            formState[`icon${i}`] === "Instagram" ?
-                                                <InstagramIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
-                                                :
-                                                formState[`icon${i}`] === "Facebook" ?
-                                                    <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
-                                                    :
-                                                    <BuildCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
-                                        }
+                                        <RemoveCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
                                         <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
                                             <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
                                         </div>
