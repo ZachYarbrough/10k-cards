@@ -14,11 +14,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import PaletteIcon from '@mui/icons-material/Palette';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
-import Brush from '@mui/icons-material/Brush';
 
 const WhiteTextField = styled(TextField)({
     '& label': {
@@ -99,7 +97,6 @@ const themes = [
 ];
 
 const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsPurchased, cardType }) => {
-    const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
     const [currentColor, setCurrentColor] = useState({ name: 'orange', primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))', buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))' });
@@ -113,7 +110,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
-        if(slotsPurchased <= 4) setRemoveSlotState(false);
+        if (slotsPurchased <= 4) setRemoveSlotState(false);
     }, [slotsPurchased]);
 
     const handleInputField = (event, i) => {
@@ -364,9 +361,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
             </form>
             <Fragment>
                 <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want more slots? Purchase one of our deluxe offers instead.</Typography>
-                <Link to='/' style={{ textDecoration: "none" }}>
-                    <Button variant='contained' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
-                </Link>
+                <Button variant='contained' onClick={() => window.location.replace("/#products")} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
             </Fragment>
         </Fragment>
     );
