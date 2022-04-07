@@ -51,9 +51,9 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
                             <Box sx={{ display: 'flex', flexDirection: "row", justifyContent: 'space-between', bgcolor: 'grey.200' }}>
                                 <Box sx={{ px: 1, flex: 6 }}>
                                     <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', mt: { xs: 1 } }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'end' }}>
+                                        <Box sx={{ display: 'flex', flexDirection: { md: 'row', xs: 'column' }, alignItems: { md: 'end', xs: 'start' } }}>
                                             <Typography>{cartItem.name}</Typography>
-                                            <Typography sx={{ ml: 1, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>
+                                            <Typography sx={{ ml: { md: 1, xs: 0 }, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>
                                         </Box>
                                     </Box>
                                     <Typography sx={{ color: 'grey.600', fontSize: 14 }}>{cartItem.description}</Typography>
@@ -70,9 +70,9 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
                             <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Box sx={{ px: 1, flex: 6 }}>
                                     <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', mt: { xs: 1 } }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'end' }}>
+                                        <Box sx={{ display: 'flex', flexDirection: { md: 'row', xs: 'column' }, alignItems: { md: 'end', xs: 'start' } }}>
                                             <Typography>{cartItem.name}</Typography>
-                                            <Typography sx={{ ml: 1, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>
+                                            <Typography sx={{ ml: { md: 1, xs: 0 }, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>
                                         </Box>
                                     </Box>
                                     <Typography sx={{ color: 'grey.600', fontSize: 14 }}>{cartItem.description}</Typography>
@@ -90,11 +90,11 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
                 </Box>);
             })
             }
-            <Box sx={{ textAlign: 'right', mx: 2 }}>
-                <Typography sx={{ fontSize: '2vh', color: 'grey.600' }}>Total Amount</Typography>
-                <Typography sx={{ fontSize: '3vh', fontWeight: 500 }}>{formatter.format(sum)}</Typography>
+            <Box sx={{ textAlign: 'right', mx: 1, borderTop: 1 }}>
+                <Typography sx={{ fontSize: '2vh', color: 'grey.600', mt: 1, mr: 1 }}>Total Amount</Typography>
+                <Typography sx={{ fontSize: '3vh', fontWeight: 500, mr: 1 }}>{formatter.format(sum)}</Typography>
             </Box>
-            <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ textAlign: 'center', mt: 3 }}>
                 <Button variant="contained" color="secondary" onClick={() => handleCheckout()}>Create your Card</Button>
             </Box>
         </Box>
