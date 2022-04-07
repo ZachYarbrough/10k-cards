@@ -11,12 +11,8 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import BrushIcon from '@mui/icons-material/Brush';
+import PaletteIcon from '@mui/icons-material/Palette';
 
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
@@ -142,7 +138,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         formData.append('firstName', formState.firstName || 'No Entry');
         formData.append('lastName', formState.lastName || 'No Entry');
         formData.append('title', formState.title || 'No Entry');
-        formData.append('theme', formState.theme.name || 'darkBlue');
+        formData.append('theme', formState.theme || 'orange');
 
         for (let i = 0; i < slotsPurchased; i++) {
             formData.append(`textFieldTitle${i}`, formState[`textFieldTitle${i}`] || 'No Entry');
@@ -199,11 +195,10 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         event.preventDefault();
         const newTheme = themes.filter(themeEl => themeEl.name === themeName );
         setCurrentColor({ ...newTheme[0] });
-        console.log(currentColor);
         setOpen(false);
         setFormState({
             ...formState,
-            ['theme']: currentColor.name
+            ['theme']: themeName
         })
     }
 
@@ -249,7 +244,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
             <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
                 <Box onClick={handleOpen} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Box sx={{ position: 'absolute', width: '98%', textAlign: 'left', height: '33%' }}>
-                        <BrushIcon sx={{ width: '5vh', height: '5vh', pb: 1, opacity: '.3' }} />
+                        <PaletteIcon sx={{ width: '5vh', height: '5vh', pb: 1, opacity: '.3' }} />
                     </Box>
                     <input onClick={event => event.stopPropagation()} type="file" name='image' accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="image-file" />
                     <label htmlFor="image-file">
@@ -369,19 +364,19 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                 </Grid>
                 {slotsPurchased >= 5 ?
                     removeSlotState ?
-                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} style={{ color: 'white' }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Edit Slots</Button>
+                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Edit Slots</Button>
                         :
-                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} color='error' sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Remove Slots</Button>
+                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Remove Slots</Button>
                     :
                     null
                 }
 
-                <Button variant='contained' type='submit' style={{ color: 'white', backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
+                <Button variant='contained' type='submit' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
             <Fragment>
                 <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want to buy more slots? Purchase one of our premium options instead.</Typography>
                 <Link to='/' style={{ textDecoration: "none" }}>
-                    <Button variant='contained' style={{ color: 'white', backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
+                    <Button variant='contained' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
                 </Link>
             </Fragment>
         </Fragment>
