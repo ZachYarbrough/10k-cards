@@ -53,7 +53,7 @@ const Navbar = ({ cart }) => {
         window.scrollTo(0, 0);
         switch (btnText) {
             case 'Products':
-                navigate('/#products');
+                window.location.replace("/#products");
                 handleCloseUserMenu();
                 break;
             case '10K Zipcodes':
