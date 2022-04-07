@@ -178,10 +178,22 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
     const handleRemoveSlot = (event, i) => {
         event.preventDefault();
         setInputField('');
-        let newFormState = formState.filter(data => data[i])
-        setFormState({
-            ...newFormState
-        })
+        if (slotsPurchased > 4) {
+            let gridEl = document.querySelector(`#container${i}`)
+            let newFormState = formState
+            delete newFormState[`textFieldTitle${i}`];
+            delete newFormState[`textFieldLink${i}`];
+            delete newFormState[`icon${i}`];
+            setSlotsPurchased(slotsPurchased = slotsPurchased - 1);
+            gridEl.delete(i);
+            gridEl.parentNode.removeChild(gridEl);
+            console.log(slotsPurchased);
+            setFormState({
+                ...newFormState
+            })
+        } else {
+            setRemoveSlotState(false);
+        }
     }
 
     const handleCreateSlot = event => {
@@ -248,7 +260,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                 </Modal>
                 <Grid container sx={{ width: '100%' }}>
                     {[...Array(slotsPurchased)].map((e, i) => (
-                        <Grid key={i} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                        <Grid key={i} id={`container${i}`} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
                             {inputField === i ?
                                 <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '105%', color: 'black' }}>
                                     <FormControl sx={{ minWidth: { md: 195, xs: 155 } }}>
