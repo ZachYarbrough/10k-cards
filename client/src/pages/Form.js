@@ -263,25 +263,6 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                         <Grid key={i} id={`container${i}`} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
                             {inputField === i ?
                                 <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '105%', color: 'black' }}>
-                                    <FormControl sx={{ minWidth: { md: 195, xs: 155 } }}>
-                                        <InputLabel id={`icon-label${i}`}>Icon</InputLabel>
-                                        <Select
-                                            labelId={`icon-label${i}`}
-                                            id={`icon${i}`}
-                                            value={formState[`icon${i}`] || ''}
-                                            label="icon"
-                                            size="small"
-                                            autoWidth
-                                            onChange={event => handleSelect(event, i)}
-                                        >
-                                            <MenuItem value="">
-                                                <em>None</em>
-                                            </MenuItem>
-                                            <MenuItem value={"LinkedIn"}>LinkedIn</MenuItem>
-                                            <MenuItem value={"Instagram"}>Instagram</MenuItem>
-                                            <MenuItem value={"Facebook"}>Facebook</MenuItem>
-                                        </Select>
-                                    </FormControl>
                                     <TextField sx={{ my: 1 }} onChange={handleChange} size="small" value={formState[`textFieldTitle${i}`] || ''} name={`textFieldTitle${i}`} label="Title" placeholder='Enter Title' />
                                     <TextField sx={{ mb: 1 }} onChange={handleChange} size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
                                 </Box>
@@ -308,16 +289,19 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                                     </Button>
                                     :
                                     <Button disableRipple className={`${i}`} onClick={(event) => handleInputField(event, i)} sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
-                                        {formState[`icon${i}`] === "LinkedIn" ?
-                                            <LinkedInIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
-                                            :
-                                            formState[`icon${i}`] === "Instagram" ?
-                                                <InstagramIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                        {formState[`textFieldLink${i}`] ?
+                                            formState[`textFieldLink${i}`].toLowerCase().includes('linkedin') ?
+                                                <LinkedInIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
                                                 :
-                                                formState[`icon${i}`] === "Facebook" ?
-                                                    <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                                formState[`textFieldLink${i}`].toLowerCase().includes('instagram') ?
+                                                    <InstagramIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
                                                     :
-                                                    <BuildCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                                                    formState[`textFieldLink${i}`].toLowerCase().includes('facebook') ?
+                                                        <FacebookIcon sx={{ width: '5vh', height: '5vh', pb: 1 }} />
+                                                        :
+                                                        <BuildCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                                            :
+                                            <BuildCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
                                         }
                                         <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
                                             <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>{formState[`textFieldTitle${i}`] || 'Enter Card Title'}</Typography>
