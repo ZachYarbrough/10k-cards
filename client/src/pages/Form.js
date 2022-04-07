@@ -53,13 +53,59 @@ const WhiteTextField = styled(TextField)({
     }
 });
 
-const themes = ['primary', 'error'];
+const themes = [
+    {
+        name: 'orange',
+        primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))',
+        buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))'
+    },
+    {
+        name: 'green',
+        primaryColor: 'linear-gradient(45deg, rgb(67, 233, 123), rgb(56, 249, 215))',
+        buttonColor: 'linear-gradient(-45deg, rgb(67, 233, 123), rgb(56, 249, 215))'
+    },
+    {
+        name: 'purple',
+        primaryColor: 'linear-gradient(45deg, rgb(95, 114, 189), rgb(155, 35, 234))',
+        buttonColor: 'linear-gradient(-45deg, rgb(95, 114, 189), rgb(155, 35, 234))'
+    },
+    {
+        name: 'red',
+        primaryColor: 'linear-gradient(45deg, rgb(147, 41, 30), rgb(237, 33, 58))',
+        buttonColor: 'linear-gradient(-45deg, rgb(147, 41, 30), rgb(237, 33, 58))'
+    },
+    {
+        name: 'pink',
+        primaryColor: 'linear-gradient(45deg, rgb(255, 117, 140), rgb(255, 126, 179))',
+        buttonColor: 'linear-gradient(-45deg, rgb(255, 117, 140), rgb(255, 126, 179))'
+    },
+    {
+        name: 'blue',
+        primaryColor: 'linear-gradient(45deg, rgb(0, 91, 234), rgb(0, 198, 251))',
+        buttonColor: 'linear-gradient(-45deg, rgb(0, 91, 234), rgb(0, 198, 251))'
+    },
+    {
+        name: 'darkBlue',
+        primaryColor: 'linear-gradient(45deg, rgb(2, 27, 121), rgb(5, 117, 230))',
+        buttonColor: 'linear-gradient(-45deg, rgb(2, 27, 121), rgb(5, 117, 230))'
+    },
+    {
+        name: 'black',
+        primaryColor: 'linear-gradient(45deg, rgb(35, 37, 38), rgb(65, 67, 69))',
+        buttonColor: 'linear-gradient(-45deg, rgb(35, 37, 38), rgb(65, 67, 69))'
+    },
+    {
+        name: 'silver',
+        primaryColor: 'linear-gradient(45deg, rgb(189, 195, 199), rgb(44, 62, 80))',
+        buttonColor: 'linear-gradient(-45deg, rgb(189, 195, 199), rgb(44, 62, 80))'
+    }
+];
 
 const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsPurchased, cardType }) => {
     const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
-    const [currentColor, setCurrentColor] = useState('primary');
+    const [currentColor, setCurrentColor] = useState({ theme: 'darkBlue', primaryColor: 'linear-gradient(45deg, rgb(2, 27, 121), rgb(5, 117, 230))', buttonColor: 'linear-gradient(-45deg, rgb(2, 27, 121), rgb(5, 117, 230))', secondaryColor: 'rgba(255, 255, 255, 0.23)' });
     const [removeSlotState, setRemoveSlotState] = useState(false);
 
     const [open, setOpen] = useState(false);
@@ -84,15 +130,6 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         })
     }
 
-    const handleSelect = (event, i) => {
-        const { value } = event.target;
-
-        setFormState({
-            ...formState,
-            [`icon${i}`]: value
-        })
-    }
-
     const handleSubmit = (event) => {
         event.preventDefault();
         setInputField('');
@@ -105,12 +142,11 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         formData.append('firstName', formState.firstName || 'No Entry');
         formData.append('lastName', formState.lastName || 'No Entry');
         formData.append('title', formState.title || 'No Entry');
-        formData.append('theme', formState.theme || 'primary');
+        formData.append('theme', formState.theme.name || 'darkBlue');
 
         for (let i = 0; i < slotsPurchased; i++) {
             formData.append(`textFieldTitle${i}`, formState[`textFieldTitle${i}`] || 'No Entry');
             formData.append(`textFieldLink${i}`, formState[`textFieldLink${i}`] || 'No Entry');
-            formData.append(`icon${i}`, formState[`icon${i}`] || 'No Entry');
         }
 
         // Remove this once paypal is integrated
@@ -159,13 +195,15 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         });
     }
 
-    const handleColorPicker = (event, theme) => {
+    const handleColorPicker = (event, themeName) => {
         event.preventDefault();
-        setCurrentColor(theme);
+        const newTheme = themes.filter(themeEl => themeEl.name === themeName );
+        setCurrentColor({ ...newTheme[0] });
+        console.log(currentColor);
         setOpen(false);
         setFormState({
             ...formState,
-            ['theme']: theme
+            ['theme']: currentColor.name
         })
     }
 
@@ -209,14 +247,14 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
     return (
         <Fragment>
             <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
-                <Box onClick={handleOpen} sx={{ bgcolor: `${currentColor}.main`, width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Box onClick={handleOpen} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Box sx={{ position: 'absolute', width: '98%', textAlign: 'left', height: '33%' }}>
                         <BrushIcon sx={{ width: '5vh', height: '5vh', pb: 1, opacity: '.3' }} />
                     </Box>
                     <input onClick={event => event.stopPropagation()} type="file" name='image' accept="image/*" style={{ visibility: 'hidden' }} onChange={(event) => handleProfilePicture(event)} id="image-file" />
                     <label htmlFor="image-file">
                         <IconButton component="span" disableRipple onClick={event => event.stopPropagation()}>
-                            <Avatar src={require('../assets/images/profile_image.jpeg')} id="profile-pic" sx={{ border: 5, borderColor: `${currentColor}.light`, width: '15vh', height: '15vh', mb: 1 }}>
+                            <Avatar src={require('../assets/images/profile_image.jpeg')} id="profile-pic" style={{ borderColor: 'rgba(255, 255, 255, 0.23)' }} sx={{ border: 5, width: '15vh', height: '15vh', mb: 1 }}>
                             </Avatar>
                         </IconButton>
                     </label>
@@ -250,9 +288,9 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                         <Typography id="modal-modal-title" variant="h6" component="h2" textAlign='center'>
                             Pick Theme
                         </Typography>
-                        <Box sx={{ display: 'flex', width: '80%' }}>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
                             {themes.map(theme => {
-                                return (<Box key={theme} onClick={event => handleColorPicker(event, theme)} id="modal-modal-description" bgcolor={`${theme}.main`} sx={{ m: 2, minWidth: '60px', minHeight: '60px', border: '5px', bordercolor: 'background.paper', borderRadius: '5px', boxShadow: 8, }}>
+                                return (<Box key={theme.name} id={theme.name} onClick={event => handleColorPicker(event, theme.name)} style={{ backgroundImage: theme.buttonColor, borderColor: theme.secondaryColor }} sx={{ m: 2, minWidth: '60px', minHeight: '60px', border: '5px', borderRadius: '5px', boxShadow: 8, }}>
                                 </Box>);
                             })}
                         </Box>
@@ -331,19 +369,19 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                 </Grid>
                 {slotsPurchased >= 5 ?
                     removeSlotState ?
-                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} color={currentColor} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Edit Slots</Button>
+                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} style={{ color: 'white' }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Edit Slots</Button>
                         :
                         <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} color='error' sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Remove Slots</Button>
                     :
                     null
                 }
 
-                <Button variant='contained' type='submit' color={currentColor} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
+                <Button variant='contained' type='submit' style={{ color: 'white', backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
             <Fragment>
                 <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want to buy more slots? Purchase one of our premium options instead.</Typography>
                 <Link to='/' style={{ textDecoration: "none" }}>
-                    <Button variant='contained' color={currentColor} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
+                    <Button variant='contained' style={{ color: 'white', backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
                 </Link>
             </Fragment>
         </Fragment>
