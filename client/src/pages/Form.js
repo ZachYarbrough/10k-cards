@@ -223,7 +223,6 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
             delete newFormState[`textFieldLink${i}`];
             delete newFormState[`icon${i}`];
             setSlotsPurchased(slotsPurchased = slotsPurchased - 1);
-            gridEl.delete(i);
             setFormState({
                 ...newFormState
             })
@@ -364,7 +363,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                 <Button variant='contained' type='submit' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
             </form>
             <Fragment>
-                <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want to buy more slots? Purchase one of our premium options instead.</Typography>
+                <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want more slots? Purchase one of our deluxe offers instead.</Typography>
                 <Link to='/' style={{ textDecoration: "none" }}>
                     <Button variant='contained' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
                 </Link>
