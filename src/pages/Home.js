@@ -15,7 +15,7 @@ const Home = ({ cart, setCart, sum, setSum }) => {
     const navigate = useNavigate();
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', width: '100%', minHeight: { xs: '70vh', sm: '60vh'} }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', width: '100%', minHeight: { xs: '70vh'} }}>
             <Typography variant="h1" sx={{ fontSize: { xs: '4vh', md: '5vh' }, fontWeight: 400, mt: 6 }}>The Modern Day Business Card</Typography>
             <Typography variant="h2" sx={{ fontSize: '2vh', fontWeight: '400', mt: 2, mb: 5 }}>The Easiest way to Spread your Name Across the World</Typography>
             <Grid container sx={{ ml: { xs: 0, md: 5 }, mb: 5, width: '70%' }}>

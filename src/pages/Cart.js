@@ -51,7 +51,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
 
     return (
         <Fragment>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', my: 5, minHeight: { xs: '70vh', sm: '60vh'} }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', my: 5, minHeight: { xs: '70vh'} }}>
                 {cart[0].name !== 'Your Cart is Empty' ?
                     <Box width='80%' sx={{ mb: 1, pb: 1, borderBottom: 1, borderColor: 'grey.500' }}>
                         <Typography variant='h1' sx={{ fontSize: '4vh', fontWeight: 500 }}>Your Cart</Typography>
