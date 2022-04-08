@@ -277,11 +277,11 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                 </Modal>
                 <Grid container sx={{ width: '100%' }}>
                     {[...Array(slotsPurchased)].map((e, i) => (
-                        <Grid key={i} id={`container${i}`} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                        <Grid key={i} id={`container${i}`} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }} onClick={() => setInputField('')}>
                             {inputField === i ?
                                 <Box className={`${i}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '105%', color: 'black' }}>
-                                    <TextField sx={{ my: 1 }} onChange={handleChange} size="small" value={formState[`textFieldTitle${i}`] || ''} name={`textFieldTitle${i}`} label="Title" placeholder='Enter Title' />
-                                    <TextField sx={{ mb: 1 }} onChange={handleChange} size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
+                                    <TextField sx={{ my: 1 }} onClick={event => event.stopPropagation()} onChange={handleChange} size="small" value={formState[`textFieldTitle${i}`] || ''} name={`textFieldTitle${i}`} label="Title" placeholder='Enter Title' />
+                                    <TextField sx={{ mb: 1 }} onClick={event => event.stopPropagation()} onChange={handleChange} size="small" value={formState[`textFieldLink${i}`] || ''} name={`textFieldLink${i}`} label="Link" placeholder='Enter Link' />
                                 </Box>
                                 :
                                 removeSlotState && slotsPurchased > 4 ?
@@ -336,21 +336,22 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                         </Grid>
                     }
                 </Grid>
-                {slotsPurchased >= 5 ?
-                    removeSlotState ?
-                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Edit Slots</Button>
+                <Box onClick={() => setInputField('')}>
+                    {slotsPurchased >= 5 ?
+                        removeSlotState ?
+                            <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Edit Slots</Button>
+                            :
+                            <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Remove Slots</Button>
                         :
-                        <Button variant='contained' onClick={(event) => handleRemoveSlotToggle(event)} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Remove Slots</Button>
-                    :
-                    null
-                }
-
-                <Button variant='contained' type='submit' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
+                        null
+                    }
+                    <Button variant='contained' type='submit' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mt: 2, p: 1.5, mb: 2 }}>Submit</Button>
+                </Box>
             </form>
-            <Fragment>
+            <Box onClick={() => setInputField('')}>
                 <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want more slots? Purchase one of our deluxe offers instead.</Typography>
                 <Button variant='contained' onClick={() => window.location.replace("/#products")} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
-            </Fragment>
+            </Box>
         </Fragment>
     );
 }
