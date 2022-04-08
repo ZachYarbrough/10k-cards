@@ -85,8 +85,12 @@ app.post('/upload-mail', upload, (req, res) => {
             return;
         }
         console.log(data.response);
+        fs.copyFile(path.join(__dirname, "../client/src/assets/images/profile_image.jpeg"), path.join(__dirname, "../client/src/assets/images/profileImage/profile-image.jpeg"), (err) => {
+            if (err) throw err;
+          });
     });
-    res.json(card)
+
+    res.json(card);
 });
 
 app.post('/payment-intent', async (req, res) => {
