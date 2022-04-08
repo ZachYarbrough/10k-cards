@@ -93,7 +93,7 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
 
     return (
         <Fragment>
-            <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto' }}>
+            <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', minHeight: { xs: '70vh', sm: '60vh'} }}>
                 <Typography sx={{ fontSize: '2vh', color: 'grey.600' }}>Total Amount</Typography>
                 <Typography sx={{ fontSize: '4vh', fontWeight: 500 }}>{formatter.format(sum)}</Typography>
             </Box>
