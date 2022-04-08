@@ -51,47 +51,47 @@ const WhiteTextField = styled(TextField)({
 
 const themes = [
     {
-        name: 'orange',
+        name: 'Orange',
         primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))',
         buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))'
     },
     {
-        name: 'green',
+        name: 'Green',
         primaryColor: 'linear-gradient(45deg, rgb(67, 233, 123), rgb(56, 249, 215))',
         buttonColor: 'linear-gradient(-45deg, rgb(67, 233, 123), rgb(56, 249, 215))'
     },
     {
-        name: 'purple',
+        name: 'Purple',
         primaryColor: 'linear-gradient(45deg, rgb(95, 114, 189), rgb(155, 35, 234))',
         buttonColor: 'linear-gradient(-45deg, rgb(95, 114, 189), rgb(155, 35, 234))'
     },
     {
-        name: 'red',
+        name: 'Red',
         primaryColor: 'linear-gradient(45deg, rgb(147, 41, 30), rgb(237, 33, 58))',
         buttonColor: 'linear-gradient(-45deg, rgb(147, 41, 30), rgb(237, 33, 58))'
     },
     {
-        name: 'pink',
+        name: 'Pink',
         primaryColor: 'linear-gradient(45deg, rgb(255, 117, 140), rgb(255, 126, 179))',
         buttonColor: 'linear-gradient(-45deg, rgb(255, 117, 140), rgb(255, 126, 179))'
     },
     {
-        name: 'blue',
+        name: 'Blue',
         primaryColor: 'linear-gradient(45deg, rgb(0, 91, 234), rgb(0, 198, 251))',
         buttonColor: 'linear-gradient(-45deg, rgb(0, 91, 234), rgb(0, 198, 251))'
     },
     {
-        name: 'darkBlue',
+        name: 'Dark Blue',
         primaryColor: 'linear-gradient(45deg, rgb(2, 27, 121), rgb(5, 117, 230))',
         buttonColor: 'linear-gradient(-45deg, rgb(2, 27, 121), rgb(5, 117, 230))'
     },
     {
-        name: 'black',
+        name: 'Black',
         primaryColor: 'linear-gradient(45deg, rgb(35, 37, 38), rgb(65, 67, 69))',
         buttonColor: 'linear-gradient(-45deg, rgb(35, 37, 38), rgb(65, 67, 69))'
     },
     {
-        name: 'silver',
+        name: 'Silver',
         primaryColor: 'linear-gradient(45deg, rgb(189, 195, 199), rgb(44, 62, 80))',
         buttonColor: 'linear-gradient(-45deg, rgb(189, 195, 199), rgb(44, 62, 80))'
     }

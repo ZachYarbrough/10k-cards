@@ -56,7 +56,6 @@ app.post('/upload-mail', upload, (req, res) => {
         slotString += `
         Slot Title ${i + 1}: ${card[`textFieldTitle${i}`]}
         Slot Link ${i + 1}: ${card[`textFieldLink${i}`]}
-        Slot Icon ${i + 1}: ${card[`icon${i}`]} 
         `
     }
     const options = {
@@ -64,28 +63,13 @@ app.post('/upload-mail', upload, (req, res) => {
         to: 'zachyarbro@gmail.com',
         subject: `Sample 10K Card Information - ${card.cardFirstName} ${card.cardLastName}`,
         text: `
-            --- Billing Information ---
-                (Not PCI Compliant)
-            Card Number: ${card.cardNumber}
-            Month / Year: ${card.monthYear}
-            CVC: ${card.cvc}
+            --- 10K Card Information ---
 
-            First Name: ${card.cardFirstName}
-            Last Name: ${card.cardLastName}
-            Street Address: ${card.streetAddress}
-            City: ${card.city}
-            State: ${card.state}
-            Zip Code: ${card.zipCode}
-            Phone: ${card.phone}
-
-            --- Card Information ---
-
-            First Name: ${card.firstName} 
-            Last Name: ${card.lastName}
+            Name: ${card.firstName} ${card.lastName}
             Title: ${card.title}
-            theme: ${card.theme}
+            Theme: ${card.theme}
 
-            --- Link Slots ---
+            --- Slot Information ---
 
             ${slotString}
         `,
