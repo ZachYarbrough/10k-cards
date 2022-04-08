@@ -23,6 +23,13 @@ body {
   cursor: pointer
 }
 
+.cardHover:hover {
+  border-color: #212121;
+}
+.cardHover:focus-visible {
+  border-color: #1876d1;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
