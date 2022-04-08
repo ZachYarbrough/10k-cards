@@ -226,7 +226,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
     return (
         <Fragment>
             <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
-                <Box onClick={handleOpen} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Box onClick={handleOpen} className='colorBanner' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Box sx={{ position: 'absolute', width: '98%', textAlign: 'left', height: '33%' }}>
                         <PaletteIcon sx={{ width: '5vh', height: '5vh', pb: 1, opacity: '.3' }} />
                     </Box>
@@ -252,7 +252,7 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                             <WhiteTextField onClick={event => event.stopPropagation()} sx={{ my: 1 }} size='small' onChange={handleChange} value={formState[`title`] || ''} name={`title`} label="Title" placeholder='Enter Title' />
                         </Box>
                         :
-                        <Button onClick={(event) => handleInputField(event, 'title')} className='title'>
+                        <Button disableRipple onClick={(event) => handleInputField(event, 'title')} className='title'>
                             <Typography variant='h2' sx={{ fontSize: '2vh', color: 'white' }}>{formState['title'] || 'Enter Title'}</Typography>
                         </Button>
                     }
@@ -262,8 +262,9 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                     onClose={handleClose}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
+                    disableAutoFocus={true}
                 >
-                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 300, bgcolor: 'background.paper', borderRadius: '5px', boxShadow: 24, p: 4 }}>
+                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 300, bgcolor: 'white', borderRadius: '5px', boxShadow: 24, p: 4 }}>
                         <Typography id="modal-modal-title" variant="h6" component="h2" textAlign='center'>
                             Pick Theme
                         </Typography>
