@@ -23,7 +23,7 @@ const theme = createTheme({
 const App = () => {
   const [billingFormState, setBillingFormState] = useState({});
   const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
-  const [currentColor, setCurrentColor] = useState({ name: 'orange', primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))', buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))' });
+  const [currentColor, setCurrentColor] = useState({ name: 'Orange', primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))', buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))' });
   const [slotsPurchased, setSlotsPurchased] = useState(4);
   const [cardType, setCardType] = useState('');
   const [sum, setSum] = useState(0);
