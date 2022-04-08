@@ -44,7 +44,7 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                     <Typography sx={{ fontSize: { xs: '1.8vh', md: '2vh' }, mb: 2 }}>From WhatsApp to Instagram to LinkedIn, provide people with the ability to connect with you like never before from one central hub.</Typography>
                     <Button sx={{ mb: { xs: 0, md: 3 } }} variant="contained" color="secondary" onClick={() => navigate('/edit')}>Create Sample Card</Button>
                 </Grid>
-                <Grid data-aos='fade-left' item xs={12} md={6} sx={{ mb: { xs: 5, md: 0 } }}>
+                <Grid data-aos='fade-left' item md={6} sx={{ mb: { xs: 5, md: 0 }, display: { xs: 'none', md: 'block'} }}>
                     <Box
                         component="img"
                         sx={{
@@ -55,7 +55,18 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                         src={ExampleProduct}
                     />
                 </Grid>
-                <Grid data-aos='fade-right' item sm={12} md={6} sx={{ display: { xs: 'flex', md: 'none'}, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <Grid data-aos='fade-right' item xs={12} sx={{ mb: { xs: 5, md: 0 },  display: { xs: 'block', md: 'none'} }}>
+                    <Box
+                        component="img"
+                        sx={{
+                            maxHeight: 400,
+                            maxWidth: 300,
+                        }}
+                        alt="10K Cards Logo"
+                        src={ExampleProduct}
+                    />
+                </Grid>
+                <Grid data-aos='fade-left' item sm={12} md={6} sx={{ display: { xs: 'flex', md: 'none'}, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography variant='h3' sx={{ fontSize: { xs: '2.5vh', md: '3vh' }, fontWeight: 500, mb: 1 }}>The Central Point of Your Networking</Typography>
                     <Typography sx={{ fontSize: { xs: '1.8vh', md: '2vh' }, mb: 2 }}>From WhatsApp to Instagram to LinkedIn, provide people with the ability to connect with you like never before from one central hub.</Typography>
                     <Button sx={{ mb: { xs: 0, md: 3 } }} variant="contained" color="secondary" onClick={() => navigate('/edit')}>Create Sample Card</Button>
@@ -87,7 +98,7 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                     <Typography sx={{ fontSize: { xs: '1.8vh', md: '2vh' }, mb: 2 }}>From WhatsApp to Instagram to LinkedIn, provide people with the ability to connect with you like never before from one central hub.</Typography>
                     <Button sx={{ mb: { xs: 0, md: 3 } }} variant="contained" color="secondary" onClick={() => navigate('/edit')}>Create Sample Card</Button>
                 </Grid>
-                <Grid data-aos='fade-left' item xs={12} md={6} sx={{ mb: { xs: 5, md: 0 } }}>
+                <Grid data-aos='fade-left' item md={6} sx={{ mb: { xs: 5, md: 0 }, display: { xs: 'none', md: 'block'} }}>
                     <Box
                         component="img"
                         sx={{
@@ -98,7 +109,18 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                         src={ExampleProduct}
                     />
                 </Grid>
-                <Grid data-aos='fade-right' item sm={12} md={6} sx={{ display: { xs: 'flex', md: 'none'}, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <Grid data-aos='fade-right' item xs={12} sx={{ mb: { xs: 5, md: 0 },  display: { xs: 'block', md: 'none'} }}>
+                    <Box
+                        component="img"
+                        sx={{
+                            maxHeight: 400,
+                            maxWidth: 300,
+                        }}
+                        alt="10K Cards Logo"
+                        src={ExampleProduct}
+                    />
+                </Grid>
+                <Grid data-aos='fade-left' item sm={12} md={6} sx={{ display: { xs: 'flex', md: 'none'}, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography variant='h3' sx={{ fontSize: { xs: '2.5vh', md: '3vh' }, fontWeight: 500, mb: 1 }}>The Central Point of Your Networking</Typography>
                     <Typography sx={{ fontSize: { xs: '1.8vh', md: '2vh' }, mb: 2 }}>From WhatsApp to Instagram to LinkedIn, provide people with the ability to connect with you like never before from one central hub.</Typography>
                     <Button sx={{ mb: { xs: 0, md: 3 } }} variant="contained" color="secondary" onClick={() => navigate('/edit')}>Create Sample Card</Button>
