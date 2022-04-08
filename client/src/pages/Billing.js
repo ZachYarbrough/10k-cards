@@ -9,8 +9,15 @@ import axios from "axios";
 
 
 const cardElementOptions = {
+    style: {
+        base: {
+            '::placeholder': {
+                color: '#a8a8a8',
+            },
+        }
+    },
     hidePostalCode: true
-  };
+};
 
 const Billing = ({ sum, billingFormState, setBillingFormState }) => {
     const navigate = useNavigate();
@@ -38,14 +45,14 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
             name: `${billingFormState.firstName} ${billingFormState.lastName}`,
             email: billingFormState.email,
             address: {
-              city: billingFormState.city,
-              line1: billingFormState.line1,
-              state: billingFormState.state,
-              postal_code: billingFormState.postal_code
+                city: billingFormState.city,
+                line1: billingFormState.line1,
+                state: billingFormState.state,
+                postal_code: billingFormState.postal_code
             }
-          };
+        };
 
-          console.log(billingDetails);
+        console.log(billingDetails);
 
         try {
             const { data: clientSecret } = await axios.post("http://localhost:3001/payment-intent", {
@@ -100,24 +107,26 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
             <form onSubmit={handleFormSubmit}>
                 <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={{ fontSize: '2vh', color: 'grey.600', flex: '100%' }}>Card Information</Typography>
-                    <CardElement options={cardElementOptions} />
+                    <Box className="cardHover" sx={{ mt: 1, border: 1, borderRadius: 1, borderColor: 'grey.400', p: 1.2 }}>
+                        <CardElement options={cardElementOptions} />
+                    </Box>
                 </Box>
                 <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={{ fontSize: '2vh', color: 'grey.600', flex: '100%' }}>Billing Information</Typography>
                     <Box sx={{ my: 1, flex: '100%', width: '100%', display: 'flex' }}>
-                        <TextField onChange={handleChange} value={billingFormState[`firstName`] || ''} name={`firstName`} label="First Name" size="small" placeholder="First Name" sx={{ mr: 1 }} fullWidth required></TextField>
-                        <TextField onChange={handleChange} value={billingFormState[`lastName`] || ''} name={`lastName`} label="Last Name" size="small" placeholder="Last Name" fullWidth required></TextField>
+                        <TextField onChange={handleChange} value={billingFormState[`firstName`] || ''} name={`firstName`} size="small" placeholder="First Name" sx={{ mr: 1 }} fullWidth required></TextField>
+                        <TextField onChange={handleChange} value={billingFormState[`lastName`] || ''} name={`lastName`} size="small" placeholder="Last Name" fullWidth required></TextField>
                     </Box>
-                    <TextField onChange={handleChange} value={billingFormState[`email`] || ''} name={`email`} label="Email" size="small" placeholder="Email" fullWidth required></TextField>
-                    <TextField onChange={handleChange} value={billingFormState[`line1`] || ''} name={`line1`} label="Street Address" size="small" placeholder="Street Address" fullWidth required sx={{ my: 1 }}></TextField>
+                    <TextField onChange={handleChange} value={billingFormState[`email`] || ''} name={`email`} size="small" placeholder="Email" fullWidth required></TextField>
+                    <TextField onChange={handleChange} value={billingFormState[`line1`] || ''} name={`line1`} size="small" placeholder="Street Address" fullWidth required sx={{ my: 1 }}></TextField>
                     <Box sx={{ my: 1, flex: '100%', width: '100%', display: 'flex' }}>
-                        <TextField onChange={handleChange} value={billingFormState[`city`] || ''} name={`city`} label="City" size="small" placeholder="City" fullWidth required></TextField>
-                        <TextField onChange={handleChange} value={billingFormState[`state`] || ''} name={`state`} label="State" size="small" placeholder="State" fullWidth required sx={{ mx: 1 }}></TextField>
-                        <TextField onChange={handleChange} value={billingFormState[`postal_code`] || ''} name={`postal_code`} label="Zip code" size="small" placeholder="Zip code" fullWidth required ></TextField>
+                        <TextField onChange={handleChange} value={billingFormState[`city`] || ''} name={`city`} size="small" placeholder="City" fullWidth required></TextField>
+                        <TextField onChange={handleChange} value={billingFormState[`state`] || ''} name={`state`} size="small" placeholder="State" fullWidth required sx={{ mx: 1 }}></TextField>
+                        <TextField onChange={handleChange} value={billingFormState[`postal_code`] || ''} name={`postal_code`} size="small" placeholder="Zip code" fullWidth required ></TextField>
                     </Box>
-                    <TextField onChange={handleChange} value={billingFormState[`phone`] || ''} name={`phone`} label="Phone" size="small" placeholder="Phone" fullWidth sx={{ my: 1 }} required></TextField>
+                    <TextField onChange={handleChange} value={billingFormState[`phone`] || ''} name={`phone`} size="small" placeholder="Phone" fullWidth sx={{ my: 1 }} required></TextField>
                 </Box>
-                 {checkoutError && <Typography sx={{ fontSize: '2vh', color: 'grey.600', textAlign: 'center', mt: 2 }}>{checkoutError}</Typography>}
+                {checkoutError && <Typography sx={{ fontSize: '2vh', color: 'grey.600', textAlign: 'center', mt: 2 }}>{checkoutError}</Typography>}
                 <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mb: 12, mx: 'auto', display: 'flex', flexDirection: { md: 'row', xs: 'column' }, justifyContent: 'center', textAlign: 'center' }}>
 
                     <Button variant="contained" disabled={isProcessing} type="submit" color="secondary" sx={{ mr: { md: 1, xs: 0 } }}>{isProcessing ? 'Processing...' : 'Continue Payment'}</Button>
