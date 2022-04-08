@@ -1,4 +1,5 @@
 import { Fragment, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -96,10 +97,10 @@ const themes = [
     }
 ];
 
-const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsPurchased, cardType }) => {
+const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCurrentColor }) => {
+    const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
     const [formState, setFormState] = useState({});
-    const [currentColor, setCurrentColor] = useState({ name: 'orange', primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))', buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))' });
     const [removeSlotState, setRemoveSlotState] = useState(false);
     const [open, setOpen] = useState(false);
 
@@ -157,6 +158,9 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
                 body: formData
             });
             if (!res.ok) throw new Error(res.statusText);
+            if(res.ok) {
+                navigate('/form-submit');
+            }
         }
         postData();
     }
@@ -201,7 +205,6 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
         event.preventDefault();
         setInputField('');
         if (slotsPurchased > 4) {
-            let gridEl = document.querySelector(`#container${i}`)
             let newFormState = formState
             delete newFormState[`textFieldTitle${i}`];
             delete newFormState[`textFieldLink${i}`];
