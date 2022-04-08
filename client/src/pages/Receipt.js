@@ -30,7 +30,7 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
     }
 
     return (
-        <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', minHeight: { xs: '70vh', sm: '60vh'} }}>
+        <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', minHeight: { xs: '70vh'} }}>
             <Typography sx={{ fontSize: '2vh', color: 'grey.600', mt: 5, mb: 3, textAlign: 'center' }}>Thank you for your purchase!</Typography>
             <Typography variant='h1' sx={{ fontSize: '4vh', fontWeight: 500, mx: 1 }}>Receipt</Typography>
             <Box sx={{ display: 'flex', color: 'grey.600', ml: 1, mr: 2, justifyContent: 'space-between', mb: 1, pb: 1, borderBottom: 1, borderColor: 'grey.600' }}>
