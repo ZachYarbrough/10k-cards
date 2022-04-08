@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Billing from './pages/Billing';
 import Receipt from './pages/Receipt';
+import Footer from './components/Footer';
 
 import { useState, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -34,30 +35,35 @@ const App = () => {
             <Fragment>
               <Navbar cart={cart} />
               <Home cart={cart} setCart={setCart} sum={sum} setSum={setSum} />
+              <Footer />
             </Fragment>
           } />
           <Route path='/10k-zipcode' element={
             <Fragment>
               <Navbar cart={cart} />
               <Partnership />
+              <Footer />
             </Fragment>
           } />
           <Route path='/cart' element={
             <Fragment>
               <Navbar cart={cart} />
               <Cart cart={cart} setCart={setCart} sum={sum} setSum={setSum} setSlotsPurchased={setSlotsPurchased} />
+              <Footer />
             </Fragment>
           } />
           <Route path='/checkout' element={
             <Fragment>
               <Navbar cart={cart} />
                 <Billing sum={sum} setSum={setSum} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />
+                <Footer />
             </Fragment>
           } />
           <Route path='/receipt' element={
             <Fragment>
               <Navbar cart={cart} />
               <Receipt cart={cart} setCart={setCart} sum={sum} setSum={setSum} setCardType={setCardType} />
+              <Footer />
             </Fragment>
           } />
         </Routes>

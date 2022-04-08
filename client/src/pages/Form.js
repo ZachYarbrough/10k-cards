@@ -147,19 +147,6 @@ const Form = ({ slotsPurchased, billingFormState, setBillingFormState, setSlotsP
             formData.append(`textFieldLink${i}`, formState[`textFieldLink${i}`] || 'No Entry');
         }
 
-        // Remove this once paypal is integrated
-        if (billingFormState !== {}) {
-            formData.append('cardFirstName', billingFormState.cardFirstName);
-            formData.append('cardLastName', billingFormState.cardLastName);
-            formData.append('cardNumber', billingFormState.cardNumber);
-            formData.append('monthYear', billingFormState.monthYear);
-            formData.append('cvc', billingFormState.cvc);
-            formData.append('streetAddress', billingFormState.streetAddress);
-            formData.append('city', billingFormState.city);
-            formData.append('state', billingFormState.state);
-            formData.append('zipCode', billingFormState.zipCode);
-            formData.append('phone', billingFormState.phone)
-        }
 
         formData.append('slotNumber', slotsPurchased);
 
