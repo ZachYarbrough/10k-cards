@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Billing from './pages/Billing';
 import Receipt from './pages/Receipt';
 import Footer from './components/Footer';
+import FormSubmit from './pages/FormSubmit';
 
 import { useState, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -22,6 +23,7 @@ const theme = createTheme({
 const App = () => {
   const [billingFormState, setBillingFormState] = useState({});
   const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
+  const [currentColor, setCurrentColor] = useState({ name: 'orange', primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))', buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))' });
   const [slotsPurchased, setSlotsPurchased] = useState(4);
   const [cardType, setCardType] = useState('');
   const [sum, setSum] = useState(0);
@@ -30,7 +32,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path='/edit' element={<Form cardType={cardType} slotsPurchased={slotsPurchased} setSlotsPurchased={setSlotsPurchased} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />} />
+          <Route path='/edit' element={<Form cardType={cardType} slotsPurchased={slotsPurchased} setSlotsPurchased={setSlotsPurchased} currentColor={currentColor} setCurrentColor={setCurrentColor} />} />
+          <Route path='/form-submit' element={<FormSubmit currentColor={currentColor} />} />
           <Route path='/' element={
             <Fragment>
               <Navbar cart={cart} />
