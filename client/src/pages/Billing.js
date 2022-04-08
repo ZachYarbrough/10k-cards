@@ -93,7 +93,7 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
 
     return (
         <Fragment>
-            <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', minHeight: { xs: '70vh'} }}>
+            <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto' }}>
                 <Typography sx={{ fontSize: '2vh', color: 'grey.600' }}>Total Amount</Typography>
                 <Typography sx={{ fontSize: '4vh', fontWeight: 500 }}>{formatter.format(sum)}</Typography>
             </Box>
@@ -118,7 +118,7 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
                     <TextField onChange={handleChange} value={billingFormState[`phone`] || ''} name={`phone`} label="Phone" size="small" placeholder="Phone" fullWidth sx={{ my: 1 }} required></TextField>
                 </Box>
                  {checkoutError && <Typography sx={{ fontSize: '2vh', color: 'grey.600', textAlign: 'center', mt: 2 }}>{checkoutError}</Typography>}
-                <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', display: 'flex', flexDirection: { md: 'row', xs: 'column' }, justifyContent: 'center', textAlign: 'center' }}>
+                <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mb: 12, mx: 'auto', display: 'flex', flexDirection: { md: 'row', xs: 'column' }, justifyContent: 'center', textAlign: 'center' }}>
 
                     <Button variant="contained" disabled={isProcessing} type="submit" color="secondary" sx={{ mr: { md: 1, xs: 0 } }}>{isProcessing ? 'Processing...' : 'Continue Payment'}</Button>
                     <Button color="secondary" onClick={() => navigate('/cart')} sx={{ ml: { md: 1, xs: 0 }, mt: { md: 0, xs: 1 } }}>Return to Cart</Button>
