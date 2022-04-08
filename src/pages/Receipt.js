@@ -1,12 +1,13 @@
 
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
     const navigate = useNavigate();
-
+    const [cartReceipt, setCartReceipt] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -14,14 +15,22 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
 
     });
 
+    useEffect(() => {
+        setCartReceipt(cart);
+    }, [])
+
+    useEffect(() => {
+        setCart([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
+    }, [cartReceipt])
+    
     const handleCheckout = () => {
-        if (cart.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
+        if (cartReceipt.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
             setCardType('Basic');
             navigate('/edit');
-        } else if (cart.filter(cartItem => cartItem.name === 'Premium Package').length >= 1) {
+        } else if (cartReceipt.filter(cartItem => cartItem.name === 'Premium Package').length >= 1) {
             setCardType('Premium');
             navigate('/edit');
-        } else if (cart.filter(cartItem => cartItem.name === 'Gold Package').length >= 1) {
+        } else if (cartReceipt.filter(cartItem => cartItem.name === 'Gold Package').length >= 1) {
             setCardType('Gold');
             navigate('/edit');
         }
@@ -40,7 +49,7 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
                     <Typography>Price</Typography>
                 </Box>
             </Box>
-            {cart.map((cartItem, index) => {
+            {cartReceipt.map((cartItem, index) => {
                 return (<Box sx={{ mb: 1 }} key={index}>
                     {cartItem.name === 'Your Cart is Empty' ?
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
