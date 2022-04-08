@@ -141,7 +141,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
         formData.append('firstName', formState.firstName || 'No Entry');
         formData.append('lastName', formState.lastName || 'No Entry');
         formData.append('title', formState.title || 'No Entry');
-        formData.append('theme', formState.theme || 'orange');
+        formData.append('theme', formState.theme || 'Orange');
 
         for (let i = 0; i < slotsPurchased; i++) {
             formData.append(`textFieldTitle${i}`, formState[`textFieldTitle${i}`] || 'No Entry');
