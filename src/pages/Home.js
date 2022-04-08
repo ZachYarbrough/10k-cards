@@ -8,6 +8,8 @@ import ProductTable from '../components/ProductTable';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import ExampleProduct from '../assets/images/10K_Example.jpeg';
+import QcodeImage from '../assets/images/10k-Q-code.jpeg';
+import zelloImage from '../assets/images/10k-zello.jpeg';
 import FeaturedItems from '../components/FeaturedItems';
 
 const Home = ({ cart, setCart, sum, setSum }) => {
@@ -51,7 +53,7 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                             maxWidth: 300,
                         }}
                         alt="10K Cards Logo"
-                        src={ExampleProduct}
+                        src={zelloImage}
                     />
                 </Grid>
                 <Grid data-aos='fade-right' item xs={12} sx={{ mb: { xs: 5, md: 0 }, display: { xs: 'block', md: 'none' } }}>
@@ -62,7 +64,7 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                             maxWidth: 300,
                         }}
                         alt="10K Cards Logo"
-                        src={ExampleProduct}
+                        src={zelloImage}
                     />
                 </Grid>
                 <Grid data-aos='fade-left' item sm={12} md={6} sx={{ display: { xs: 'flex', md: 'none' }, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -98,22 +100,22 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                     <Box
                         component="img"
                         sx={{
-                            maxHeight: 400,
-                            maxWidth: 300,
+                            maxHeight: 500,
+                            maxWidth: 400,
                         }}
                         alt="10K Cards Logo"
-                        src={ExampleProduct}
+                        src={QcodeImage}
                     />
                 </Grid>
                 <Grid data-aos='fade-right' item xs={12} sx={{ mb: { xs: 5, md: 0 }, display: { xs: 'block', md: 'none' } }}>
                     <Box
                         component="img"
                         sx={{
-                            maxHeight: 400,
-                            maxWidth: 300,
+                            maxHeight: 500,
+                            maxWidth: 400,
                         }}
                         alt="10K Cards Logo"
-                        src={ExampleProduct}
+                        src={QcodeImage}
                     />
                 </Grid>
                 <Grid data-aos='fade-left' item sm={12} md={6} sx={{ display: { xs: 'flex', md: 'none' }, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>

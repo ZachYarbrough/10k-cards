@@ -19,9 +19,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.bg {
-  background-color: #303337;
-  color: white;
+.colorBanner {
+  cursor: pointer
 }
 
 code {
