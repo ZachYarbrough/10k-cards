@@ -1,11 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 const cardElementOptions = {
@@ -53,7 +57,6 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
         };
 
         console.log(billingDetails);
-
         try {
             const { data: clientSecret } = await axios.post("http://localhost:3001/payment-intent", {
                 email: billingDetails.email,
@@ -98,6 +101,17 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
         })
     }
 
+    const handleSelect = (event) => {
+        console.log(event.currentTarget);
+        const { value } = event.currentTarget;
+
+        setBillingFormState({
+            ...billingFormState,
+            'select': value
+        })
+        console.log(billingFormState);
+    }
+
     return (
         <Fragment>
             <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto' }}>
@@ -125,6 +139,49 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
                         <TextField onChange={handleChange} value={billingFormState[`postal_code`] || ''} name={`postal_code`} size="small" placeholder="Zip code" fullWidth required ></TextField>
                     </Box>
                     <TextField onChange={handleChange} value={billingFormState[`phone`] || ''} name={`phone`} size="small" placeholder="Phone" fullWidth sx={{ my: 1 }} required></TextField>
+                </Box>
+                <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', display: 'flex', flexDirection: 'column' }}>
+                    <Typography sx={{ fontSize: '2vh', color: 'grey.600', flex: '100%' }}>How did you hear about us?</Typography>
+                    {billingFormState.select === 'Referral Zipcode' ?
+                        <Box>
+                            <TextField
+                                id="select"
+                                value={billingFormState.hearAboutUs}
+                                name="select"
+                                size="small"
+                                onChange={handleSelect}
+                                select
+                                fullwidth
+                                required
+                            >
+                                <MenuItem value={'Referral Zipcode'}>Referral - Zipcode</MenuItem>
+                                <MenuItem value={'Referral 10K Card'}>Referral - 10K Card</MenuItem>
+                                <MenuItem value={'Clubhouse'}>Clubhouse</MenuItem>
+                                <MenuItem value={'LinkedIn'}>LinkedIn</MenuItem>
+                                <MenuItem value={'Instagram'}>Instagram</MenuItem>
+                                <MenuItem value={'Other'}>Other</MenuItem>
+                            </TextField>
+                            <TextField onChange={handleChange} value={billingFormState[`postal_code`] || ''} name={`postal_code`} size="small" placeholder="Zip code" fullWidth required ></TextField>
+                        </Box>
+                        :
+                        <TextField
+                            id="select"
+                            value={billingFormState.select}
+                            name="select"
+                            size="small"
+                            onChange={handleSelect}
+                            select
+                            fullWidth
+                            required
+                        >
+                            <MenuItem value={'Referral Zipcode'}>Referral - Zipcode</MenuItem>
+                            <MenuItem value={'Referral 10K Card'}>Referral - 10K Card</MenuItem>
+                            <MenuItem value={'Clubhouse'}>Clubhouse</MenuItem>
+                            <MenuItem value={'LinkedIn'}>LinkedIn</MenuItem>
+                            <MenuItem value={'Instagram'}>Instagram</MenuItem>
+                            <MenuItem value={'Other'}>Other</MenuItem>
+                        </TextField>
+                    }
                 </Box>
                 {checkoutError && <Typography sx={{ fontSize: '2vh', color: 'grey.600', textAlign: 'center', mt: 2 }}>{checkoutError}</Typography>}
                 <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mb: 12, mx: 'auto', display: 'flex', flexDirection: { md: 'row', xs: 'column' }, justifyContent: 'center', textAlign: 'center' }}>
