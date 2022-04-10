@@ -97,10 +97,9 @@ const themes = [
     }
 ];
 
-const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCurrentColor }) => {
+const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCurrentColor, billingFormState, formState, setFormState }) => {
     const navigate = useNavigate();
     const [inputField, setInputField] = useState('');
-    const [formState, setFormState] = useState({});
     const [removeSlotState, setRemoveSlotState] = useState(false);
     const [open, setOpen] = useState(false);
 
@@ -142,6 +141,21 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
         formData.append('lastName', formState.lastName || 'No Entry');
         formData.append('title', formState.title || 'No Entry');
         formData.append('theme', formState.theme || 'Orange');
+        formData.append('zip', formState.zip || 'No Entry');
+
+        if (billingFormState != {}) {
+            formData.append('billingFirstName', billingFormState.firstName || 'No Entry');
+            formData.append('billingLastName', billingFormState.lastName || 'No Entry');
+            formData.append('billingAddress', billingFormState.line1 || 'No Entry');
+            formData.append('billingState', billingFormState.state || 'No Entry');
+            formData.append('billingCity', billingFormState.city || 'No Entry');
+            formData.append('billingZip', billingFormState.postal_code || 'No Entry');
+            formData.append('select', billingFormState.select || 'No Entry');
+            formData.append('referralZip', billingFormState.referralZip || 'No Entry');
+            formData.append('referralCard', billingFormState.referralCard || 'No Entry');
+            formData.append('other', billingFormState.other || 'No Entry');
+            formData.append('email', billingFormState.email || 'No Entry');
+        }
 
         for (let i = 0; i < slotsPurchased; i++) {
             formData.append(`textFieldTitle${i}`, formState[`textFieldTitle${i}`] || 'No Entry');
@@ -158,7 +172,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
                 body: formData
             });
             if (!res.ok) throw new Error(res.statusText);
-            if(res.ok) {
+            if (res.ok) {
                 navigate('/form-submit');
             }
         }
@@ -326,18 +340,45 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
                     {cardType === 'Basic' && slotsPurchased >= 10 || cardType === '' ?
                         null
                         :
-                        <Grid item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
-                            <Button onClick={event => handleCreateSlot(event)} disableRipple sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
-                                <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
-                                <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
-                                    <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>Create New Link Slot</Typography>
-                                </div>
-                                <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
-                                    <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word', mb: '1.5vh' }}></Typography>
-                                </div>
-                            </Button>
-                        </Grid>
+                        slotsPurchased % 2 === 0 ?
+                            <Grid item xs={12} container sx={{ width: '100%' }}>
+                                <Grid item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                                    <Button onClick={event => handleCreateSlot(event)} disableRipple sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                                        <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                                        <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                            <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>Create New Link Slot</Typography>
+                                        </div>
+                                        <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                            <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word', mb: '1.5vh' }}></Typography>
+                                        </div>
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                                </Grid>
+                            </Grid>
+                            :
+                            <Grid item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                                <Button onClick={event => handleCreateSlot(event)} disableRipple sx={{ display: 'flex', flexWarp: 'wrap', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4, width: '100%', height: '100%', color: 'black' }}>
+                                    <AddCircleIcon sx={{ width: '5vh', height: '5vh', color: 'grey.600', pb: 1 }} />
+                                    <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                        <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, overflowWrap: 'break-word' }}>Create New Link Slot</Typography>
+                                    </div>
+                                    <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: '11rem' }}>
+                                        <Typography variant='h4' sx={{ fontSize: '1.5vh', overflowWrap: 'break-word', mb: '1.5vh' }}></Typography>
+                                    </div>
+                                </Button>
+                            </Grid>
                     }
+                    <Grid item xs={12} container sx={{ width: '100%' }}>
+                        <Grid onClick={() => setInputField('')} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '105%', color: 'black' }}>
+                                <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, pt: 5, overflowWrap: 'break-word' }}>Referral Zip Code</Typography>
+                                <TextField sx={{ my: 1, pb: 4.2 }} onChange={handleChange} size="small" value={formState[`zip`] || ''} name={`zip`} label="Zipcode" placeholder='Enter Zip Code' />
+                            </Box>
+                        </Grid>
+                        <Grid onClick={() => setInputField('')} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Box onClick={() => setInputField('')}>
                     {slotsPurchased >= 5 ?
@@ -353,7 +394,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
             </form>
             <Box onClick={() => setInputField('')}>
                 <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want more slots? Purchase one of our deluxe offers instead.</Typography>
-                <Button variant='contained' onClick={() => window.location.replace("/#products")} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
+                <Button variant='contained' onClick={() => navigate("/#products")} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
             </Box>
         </Fragment>
     );

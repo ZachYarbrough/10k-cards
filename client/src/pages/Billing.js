@@ -102,14 +102,12 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
     }
 
     const handleSelect = (event) => {
-        console.log(event.currentTarget);
-        const { value } = event.currentTarget;
+        const { value } = event.target;
 
         setBillingFormState({
             ...billingFormState,
             'select': value
         })
-        console.log(billingFormState);
     }
 
     return (
@@ -143,44 +141,87 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
                 <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={{ fontSize: '2vh', color: 'grey.600', flex: '100%' }}>How did you hear about us?</Typography>
                     {billingFormState.select === 'Referral Zipcode' ?
-                        <Box>
-                            <TextField
+                        <Box sx={{ display: 'flex' }}>
+                            <Select
                                 id="select"
-                                value={billingFormState.hearAboutUs}
-                                name="select"
+                                value={billingFormState.select || ''}
                                 size="small"
                                 onChange={handleSelect}
-                                select
-                                fullwidth
+                                fullWidth
                                 required
+                                sx={{ mr: 1 }}
                             >
+                                <MenuItem value={''} disabled selected>Select an Option</MenuItem>
                                 <MenuItem value={'Referral Zipcode'}>Referral - Zipcode</MenuItem>
                                 <MenuItem value={'Referral 10K Card'}>Referral - 10K Card</MenuItem>
                                 <MenuItem value={'Clubhouse'}>Clubhouse</MenuItem>
                                 <MenuItem value={'LinkedIn'}>LinkedIn</MenuItem>
                                 <MenuItem value={'Instagram'}>Instagram</MenuItem>
                                 <MenuItem value={'Other'}>Other</MenuItem>
-                            </TextField>
-                            <TextField onChange={handleChange} value={billingFormState[`postal_code`] || ''} name={`postal_code`} size="small" placeholder="Zip code" fullWidth required ></TextField>
+                            </Select>
+                            <TextField onChange={handleChange} value={billingFormState[`referralZip`] || ''} name={`referralZip`} size="small" placeholder="Referral Zip Code" fullWidth required ></TextField>
                         </Box>
                         :
-                        <TextField
-                            id="select"
-                            value={billingFormState.select}
-                            name="select"
-                            size="small"
-                            onChange={handleSelect}
-                            select
-                            fullWidth
-                            required
-                        >
-                            <MenuItem value={'Referral Zipcode'}>Referral - Zipcode</MenuItem>
-                            <MenuItem value={'Referral 10K Card'}>Referral - 10K Card</MenuItem>
-                            <MenuItem value={'Clubhouse'}>Clubhouse</MenuItem>
-                            <MenuItem value={'LinkedIn'}>LinkedIn</MenuItem>
-                            <MenuItem value={'Instagram'}>Instagram</MenuItem>
-                            <MenuItem value={'Other'}>Other</MenuItem>
-                        </TextField>
+                        billingFormState.select === 'Referral 10K Card' ?
+                            <Box sx={{ display: 'flex' }}>
+                                <Select
+                                    id="select"
+                                    value={billingFormState.select || ''}
+                                    size="small"
+                                    onChange={handleSelect}
+                                    fullWidth
+                                    required
+                                    sx={{ mr: 1 }}
+                                >
+                                    <MenuItem value={''} disabled selected>Select an Option</MenuItem>
+                                    <MenuItem value={'Referral Zipcode'}>Referral - Zipcode</MenuItem>
+                                    <MenuItem value={'Referral 10K Card'}>Referral - 10K Card</MenuItem>
+                                    <MenuItem value={'Clubhouse'}>Clubhouse</MenuItem>
+                                    <MenuItem value={'LinkedIn'}>LinkedIn</MenuItem>
+                                    <MenuItem value={'Instagram'}>Instagram</MenuItem>
+                                    <MenuItem value={'Other'}>Other</MenuItem>
+                                </Select>
+                                <TextField onChange={handleChange} value={billingFormState[`referralCard`] || ''} name={`referralCard`} size="small" placeholder="Referral 10K Card" fullWidth required ></TextField>
+                            </Box>
+                            :
+                            billingFormState.select === 'Other' ?
+                                <Box sx={{ display: 'flex' }}>
+                                    <Select
+                                        id="select"
+                                        value={billingFormState.select || ''}
+                                        size="small"
+                                        onChange={handleSelect}
+                                        fullWidth
+                                        required
+                                        sx={{ mr: 1 }}
+                                    >
+                                        <MenuItem value={''} disabled selected>Select an Option</MenuItem>
+                                        <MenuItem value={'Referral Zipcode'}>Referral - Zipcode</MenuItem>
+                                        <MenuItem value={'Referral 10K Card'}>Referral - 10K Card</MenuItem>
+                                        <MenuItem value={'Clubhouse'}>Clubhouse</MenuItem>
+                                        <MenuItem value={'LinkedIn'}>LinkedIn</MenuItem>
+                                        <MenuItem value={'Instagram'}>Instagram</MenuItem>
+                                        <MenuItem value={'Other'}>Other</MenuItem>
+                                    </Select>
+                                    <TextField onChange={handleChange} value={billingFormState[`other`] || ''} name={`other`} size="small" placeholder="Other" fullWidth required ></TextField>
+                                </Box>
+                                :
+                                <Select
+                                    id="select"
+                                    value={billingFormState.select || ''}
+                                    size="small"
+                                    onChange={handleSelect}
+                                    fullWidth
+                                    required
+                                >
+                                    <MenuItem value={''} disabled selected>Select an Option</MenuItem>
+                                    <MenuItem value={'Referral Zipcode'}>Referral - Zipcode</MenuItem>
+                                    <MenuItem value={'Referral 10K Card'}>Referral - 10K Card</MenuItem>
+                                    <MenuItem value={'Clubhouse'}>Clubhouse</MenuItem>
+                                    <MenuItem value={'LinkedIn'}>LinkedIn</MenuItem>
+                                    <MenuItem value={'Instagram'}>Instagram</MenuItem>
+                                    <MenuItem value={'Other'}>Other</MenuItem>
+                                </Select>
                     }
                 </Box>
                 {checkoutError && <Typography sx={{ fontSize: '2vh', color: 'grey.600', textAlign: 'center', mt: 2 }}>{checkoutError}</Typography>}

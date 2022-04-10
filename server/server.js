@@ -51,6 +51,23 @@ transporter.verify((err, success) => {
 app.post('/upload-mail', upload, (req, res) => {
     const card = req.body;
     let slotString = '';
+    let referralString = '';
+
+    if(card.referralZip != 'No Entry') {
+        referralString += `
+            Referral Zip Code: ${card.referralZip}
+        `
+    } 
+    if(card.referralCard != 'No Entry') {
+        referralString += `
+            Referral Card: ${card.referralCard}
+        `
+    } 
+    if(card.other != 'No Entry') {
+        referralString += `
+            Other: ${card.other}
+        `
+    }
 
     for(let i = 0; i < card.slotNumber; i++) {
         slotString += `
@@ -63,6 +80,24 @@ app.post('/upload-mail', upload, (req, res) => {
         to: 'zachyarbro@gmail.com',
         subject: `Sample 10K Card Information - ${card.cardFirstName} ${card.cardLastName}`,
         text: `
+            --- Billing Information ---
+
+            Billing Name: ${card.billingFirstName} ${card.billingLastName}
+            Billing Email: ${card.email}
+            Billing Address: ${card.billingAddress}
+            Billing Postal Code: ${card.billingZip}
+            Billing State: ${card.billingState}
+            Billing City: ${card.billingCity}
+            
+            --- Referral Information ---
+            
+            Form Referral Zip: ${card.zip}
+
+            Billing Referral:
+
+            How They Heard About Us: ${card.select}
+            ${referralString}
+
             --- 10K Card Information ---
 
             Name: ${card.firstName} ${card.lastName}

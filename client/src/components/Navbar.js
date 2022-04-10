@@ -53,7 +53,11 @@ const Navbar = ({ cart }) => {
         window.scrollTo(0, 0);
         switch (btnText) {
             case 'Products':
-                window.location.replace("/#products");
+                if (window.location.href.indexOf("#products") > -1) {
+                    document.getElementById('products').scrollIntoView();
+                } else {
+                    navigate("/#products");
+                }
                 handleCloseUserMenu();
                 break;
             case '10K Zipcodes':
