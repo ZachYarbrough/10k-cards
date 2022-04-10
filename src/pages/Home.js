@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -15,6 +15,12 @@ import FeaturedItems from '../components/FeaturedItems';
 const Home = ({ cart, setCart, sum, setSum }) => {
     Aos.init({ duration: 1000, once: true });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (window.location.href.indexOf("#products") > -1) {
+            document.getElementById('products').scrollIntoView();
+        }
+    }, [])
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', width: '100%', minHeight: { xs: '70vh' } }}>
@@ -39,10 +45,12 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                 </Grid>
             </Grid>
             <ProductTable cart={cart} setCart={setCart} />
-            <FeaturedItems cart={cart} setCart={setCart} sum={sum} setSum={setSum} />
+            <Box id="products" sx={{ width: '100%'}}>
+                <FeaturedItems cart={cart} setCart={setCart} sum={sum} setSum={setSum} />
+            </Box>
             <Grid container sx={{ ml: { xs: 0, md: 5 }, mb: 5, width: '70%' }}>
                 <Grid data-aos='fade-right' item sm={12} md={6} sx={{ display: { xs: 'none', md: 'flex' }, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <Typography variant='h3' sx={{ fontSize: { xs: '2.5vh', md: '3vh' }, fontWeight: 500, mb: 1 }}>Let Your Clients Engage with You</Typography>
+                    <Typography variant='h3' sx={{ fontSize: { xs: '2.5vh', md: '3vh' }, fontWeight: 500, mb: 1 }}>Let Your Clients Engage with You</Typography>
                     <Typography sx={{ fontSize: { xs: '1.8vh', md: '2vh' }, mb: 2 }}>You have an infinite amount of ways to allow users interact with you, limited only by your imagination. Let customers pay you with Zelle, Venmo, or Cash App. Book an appointment with your booking system. Provide directions to your address, add links to your products, and much more!</Typography>
                 </Grid>
                 <Grid data-aos='fade-left' item md={6} sx={{ mb: { xs: 5, md: 0 }, display: { xs: 'none', md: 'block' } }}>
