@@ -20,7 +20,7 @@ body {
 }
 
 .colorBanner {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .cardHover:hover {

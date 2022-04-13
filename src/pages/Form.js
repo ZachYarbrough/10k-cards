@@ -103,6 +103,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
     const [removeSlotState, setRemoveSlotState] = useState(false);
     const [open, setOpen] = useState(false);
     const [submitOpen, setSubmitOpen] = useState(false);
+    const zipcode = localStorage.getItem('10k-zipcode');
 
     const handleSubmitOpen = (event) => {
         event.preventDefault();
@@ -113,8 +114,8 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
             handleSubmit(event);
         }
     };
-    const handleSubmitClose = () => setSubmitOpen(false)
-	;
+    const handleSubmitClose = () => setSubmitOpen(false);
+
     const handleOpen = () => {
         setInputField('');
         setOpen(true);
@@ -149,13 +150,16 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
         let formData = new FormData();
         let file = document.getElementById('image-file').files[0];
         if (file) formData.append('image', file, 'profile-image.jpeg');
-        formData.append('firstName', formState.firstName || 'No Entry');
-        formData.append('lastName', formState.lastName || 'No Entry');
+        formData.append('firstName', formState.firstName || 'No First Name');
+        formData.append('lastName', formState.lastName || 'No Last Name');
         formData.append('title', formState.title || 'No Entry');
         formData.append('theme', formState.theme || 'Blue');
-        formData.append('zip', formState.zip || 'No Entry');
-	formData.append('formEmail', formState.formEmail || 'No Entry');
+        formData.append('zip', formState.link || 'No Entry');
+        formData.append('formEmail', formState.formEmail || 'No Entry');
         formData.append('formPhone', formState.formPhone || 'No Entry');
+        if(zipcode) {
+            formData.append('zipcodeLink', zipcode || 'No Entry');
+        }
 
         if (billingFormState != {}) {
             formData.append('billingFirstName', billingFormState.firstName || 'No Entry');
@@ -178,7 +182,6 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
 
 
         formData.append('slotNumber', slotsPurchased);
-
         const postData = async () => {
             const res = await fetch('https://10kcards.com/upload-mail', {
                 method: 'POST',
@@ -270,8 +273,8 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
                     </label>
                     {inputField === "name" ?
                         <Box onClick={event => event.stopPropagation()} sx={{ mx: 1, display: 'flex' }}>
-                            <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`firstName`] || ''} name={`firstName`} label="First Name" placeholder='Enter First Name' />
-                            <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`lastName`] || ''} name={`lastName`} label="Last Name" placeholder='Enter Last Name' />
+                            <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`firstName`] || ''} name={`firstName`} label="First Name" placeholder='Enter First Name' required />
+                            <WhiteTextField sx={{ my: 1, mx: 1 }} size='small' onChange={handleChange} value={formState[`lastName`] || ''} name={`lastName`} label="Last Name" placeholder='Enter Last Name' required />
                         </Box>
                         :
                         <Button disableRipple onClick={(event) => handleInputField(event, 'name')} className='name'>
@@ -306,7 +309,8 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
                         </Box>
                     </Box>
                 </Modal>
-	                    {cardType === '' ?
+
+                {cardType === '' ?
                     <Modal
                         open={submitOpen}
                         onClose={handleSubmitClose}

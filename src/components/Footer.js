@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
     const navigate = useNavigate();
+    const zipcode = localStorage.getItem('10k-zipcode');
     return (
         <footer>
             <Box sx={{ bgcolor: "grey.100", mt: 5, px: { xs: 3 }, py: { xs: 5 } }}>
@@ -15,7 +16,7 @@ const Footer = () => {
                             <Typography sx={{ color: 'grey.600', fontSize: 14 }}>© 2022, <span className="footerHover" onClick={() => {
                                 navigate('/');
                                 window.scrollTo(0, 0);
-                            }}>10KCards</span></Typography>
+                            }}>10KCards</span> {zipcode && zipcode} </Typography>
                         </Grid>
                     </Grid>
                 </Container>

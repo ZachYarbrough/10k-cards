@@ -22,7 +22,7 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
     useEffect(() => {
         setCart([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
     }, [cartReceipt])
-    
+
     const handleCheckout = () => {
         if (cartReceipt.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
             setCardType('Basic');
@@ -33,14 +33,17 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
         } else if (cartReceipt.filter(cartItem => cartItem.name === 'Gold Package').length >= 1) {
             setCardType('Gold');
             navigate('/card');
+        } else {
+            navigate('/card');
         }
         setCart([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
         setSum(0);
     }
 
     return (
-        <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', minHeight: { xs: '70vh'} }}>
+        <Box sx={{ width: { md: '40%', sm: '60%', xs: '80%' }, mt: 3, mx: 'auto', minHeight: { xs: '70vh' } }}>
             <Typography sx={{ fontSize: '2vh', color: 'grey.600', mt: 5, mb: 3, textAlign: 'center' }}>Thank you for your purchase!</Typography>
+            {cartReceipt.filter(cartItem => cartItem.name.includes('10K Partnership')).length >= 1 ? <Typography sx={{ fontSize: '2vh', color: 'grey.600', mb: 3, textAlign: 'center' }}>We will email your 10K Link to you in 5-7 business days.</Typography> : null}
             <Typography variant='h1' sx={{ fontSize: '4vh', fontWeight: 500, mx: 1 }}>Receipt</Typography>
             <Box sx={{ display: 'flex', color: 'grey.600', ml: 1, mr: 2, justifyContent: 'space-between', mb: 1, pb: 1, borderBottom: 1, borderColor: 'grey.600' }}>
                 <Typography>Item</Typography>
@@ -103,8 +106,9 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
                 <Typography sx={{ fontSize: '2vh', color: 'grey.600', mt: 1, mr: 1 }}>Total Amount</Typography>
                 <Typography sx={{ fontSize: '3vh', fontWeight: 500, mr: 1 }}>{formatter.format(sum)}</Typography>
             </Box>
-            <Box sx={{ textAlign: 'center', mt: 3 }}>
+            <Box sx={{ textAlign: 'center', mt: 3, justifyContent: 'center', display: 'flex', flexDirection: { md: 'row', xs: 'column' }, }}>
                 <Button variant="contained" color="secondary" onClick={() => handleCheckout()}>Create your Card</Button>
+                <Button color="secondary" onClick={() => navigate('/')} sx={{ ml: { md: 1, xs: 0 }, mt: { md: 0, xs: 1 } }}>Return Home</Button>
             </Box>
         </Box>
     );

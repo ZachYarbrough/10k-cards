@@ -7,8 +7,9 @@ import Billing from './pages/Billing';
 import Receipt from './pages/Receipt';
 import Footer from './components/Footer';
 import FormSubmit from './pages/FormSubmit';
+import Zipcode from './pages/Zipcode';
 
-import { useState, Fragment, useEffect } from 'react';
+import { useState, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -46,10 +47,15 @@ const App = () => {
               <Footer />
             </Fragment>
           } />
+          <Route path='/:zipcode' element={
+            <Fragment>
+              <Zipcode />
+            </Fragment>
+          } />
           <Route path='/10k-zipcode' element={
             <Fragment>
               <Navbar cart={cart} />
-              <Partnership />
+              <Partnership cart={cart} setCart={setCart} sum={sum} setSum={setSum} />
               <Footer />
             </Fragment>
           } />
@@ -63,8 +69,8 @@ const App = () => {
           <Route path='/checkout' element={
             <Fragment>
               <Navbar cart={cart} />
-                <Billing sum={sum} setSum={setSum} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />
-                <Footer />
+              <Billing sum={sum} setSum={setSum} billingFormState={billingFormState} setBillingFormState={setBillingFormState} />
+              <Footer />
             </Fragment>
           } />
           <Route path='/receipt' element={
