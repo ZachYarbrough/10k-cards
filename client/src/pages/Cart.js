@@ -74,10 +74,10 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                             (index % 2) !== 0 && cartItem.name !== 'Your Cart is Empty' ?
                                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: "row" }, justifyContent: 'space-between', bgcolor: 'grey.200' }}>
                                     <Box sx={{ px: 1, flex: 6 }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', mt: { xs: 1 } }}>
-                                            <Box sx={{ display: 'flex', alignItems: 'end' }}>
-                                                <Typography>{cartItem.name}</Typography>
-                                                <Typography sx={{ ml: 1, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>
+                                        <Box sx={{ display: 'flex', alignItems: { xs: 'start', md: 'end'}, justifyContent: 'space-between', mt: { xs: 1 } }}>
+                                            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: { xs: 'start', md: 'end'} }}>
+                                                <Typography sx={{ overflow: 'hidden' }}>{cartItem.name}</Typography>
+                                                <Typography sx={{ ml: { xs: 0, md: 1 }, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>
                                             </Box>
                                             <Typography sx={{ display: { md: 'none', xs: 'block' } }}>{formatter.format(cartItem.price)}</Typography>
                                         </Box>
@@ -104,10 +104,10 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
                                 :
                                 <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: "row" }, justifyContent: 'space-between' }}>
                                     <Box sx={{ px: 1, flex: 6 }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', mt: { xs: 1 } }}>
-                                            <Box sx={{ display: 'flex', alignItems: 'end' }}>
+                                        <Box sx={{ display: 'flex', alignItems: { xs: 'start', md: 'end'}, justifyContent: 'space-between', mt: { xs: 1 } }}>
+                                            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: { xs: 'start', md: 'end'} }}>
                                                 <Typography>{cartItem.name}</Typography>
-                                                <Typography sx={{ ml: 1, color: 'grey.600', fontSize: 14 }}>{formatter.format(cartItem.price / cartItem.amount)}</Typography>
+                                                <Typography sx={{ ml: { xs: 0, md: 1 }, color: 'grey.600', fontSize: 14 }}>{cartItem.price === 9500 ? <span><strike>{formatter.format('10000')}</strike> {formatter.format(cartItem.price / cartItem.amount)}</span> : formatter.format(cartItem.price / cartItem.amount)}</Typography>
                                             </Box>
                                             <Typography sx={{ display: { md: 'none', xs: 'block' } }}>{formatter.format(cartItem.price)}</Typography>
                                         </Box>

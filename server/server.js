@@ -52,61 +52,77 @@ app.post('/upload-mail', upload, (req, res) => {
     const card = req.body;
     let slotString = '';
     let referralString = '';
-console.log(card);
-    if(card.referralZip != 'No Entry') {
-        referralString += `
-            Referral Zip Code: ${card.referralZip}
-        `
+    let billingString = '';
+    let selectString = '';
+    let zipString = '';
+    let referral = '';
+    let zipcodeLink = '';
+
+    if(card.zipcodeLink) {
+        zipcodeLink += `10K Zipcodes Referral Link: ${card.zipcodeLink}`
+    }
+
+    if(card.zip !== 'No Entry') {
+        zipString += `Form Referral Zip: ${card.zip}`
+    }
+    
+    if(card.referralZip !== 'No Entry') {
+        referralString += `Referral Zip Code: ${card.referralZip}`
     } 
-    if(card.referralCard != 'No Entry') {
+    if(card.referralCard !== 'No Entry') {
         referralString += `
             Referral Card: ${card.referralCard}
         `
     } 
-    if(card.other != 'No Entry') {
-        referralString += `
-            Other: ${card.other}
-        `
+    if(card.other !== 'No Entry') {
+        referralString += `Other: ${card.other}`
     }
 
     for(let i = 0; i < card.slotNumber; i++) {
-        slotString += `
-        Slot Title ${i + 1}: ${card[`textFieldTitle${i}`]}
-        Slot Link ${i + 1}: ${card[`textFieldLink${i}`]}
-        `
+        slotString += `Slot Title ${i + 1}: ${card[`textFieldTitle${i}`]}
+        Slot Link ${i + 1}: ${card[`textFieldLink${i}`]}`
     }
+
+    if(card.billingFirstNme) {
+        billingString += ` --- Billing Information ---
+
+        Billing Name: ${card.billingFirstName} ${card.billingLastName}
+        Billing Email: ${card.email}
+        Billing Address: ${card.billingAddress}
+        Billing Postal Code: ${card.billingZip}
+        Billing State: ${card.billingState}
+        Billing City: ${card.billingCity}`
+    }
+
+    if(card.select != 'No Entry') {
+        selectString += `How They Heard About Us: ${card.select}`
+    }
+
+    if(zipString !== '' || referralString !== '' || selectString !== '') {
+        referral += `--- Referral Information ---
+        ${zipString}
+        ${referralString}
+        ${selectString}`;
+    }
+
     const options = {
         from: 'rhc.nodem@outlook.com',
         to: '10000businesscards@gmail.com',
         subject: `Sample 10K Card Information - ${card.cardFirstName} ${card.cardLastName}`,
         text: `
-            --- Billing Information ---
-
-            Billing Name: ${card.billingFirstName} ${card.billingLastName}
-            Billing Email: ${card.email}
-            Billing Address: ${card.billingAddress}
-            Billing Postal Code: ${card.billingZip}
-            Billing State: ${card.billingState}
-            Billing City: ${card.billingCity}
-            
-            --- Referral Information ---
-            
-            Form Referral Zip: ${card.zip}
-
-            Billing Referral:
-
-            How They Heard About Us: ${card.select}
-            ${referralString}
+            ${zipcodeLink}
+            ${billingString}
+            ${referral}
 
             --- 10K Card Information ---
 
             Name: ${card.firstName} ${card.lastName}
             Title: ${card.title}
             Theme: ${card.theme}
-	    Form Email: ${card.formEmail}
+            Form Email: ${card.formEmail}
             Form Phone: ${card.formPhone}
-            
-	    --- Slot Information ---
+
+            --- Slot Information ---
 
             ${slotString}
         `,
