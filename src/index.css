@@ -30,6 +30,11 @@ body {
   border-color: #1876d1;
 }
 
+.footerHover:hover {
+  cursor: pointer;
+  border-bottom: 1px solid grey;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

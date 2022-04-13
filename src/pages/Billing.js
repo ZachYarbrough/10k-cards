@@ -56,9 +56,8 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
             }
         };
 
-        console.log(billingDetails);
         try {
-            const { data: clientSecret } = await axios.post("http://localhost:3001/payment-intent", {
+            const { data: clientSecret } = await axios.post("https://10kcards.com/payment-intent", {
                 email: billingDetails.email,
                 amount: (sum * 100)
             });
@@ -68,7 +67,6 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
                 card: cardElement,
                 billing_details: billingDetails
             });
-            console.log(paymentMethodReq);
             if (paymentMethodReq.error) {
                 setCheckoutError(paymentMethodReq.error.message);
                 setProcessingTo(false);

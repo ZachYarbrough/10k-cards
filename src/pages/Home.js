@@ -41,7 +41,7 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                 <Grid data-aos='fade-left' item sm={12} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography variant='h3' sx={{ fontSize: { xs: '2.5vh', md: '3vh' }, fontWeight: 500, mb: 1 }}>The Central Point of Your Networking</Typography>
                     <Typography sx={{ fontSize: { xs: '1.8vh', md: '2vh' }, mb: 2 }}>From WhatsApp to Instagram to LinkedIn, provide people with the ability to connect with you like never before from one central hub.</Typography>
-                    <Button sx={{ mb: { xs: 0, md: 3 } }} variant="contained" color="secondary" onClick={() => navigate('/edit')}>Create Sample Card</Button>
+                    <Button sx={{ mb: { xs: 0, md: 3 } }} variant="contained" color="secondary" onClick={() => navigate('/card')}>Create Sample Card</Button>
                 </Grid>
             </Grid>
             <ProductTable cart={cart} setCart={setCart} />
