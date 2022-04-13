@@ -31,7 +31,7 @@ const Cart = ({ cart, setCart, sum, setSum, setSlotsPurchased }) => {
             setCart([...tempCart]);
             setSum(sum - tempPrice);
         } else if (operand === '-' && cartItemAmount[0].amount <= 1 && cartItems.length === 0) {
-            setCart([{ name: 'Your Cart is Empty', amount: 1, price: '', description: '' }]);;
+            setCart([{ name: 'Your Cart is Empty', amount: 1, price: '', description: '' }]);
             setSum(0);
         }
     }
