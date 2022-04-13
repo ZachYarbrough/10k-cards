@@ -24,7 +24,11 @@ const App = () => {
   const [billingFormState, setBillingFormState] = useState({});
   const [formState, setFormState] = useState({});
   const [cart, setCart] = useState([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
-  const [currentColor, setCurrentColor] = useState({ name: 'Orange', primaryColor: 'linear-gradient(45deg, rgb(255, 167, 81), rgb(255, 207, 52))', buttonColor: 'linear-gradient(-45deg, rgb(255, 167, 81), rgb(255, 207, 52))' });
+  const [currentColor, setCurrentColor] = useState({
+        name: 'Blue',
+        primaryColor: 'linear-gradient(45deg, rgb(0, 91, 234), rgb(0, 198, 251))',
+        buttonColor: 'linear-gradient(-45deg, rgb(0, 91, 234), rgb(0, 198, 251))'
+    });
   const [slotsPurchased, setSlotsPurchased] = useState(4);
   const [cardType, setCardType] = useState('');
   const [sum, setSum] = useState(0);
@@ -33,7 +37,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path='/edit' element={<Form cardType={cardType} slotsPurchased={slotsPurchased} setSlotsPurchased={setSlotsPurchased} currentColor={currentColor} setCurrentColor={setCurrentColor} billingFormState={billingFormState} formState={formState} setFormState={setFormState} />} />
+          <Route path='/card' element={<Form cardType={cardType} slotsPurchased={slotsPurchased} setSlotsPurchased={setSlotsPurchased} currentColor={currentColor} setCurrentColor={setCurrentColor} billingFormState={billingFormState} formState={formState} setFormState={setFormState} />} />
           <Route path='/form-submit' element={<FormSubmit currentColor={currentColor} />} />
           <Route path='/' element={
             <Fragment>

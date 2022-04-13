@@ -26,13 +26,13 @@ const Receipt = ({ cart, sum, setSum, setCart, setCardType }) => {
     const handleCheckout = () => {
         if (cartReceipt.filter(cartItem => cartItem.name === 'Basic Package').length >= 1) {
             setCardType('Basic');
-            navigate('/edit');
+            navigate('/card');
         } else if (cartReceipt.filter(cartItem => cartItem.name === 'Premium Package').length >= 1) {
             setCardType('Premium');
-            navigate('/edit');
+            navigate('/card');
         } else if (cartReceipt.filter(cartItem => cartItem.name === 'Gold Package').length >= 1) {
             setCardType('Gold');
-            navigate('/edit');
+            navigate('/card');
         }
         setCart([{ name: 'Your Cart is Empty', amount: 1, description: 'No Items in Cart' }]);
         setSum(0);

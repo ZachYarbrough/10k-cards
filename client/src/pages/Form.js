@@ -102,7 +102,19 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
     const [inputField, setInputField] = useState('');
     const [removeSlotState, setRemoveSlotState] = useState(false);
     const [open, setOpen] = useState(false);
+    const [submitOpen, setSubmitOpen] = useState(false);
 
+    const handleSubmitOpen = (event) => {
+        event.preventDefault();
+        if(cardType === '') {
+            setInputField('');
+            setSubmitOpen(true);
+        } else {
+            handleSubmit(event);
+        }
+    };
+    const handleSubmitClose = () => setSubmitOpen(false)
+	;
     const handleOpen = () => {
         setInputField('');
         setOpen(true);
@@ -140,8 +152,10 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
         formData.append('firstName', formState.firstName || 'No Entry');
         formData.append('lastName', formState.lastName || 'No Entry');
         formData.append('title', formState.title || 'No Entry');
-        formData.append('theme', formState.theme || 'Orange');
+        formData.append('theme', formState.theme || 'Blue');
         formData.append('zip', formState.zip || 'No Entry');
+	formData.append('formEmail', formState.formEmail || 'No Entry');
+        formData.append('formPhone', formState.formPhone || 'No Entry');
 
         if (billingFormState != {}) {
             formData.append('billingFirstName', billingFormState.firstName || 'No Entry');
@@ -166,7 +180,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
         formData.append('slotNumber', slotsPurchased);
 
         const postData = async () => {
-            const res = await fetch('http://localhost:3001/upload-mail', {
+            const res = await fetch('https://10kcards.com/upload-mail', {
                 method: 'POST',
                 headers: header,
                 body: formData
@@ -242,7 +256,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
 
     return (
         <Fragment>
-            <form onSubmit={handleSubmit} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
+            <form onSubmit={handleSubmitOpen} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); setInputField(''); } }}>
                 <Box onClick={handleOpen} className='colorBanner' style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '100%', height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Box sx={{ position: 'absolute', width: '98%', textAlign: 'left', height: '33%' }}>
                         <PaletteIcon sx={{ width: '5vh', height: '5vh', pb: 1, opacity: '.3' }} />
@@ -292,6 +306,26 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
                         </Box>
                     </Box>
                 </Modal>
+	                    {cardType === '' ?
+                    <Modal
+                        open={submitOpen}
+                        onClose={handleSubmitClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                        disableAutoFocus={true}
+                    >
+                        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 300, bgcolor: 'white', borderRadius: '5px', boxShadow: 24, p: 4, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2" textAlign='center'>
+                                Contact Information
+                            </Typography>
+                            <TextField sx={{ my: 2 }} onChange={handleChange} size="small" value={formState[`formEmail`] || ''} name={`formEmail`} label="Email Address" placeholder='Email Address' fullWidth required />
+                            <TextField sx={{ my: 2 }} onChange={handleChange} size="small" value={formState[`formPhone`] || ''} name={`formPhone`} label="Phone" placeholder='Phone Number' fullWidth />
+                            <Button onClick={(event) => handleSubmit(event)} variant="contained" style={{ backgroundImage: currentColor.primaryColor }}>Submit</Button>
+                        </Box>
+                    </Modal>
+                    :
+                    null
+                }
                 <Grid container sx={{ width: '100%' }}>
                     {[...Array(slotsPurchased)].map((e, i) => (
                         <Grid key={i} id={`container${i}`} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }} onClick={() => setInputField('')}>
@@ -346,7 +380,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
                     <Grid item xs={12} container sx={{ width: '100%' }}>
                         <Grid onClick={() => setInputField('')} item xs={6} sx={{ bgcolor: 'grey.200', border: .5, borderColor: 'grey.300' }}>
                             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80%', m: 'auto', height: '105%', color: 'black' }}>
-                                <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, pt: 5, overflowWrap: 'break-word' }}>Which 10k Card holder refferred you?</Typography>
+                                <Typography variant='h3' sx={{ fontWeight: 'bold', fontSize: '1.8vh', pb: .2, pt: 5, overflowWrap: 'break-word' }}>Which 10k Card holder referred you?</Typography>
                                 <TextField sx={{ my: 1, pb: 4.2 }} onChange={handleChange} size="small" value={formState[`link`] || ''} name={`link`} label="10K Link" placeholder='Enter 10K Link' />
                             </Box>
                         </Grid>

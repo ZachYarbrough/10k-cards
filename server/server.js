@@ -52,7 +52,7 @@ app.post('/upload-mail', upload, (req, res) => {
     const card = req.body;
     let slotString = '';
     let referralString = '';
-
+console.log(card);
     if(card.referralZip != 'No Entry') {
         referralString += `
             Referral Zip Code: ${card.referralZip}
@@ -77,7 +77,7 @@ app.post('/upload-mail', upload, (req, res) => {
     }
     const options = {
         from: 'rhc.nodem@outlook.com',
-        to: 'zachyarbro@gmail.com',
+        to: '10000businesscards@gmail.com',
         subject: `Sample 10K Card Information - ${card.cardFirstName} ${card.cardLastName}`,
         text: `
             --- Billing Information ---
@@ -103,8 +103,10 @@ app.post('/upload-mail', upload, (req, res) => {
             Name: ${card.firstName} ${card.lastName}
             Title: ${card.title}
             Theme: ${card.theme}
-
-            --- Slot Information ---
+	    Form Email: ${card.formEmail}
+            Form Phone: ${card.formPhone}
+            
+	    --- Slot Information ---
 
             ${slotString}
         `,
