@@ -57,7 +57,7 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
         };
 
         try {
-            const { data: clientSecret } = await axios.post("https://10kcards.com/payment-intent", {
+            const { data: clientSecret } = await axios.post("http://127.0.0.1:3001/payment-intent", {
                 email: billingDetails.email,
                 amount: (sum * 100)
             });

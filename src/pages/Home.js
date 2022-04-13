@@ -119,8 +119,8 @@ const Home = ({ cart, setCart, sum, setSum }) => {
                     <Box
                         component="img"
                         sx={{
-                            maxHeight: 500,
-                            maxWidth: 400,
+                            maxHeight: 400,
+                            maxWidth: 300,
                         }}
                         alt="10K Cards Logo"
                         src={QcodeImage}

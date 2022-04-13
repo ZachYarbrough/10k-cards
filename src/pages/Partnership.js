@@ -62,36 +62,39 @@ const Partnership = ({ cart, setCart, sum, setSum }) => {
                     <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', my: 2 }}>
                         <Box>
                             <Typography sx={{ fontSize: 24, mb: 0 }}>$9,500 USD</Typography>
-                            <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2, height: { lg: '6vh', md: '10vh', xs: '5vh' } }}>Pay in Full | $500 Discount</Typography>
+                            <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 1, height: { lg: '6vh', md: '10vh', xs: '5vh' } }}>Pay in Full | $500 Discount</Typography>
                         </Box>
-                        <Button variant='contained' color='secondary' sx={{ width: '120px' }} onClick={() => handleCart('10K Partnership | Paid in Full', 'Includes 100 Basic Cards ($10,000 value) | 50% Referral Fee on All Sales', 9500)}>Buy Now</Button>
+                        <Button variant='contained' color='secondary' sx={{ width: '120px' }} onClick={() => handleCart('10K Zipcode | Paid in Full', 'Includes 100 Basic Cards ($10,000 value) | 50% Referral Fee on All Sales', 9500)}>Buy Now</Button>
                     </CardContent>
                 </Card>
                 <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, mx: { xs: '10%' } }}>
                     <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', my: 2 }}>
                         <Box>
-                            <Typography sx={{ fontSize: 24, mb: 0 }}>$7,500 USD</Typography>
-                            <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2, height: { lg: '6vh', md: '10vh', xs: '5vh' } }}>Pay Remaining $2,500 Over 2 Months</Typography>
+                            <Typography sx={{ fontSize: 24 }}>$7,500 USD</Typography>
+                            <Typography sx={{ color: 'grey.600', fontSize: 14}}>Pay Remaining $2,500 Over 2 Months</Typography>
+                            <Typography sx={{ color: 'grey.600', fontSize: 12, mb: 2 }}>*10% Finance Rate</Typography>
                         </Box>
-                        <Button variant='contained' color='secondary' sx={{ width: '120px' }} onClick={() => handleCart('10K Partnership | Paid Over 2 Months', 'Includes 100 Basic Cards ($10,000 value) | 50% Referral Fee on All Sales', 7500)}>Buy Now</Button>
+                        <Button variant='contained' color='secondary' sx={{ width: '120px' }} onClick={() => handleCart('10K Zipcode | Paid Over 2 Months', 'Includes 100 Basic Cards ($10,000 value) | 50% Referral Fee on All Sales | 10% Finance Rate', 7500)}>Buy Now</Button>
                     </CardContent>
                 </Card>
                 <Card sx={{ flexGrow: 1, width: { md: 120 }, m: { xs: 2, md: 1 }, my: 1, mx: { xs: '10%' } }}>
                     <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', my: 2 }}>
                         <Box>
                             <Typography sx={{ fontSize: 24, mb: 0 }}>$5,000 USD</Typography>
-                            <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2, height: { lg: '6vh', md: '10vh', xs: '5vh' } }}>Pay Remaining $5,000 Over 4 Months</Typography>
+                            <Typography sx={{ color: 'grey.600', fontSize: 14 }}>Pay Remaining $5,000 Over 4 Months</Typography>
+                            <Typography sx={{ color: 'grey.600', fontSize: 12, mb: 2 }}>*20% Finance Rate</Typography>
                         </Box>
-                        <Button variant='contained' color='secondary' sx={{ width: '120px' }} onClick={() => handleCart('10K Partnership | Paid Over 4 Months', 'Includes 100 Basic Cards ($10,000 value) | 50% Referral Fee on All Sales', 5000)}>Buy Now</Button>
+                        <Button variant='contained' color='secondary' sx={{ width: '120px' }} onClick={() => handleCart('10K Zipcode | Paid Over 4 Months', 'Includes 100 Basic Cards ($10,000 value) | 50% Referral Fee on All Sales | 20% Finance Rate', 5000)}>Buy Now</Button>
                     </CardContent>
                 </Card>
                 <Card sx={{ flexGrow: 1, width: { md: 120 }, ml: { md: 1 }, my: 1, mr: { md: '10%' }, mx: { xs: '10%' } }}>
                     <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', my: 2 }}>
                         <Box>
                             <Typography sx={{ fontSize: 24, mb: 0 }}>$2,5000 USD</Typography>
-                            <Typography sx={{ color: 'grey.600', fontSize: 14, mb: 2, height: { lg: '6vh', md: '10vh', xs: '5vh' } }}>Pay Remaining $7,500 Over 6 Months</Typography>
+                            <Typography sx={{ color: 'grey.600', fontSize: 14 }}>Pay Remaining $7,500 Over 6 Months</Typography>
+                            <Typography sx={{ color: 'grey.600', fontSize: 12, mb: 2 }}>*30% Finance Rate</Typography>
                         </Box>
-                        <Button variant='contained' color='secondary' sx={{ width: '120px' }} onClick={() => handleCart('10K Partnership | Paid Over 6 Months', 'Includes 100 Basic Cards ($10,000 value) | 50% Referral Fee on All Sales', 2500)}>Buy Now</Button>
+                        <Button variant='contained' color='secondary' sx={{ width: '120px' }} onClick={() => handleCart('10K Zipcode | Paid Over 6 Months', 'Includes 100 Basic Cards ($10,000 value) | 50% Referral Fee on All Sales | 30% Finance Rate', 2500)}>Buy Now</Button>
                     </CardContent>
                 </Card>
             </Box>
