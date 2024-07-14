@@ -183,7 +183,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
 
         formData.append('slotNumber', slotsPurchased);
         const postData = async () => {
-            const res = await fetch('https://10kcards.com/upload-mail', {
+            const res = await fetch('https://zachyarbrough.github.io/10k-cards/upload-mail', {
                 method: 'POST',
                 headers: header,
                 body: formData
