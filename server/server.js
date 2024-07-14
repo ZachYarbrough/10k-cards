@@ -32,10 +32,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp-mail.outlook.com',
-    port: 587,
+    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
-        user: 'rhc.nodem@outlook.com',
+        user: 'zachyarbro@gmail.com',
         pass: process.env.EMAIL_PASS
     }
 });
