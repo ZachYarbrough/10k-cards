@@ -183,7 +183,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
 
         formData.append('slotNumber', slotsPurchased);
         const postData = async () => {
-            const res = await fetch('https://zachyarbrough.github.io/10k-cards/upload-mail', {
+            const res = await fetch('https://10k-cards.vercel.app/upload-mail', {
                 method: 'POST',
                 headers: header,
                 body: formData

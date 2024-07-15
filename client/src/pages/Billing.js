@@ -57,7 +57,7 @@ const Billing = ({ sum, billingFormState, setBillingFormState }) => {
         };
 
         try {
-            const { data: clientSecret } = await axios.post("https://zachyarbrough.github.io/10k-cards/payment-intent", {
+            const { data: clientSecret } = await axios.post("https://10k-cards.vercel.app/payment-intent", {
                 email: billingDetails.email,
                 amount: (sum * 100)
             });
