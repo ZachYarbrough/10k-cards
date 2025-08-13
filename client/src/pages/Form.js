@@ -421,7 +421,7 @@ const Form = ({ slotsPurchased, setSlotsPurchased, cardType, currentColor, setCu
             <Box onClick={() => setInputField('')}>
                 <Typography sx={{ mx: 'auto', textAlign: 'center', fontSize: '2.5vh', width: '80%', borderTop: 1, py: 2, my: 1, borderColor: 'grey.300' }}>Want more slots? Purchase one of our deluxe offers instead.</Typography>
                 <Button variant='contained' onClick={() => navigate("/#products")} style={{ backgroundImage: currentColor.primaryColor }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Buy Now</Button>
-                <Button variant='contained' onClick={() => navigate("/")} style={{ backgroundImage: '#757575' }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Back to Home</Button>
+                <Button variant='contained' onClick={() => navigate("/")} style={{ backgroundColor: 'grey.300' }} sx={{ width: '90%', mx: '5%', mb: 2, p: 1.5 }}>Back to Home</Button>
             </Box>
         </Fragment>
     );
